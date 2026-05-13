@@ -377,7 +377,7 @@
                     <li class="notice-item warn"><span class="notice-icon">✕</span><span><strong>不接受以下类型：</strong>赌博赌彩、疾病诊断与治疗方向。身体不适请就医，塔罗无法替代医疗决策，我只能给予参考建议。</span></li>
                     <li class="notice-item warn"><span class="notice-icon">✕</span><span><strong>请如实沟通：</strong>如果对我说谎、什么都不方便说，就没有来找我的必要了。咨询的前提是坦诚。</span></li>
                     <li class="notice-item ok"><span class="notice-icon">✓</span><span><strong>感情 / 事业 / 投资：</strong>这些是我最擅长的方向，案例丰富，欢迎咨询。</span></li>
-                    <li class="notice-item info"><span class="notice-icon">◈</span><span><strong>需提前预约：</strong>语音咨询和对话框咨询不接急单，请提前 3–5 天联系我确认时间。</span></li>
+                    <li class="notice-item info"><span class="notice-icon">◈</span><span><strong>需提前预约：</strong>语音咨询和对话框咨询不接急单，请提前1-3天联系我确认时间。</span></li>
                 </ul>
                 <p class="notice-disclaimer">⚠️ 占卜仅供参考，不代表事件一定会发生。塔罗呈现的是当前能量走向，未来由你自己的选择决定。下单即代表你已理解并接受以上内容。</p>
             </div>
@@ -508,10 +508,10 @@
 // ║  "red"    = 已约满                               ║
 // ╚══════════════════════════════════════════════════╝
 var scheduleConfig = [
-    { time: "09:00 - 11:00", status: "red"   },
-    { time: "11:00 - 13:00", status: "red"   },
+    { time: "09:00 - 11:00", status: "green"   },
+    { time: "11:00 - 13:00", status: "green"   },
     { time: "13:00 - 17:00", status: "green" },
-    { time: "17:00 - 19:00", status: "red"   },
+    { time: "17:00 - 19:00", status: "yellow"   },
     { time: "19:00 - 22:00", status: "red"   }
 ];
 var lastUpdateDate = "2026-05-13";
@@ -542,10 +542,10 @@ var articles = [
 // ══ FAQ数据 ══
 var faqData = [
     { title: "如何预约咨询？", url: "", content: "你可以通过以下方式预约：\n\n1. 点击页面上的微信预约按钮，添加微信号 BellaR06\n2. 发邮件到 wuwukaidegua@outlook.com\n\n请提前说明想咨询的问题类型和时间，我会尽快回复。" },
-    { title: "咨询需要提前多久预约？", url: "", content: "建议提前 3-5 天预约。语音咨询和对话框咨询需提前预约，不接急单。有特殊情况可先联系沟通。" },
+    { title: "咨询需要提前多久预约？", url: "", content: "建议提前1-3天预约。语音咨询和对话框咨询需提前预约，不接急单。有特殊情况可先联系沟通。" },
     { title: "咨询可以退款吗？", url: "", content: "咨询完成后一般不支持退款。如果你对服务有不满意的地方，欢迎联系我直接沟通，我们会认真对待每一个问题。" },
     { title: "一对一课程包括什么内容？", url: "", content: "一对一课程以实战为核心，包括：\n\n· 塔罗基础与78张牌牌义\n· 各类牌阵实战讲解\n· 真实案例拆解\n· 个人答疑与复盘\n\n具体内容可根据你的需求灵活调整。" },
-    { title: "可以先试听体验吗？", url: "", content: "可以！你可以先预约一次普通咨询（120元）体验风格，再决定是否报名课程。" },
+    { title: "可以先试听体验吗？", url: "", content: "可以！你可以先预约一次普通咨询（120元）体验风格，或者直接私信我，我会给你发送百度网盘试听课链接，听完再决定是否报名课程。" },
     { title: "语音咨询和对话框咨询有什么区别？", url: "", content: "语音咨询（488元/小时）：实时语音通话，沟通更深入，适合复杂问题。\n\n对话框咨询（328元/小时）：文字对话，节奏自由，适合喜欢慢慢思考的人。" }
 ];
 
