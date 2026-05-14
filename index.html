@@ -90,54 +90,93 @@
 
         .hero .subtitle { font-size: 0.95rem; font-weight: 300; color: var(--text-muted); letter-spacing: 4px; margin-bottom: 2.5rem; position: relative; z-index: 1; }
 
-        /* ══ Hero 按钮组 ══ */
-        .hero-btns {
-            display: flex;
-            gap: 16px;
-            align-items: center;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 3rem;
-            position: relative;
-            z-index: 1;
-        }
+        /* ══ HERO ══ */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    background: radial-gradient(ellipse at center, var(--royal-purple) 0%, var(--deep-purple) 70%);
+}
 
-        .hero-cta {
-            display: inline-block;
-            padding: 0.9rem 2.5rem;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            text-decoration: none;
-            letter-spacing: 2px;
-            font-size: 0.88rem;
-            transition: all 0.4s;
-            font-family: 'Noto Serif SC', serif;
-        }
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse 4s ease-in-out infinite;
+    z-index: 0;
+    pointer-events: none;
+}
 
-        .hero-cta:hover { background: var(--gold); color: var(--deep-purple); box-shadow: 0 0 30px var(--gold-glow); }
+@keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+    50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+}
 
-        .hero-course-btn {
-            display: inline-block;
-            padding: 0.9rem 2.5rem;
-            border: 1px solid rgba(201,168,76,0.35);
-            color: rgba(201,168,76,0.7);
-            text-decoration: none;
-            letter-spacing: 2px;
-            font-size: 0.88rem;
-            transition: all 0.4s;
-            font-family: 'Noto Serif SC', serif;
-        }
+.hero-symbol { font-size: 3.5rem; margin-bottom: 1.5rem; opacity: 0.8; animation: float 6s ease-in-out infinite; position: relative; z-index: 3; }
 
-        .hero-course-btn:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-            background: rgba(201,168,76,0.06);
-        }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-        .scroll-indicator { position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%); animation: bounce 2s infinite; }
-        .scroll-indicator span { display: block; width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); }
-        @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(10px); } }
+.hero-brand { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 5px; color: rgba(201,168,76,0.6); margin-bottom: 1rem; position: relative; z-index: 3; text-transform: uppercase; }
 
+.hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 300; letter-spacing: 8px; color: var(--gold); margin-bottom: 0.5rem; position: relative; z-index: 3; }
+
+.hero .subtitle { font-size: 0.95rem; font-weight: 300; color: var(--text-muted); letter-spacing: 4px; margin-bottom: 2.5rem; position: relative; z-index: 3; }
+
+.hero-btns {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 3;
+}
+
+.hero-cta {
+    display: inline-block;
+    padding: 0.9rem 2.5rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: 2px;
+    font-size: 0.88rem;
+    transition: all 0.4s;
+    font-family: 'Noto Serif SC', serif;
+}
+
+.hero-cta:hover { background: var(--gold); color: var(--deep-purple); box-shadow: 0 0 30px var(--gold-glow); }
+
+.hero-course-btn {
+    display: inline-block;
+    padding: 0.9rem 2.5rem;
+    border: 1px solid rgba(201,168,76,0.35);
+    color: rgba(201,168,76,0.7);
+    text-decoration: none;
+    letter-spacing: 2px;
+    font-size: 0.88rem;
+    transition: all 0.4s;
+    font-family: 'Noto Serif SC', serif;
+}
+
+.hero-course-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(201,168,76,0.06);
+}
+
+.scroll-indicator { position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%); animation: bounce 2s infinite; z-index: 3; }
+.scroll-indicator span { display: block; width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); }
+@keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(10px); } }
         /* ══ Section ══ */
         section { position: relative; z-index: 1; padding: 8rem 3rem; }
 
