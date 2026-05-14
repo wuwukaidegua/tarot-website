@@ -12,7 +12,7 @@
             --royal-purple: #2d1b69;
             --mystic-blue: #1e3a5f;
             --gold: #c9a84c;
-            --gold-light: #e8d48b;
+            --gold-light: #e8d48b;<nav class="mobile-nav">
             --gold-glow: rgba(201,168,76,0.3);
             --text-light: #e8e0f0;
             --text-muted: #a89bc2;
@@ -562,16 +562,6 @@
     letter-spacing: 1px;
     font-family: 'Noto Serif SC', serif;
 }
-
-@media (max-width: 768px) {
-    .mobile-nav {
-        display: flex;
-    }
-    /* 给页面底部加padding，不被导航栏遮住 */
-    body {
-        padding-bottom: 65px;
-    }
-}
     </style>
 </head>
 <body>
@@ -994,24 +984,5 @@ window.onload = function() {
     renderArticles('全部');
 };
 </script>
-    <!-- 手机底部导航 -->
-<nav class="mobile-nav">
-    <a href="#about" class="mobile-nav-item">
-        <span class="mobile-nav-icon">☽</span>
-        <span class="mobile-nav-label">关于我</span>
-    </a>
-    <a href="#pricing" class="mobile-nav-item">
-        <span class="mobile-nav-icon">✦</span>
-        <span class="mobile-nav-label">价格</span>
-    </a>
-    <a href="#articles" class="mobile-nav-item">
-        <span class="mobile-nav-icon">✧</span>
-        <span class="mobile-nav-label">专栏</span>
-    </a>
-    <a href="#booking" class="mobile-nav-item">
-        <span class="mobile-nav-icon">◈</span>
-        <span class="mobile-nav-label">预约</span>
-    </a>
-</nav>
 </body>
 </html>
