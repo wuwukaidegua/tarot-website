@@ -54,53 +54,6 @@
         .nav-social a:hover { color: var(--gold); }
         .nav-divider { width: 1px; height: 14px; background: rgba(201,168,76,0.3); }
 
-        /* ══ 汉堡菜单（移动端） ══ */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--gold);
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 4px;
-        }
-
-        .mobile-nav {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(26,10,46,0.98);
-            backdrop-filter: blur(20px);
-            z-index: 9999;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
-        }
-
-        .mobile-nav.open { display: flex; }
-
-        .mobile-nav a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            transition: color 0.3s;
-        }
-
-        .mobile-nav a:hover { color: var(--gold); }
-
-        .mobile-nav-close {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: none;
-            border: none;
-            color: var(--gold);
-            font-size: 1.8rem;
-            cursor: pointer;
-        }
-
         /* ══ HERO ══ */
         .hero {
             height: 100vh;
@@ -186,7 +139,7 @@
         .section-sub { text-align: center; font-size: 0.8rem; color: rgba(201,168,76,0.5); letter-spacing: 3px; margin-bottom: 1rem; text-transform: uppercase; font-family: 'Cormorant Garamond', serif; }
         .section-divider { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 5rem; }
 
-        /* ══ 档期横幅 ══ */
+        /* ══ 档期横幅（改良版） ══ */
         .schedule-bar {
             position: relative; z-index: 1;
             background: rgba(45,27,105,0.4);
@@ -223,6 +176,7 @@
             flex-wrap: wrap;
         }
 
+        /* 每个时间段独立卡片 */
         .slot-item {
             display: flex;
             flex-direction: column;
@@ -353,25 +307,6 @@
         .price-card .price-val span { font-size: 0.45em; opacity: 0.7; }
         .price-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.8; font-weight: 300; }
 
-        /* 价格折叠（移动端） */
-        .price-card.mobile-hidden { display: none; }
-
-        .price-toggle-btn {
-            display: none;
-            margin: 1.5rem auto 0;
-            background: transparent;
-            border: 1px solid rgba(201,168,76,0.3);
-            color: rgba(201,168,76,0.7);
-            padding: 10px 24px;
-            font-size: 0.82rem;
-            letter-spacing: 2px;
-            cursor: pointer;
-            font-family: 'Noto Serif SC', serif;
-            transition: all 0.3s;
-        }
-
-        .price-toggle-btn:hover { border-color: var(--gold); color: var(--gold); }
-
         /* 周三限定 */
         .wednesday-card {
             max-width: 700px;
@@ -427,136 +362,136 @@
         .articles-section { background: var(--deep-purple); }
 
         .filter-bar { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
-        .filter-btn { background: transparent; border: 1px solid rgba(201,168,76,0.2); color: var(--text-muted); padding: 6px 18px; font-size: 0.78rem; letter-spacing: 2px; cursor: pointer;
-                             .filter-btn { background: transparent; border: 1px solid rgba(201,168,76,0.2); color: var(--text-muted); padding: 6px 18px; font-size: 0.78rem; letter-spacing: 2px; cursor: pointer; font-family: 'Noto Serif SC', serif; transition: all 0.3s; }
-        .filter-btn:hover, .filter-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.06); }
+        .filter-btn { background: transparent; border: 1px solid rgba(201,168,76,0.2); color: var(--text-muted); padding: 6px 18px; font-size: 0.78rem; letter-spacing: 2px; cursor: pointer; font-family: 'Noto Serif SC', serif; transition: all 0.3s; }
+        .filter-btn:hover, .filter-btn.active { border-color: var(--gold); color: var(--gold); }
 
-        .articles-grid { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        .article-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; }
 
-        .article-card { padding: 2rem; border: 1px solid rgba(201,168,76,0.1); background: rgba(45,27,105,0.15); transition: all 0.3s; cursor: pointer; text-decoration: none; display: block; }
-        .article-card:hover { border-color: rgba(201,168,76,0.25); transform: translateY(-3px); }
-        .article-tag { font-size: 0.68rem; letter-spacing: 2px; color: rgba(201,168,76,0.5); margin-bottom: 8px; text-transform: uppercase; }
-        .article-card h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--gold-light); letter-spacing: 1px; margin-bottom: 8px; font-weight: 400; }
-        .article-card p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.8; font-weight: 300; }
+        .article-card { display: flex; gap: 2rem; padding: 2rem; border: 1px solid rgba(201,168,76,0.1); background: rgba(45,27,105,0.15); text-decoration: none; transition: all 0.3s; align-items: center; cursor: pointer; }
+        .article-card:hover { border-color: rgba(201,168,76,0.3); background: rgba(45,27,105,0.3); }
 
-        /* 知识专栏折叠（移动端） */
-        .article-card.mobile-hidden { display: none; }
+        .article-cover { width: 80px; height: 80px; flex-shrink: 0; background: linear-gradient(135deg, var(--royal-purple), var(--mystic-blue)); border: 1px solid rgba(201,168,76,0.2); display: flex; align-items: center; justify-content: center; }
+        .article-cover svg { filter: drop-shadow(0 0 6px rgba(201,168,76,0.4)); }
 
-        .articles-toggle-btn {
-            display: none;
-            margin: 1.5rem auto 0;
-            background: transparent;
-            border: 1px solid rgba(201,168,76,0.3);
-            color: rgba(201,168,76,0.7);
-            padding: 10px 24px;
-            font-size: 0.82rem;
-            letter-spacing: 2px;
-            cursor: pointer;
-            font-family: 'Noto Serif SC', serif;
-            transition: all 0.3s;
+        .article-info { flex: 1; min-width: 0; }
+        .article-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+        .article-cat { font-size: 0.68rem; letter-spacing: 2px; color: rgba(201,168,76,0.6); border: 1px solid rgba(201,168,76,0.2); padding: 2px 8px; font-family: 'Cormorant Garamond', serif; }
+        .article-date { font-size: 0.72rem; color: rgba(168,155,194,0.5); letter-spacing: 1px; }
+        .article-title { font-size: 0.95rem; color: var(--text-light); font-weight: 400; margin-bottom: 6px; line-height: 1.5; }
+        .article-summary { font-size: 0.8rem; color: var(--text-muted); line-height: 1.7; font-weight: 300; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+        .article-arrow { color: rgba(201,168,76,0.4); font-size: 1rem; transition: all 0.3s; flex-shrink: 0; }
+        .article-card:hover .article-arrow { color: var(--gold); transform: translateX(4px); }
+
+        .empty-tip { text-align: center; color: rgba(168,155,194,0.4); font-size: 0.85rem; padding: 3rem 0; letter-spacing: 2px; }
+
+        /* ══ 预约 ══ */
+        .booking-section { background: linear-gradient(180deg, var(--deep-purple) 0%, rgba(45,27,105,0.3) 50%, var(--deep-purple) 100%); }
+        .booking-container { max-width: 680px; margin: 0 auto; }
+        .booking-intro { text-align: center; font-size: 0.88rem; color: var(--text-muted); line-height: 2; margin-bottom: 3rem; font-weight: 300; }
+
+        /* Tally 表单容器 */
+        .tally-wrap {
+            border: 1px solid rgba(201,168,76,0.15);
+            background: rgba(45,27,105,0.2);
+            padding: 2.5rem 2rem;
+            margin-bottom: 2rem;
         }
 
-        .articles-toggle-btn:hover { border-color: var(--gold); color: var(--gold); }
+        .tally-wrap h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--gold-light);
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
 
-        /* ══ CTA ══ */
-        .cta-section { background: linear-gradient(180deg, var(--deep-purple) 0%, rgba(45,27,105,0.3) 50%, var(--deep-purple) 100%); text-align: center; }
-        .cta-section .section-title { margin-bottom: 1.5rem; }
-        .cta-text { font-size: 0.88rem; color: var(--text-muted); line-height: 2; margin-bottom: 3rem; font-weight: 300; }
+        /* 微信块 */
+        .wechat-block { text-align: center; padding: 2rem; border: 1px solid rgba(201,168,76,0.15); background: rgba(45,27,105,0.2); margin-bottom: 1.5rem; }
+        .wechat-icon { font-size: 2rem; margin-bottom: 0.8rem; opacity: 0.8; }
+        .wechat-text { font-size: 0.85rem; color: var(--text-muted); line-height: 1.9; margin-bottom: 1.2rem; font-weight: 300; }
+        .wechat-text span { display: block; font-size: 0.78rem; color: rgba(168,155,194,0.5); margin-top: 4px; }
+        .wechat-btn { display: inline-block; padding: 0.8rem 2.2rem; border: 1px solid var(--gold); color: var(--gold); font-size: 0.82rem; letter-spacing: 2px; cursor: pointer; background: transparent; font-family: 'Noto Serif SC', serif; transition: all 0.4s; }
+        .wechat-btn:hover { background: var(--gold); color: var(--deep-purple); box-shadow: 0 0 25px var(--gold-glow); }
 
-        .tally-wrap { max-width: 640px; margin: 0 auto; border: 1px solid rgba(201,168,76,0.12); background: rgba(45,27,105,0.2); padding: 2.5rem 2rem; }
-        .tally-wrap h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--gold-light); letter-spacing: 3px; margin-bottom: 1.5rem; text-align: center; }
+        .review-block { padding: 1.8rem 2rem; border: 1px solid rgba(201,168,76,0.1); background: rgba(45,27,105,0.15); text-align: center; }
+        .review-block h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--gold-light); letter-spacing: 2px; margin-bottom: 0.8rem; }
+        .review-block p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.8; font-weight: 300; }
 
         /* ══ FOOTER ══ */
-        footer { position: relative; z-index: 1; padding: 5rem 3rem; text-align: center; border-top: 1px solid rgba(201,168,76,0.08); }
+        footer { position: relative; z-index: 1; padding: 4rem 3rem 2rem; text-align: center; border-top: 1px solid rgba(201,168,76,0.1); }
         .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--gold); letter-spacing: 4px; margin-bottom: 0.5rem; }
         .footer-sub { font-size: 0.72rem; color: rgba(201,168,76,0.4); letter-spacing: 3px; margin-bottom: 2rem; font-family: 'Cormorant Garamond', serif; }
-        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap; }
-        .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.82rem; letter-spacing: 1px; transition: color 0.3s; }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.8rem; letter-spacing: 1px; transition: color 0.3s; }
         .footer-links a:hover { color: var(--gold); }
-        .footer-info { font-size: 0.78rem; color: rgba(168,155,194,0.5); line-height: 1.9; margin-bottom: 1.5rem; }
-        .footer-info a { color: rgba(201,168,76,0.6); text-decoration: none; }
-        .footer-note { font-size: 0.7rem; color: rgba(168,155,194,0.25); letter-spacing: 1px; }
+        .footer-social { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 2rem; }
+        .footer-social a { display: inline-flex; align-items: center; gap: 6px; color: rgba(168,155,194,0.5); text-decoration: none; font-size: 0.78rem; letter-spacing: 1px; transition: color 0.3s; border: 1px solid rgba(201,168,76,0.1); padding: 6px 14px; }
+        .footer-social a:hover { color: var(--gold); border-color: rgba(201,168,76,0.3); }
+        .footer-note { font-size: 0.72rem; color: rgba(168,155,194,0.3); letter-spacing: 1px; }
 
         /* ══ 响应式 ══ */
         @media (max-width: 768px) {
             nav { padding: 1rem 1.5rem; }
-            .nav-center, .nav-social { display: none; }
-            .mobile-menu-btn { display: block; }
+            .nav-center { display: none; }
+            .nav-social { display: none; }
             .hero h1 { font-size: 2.5rem; letter-spacing: 4px; }
-            .hero .subtitle { font-size: 0.82rem; letter-spacing: 2px; }
             section { padding: 5rem 1.5rem; }
             .about-content { grid-template-columns: 1fr; gap: 3rem; }
-            .about-image .frame { max-width: 280px; margin: 0 auto; }
             .notice-grid { grid-template-columns: 1fr; }
-            .price-grid { grid-template-columns: 1fr; }
-            .articles-grid { grid-template-columns: 1fr; }
+            .price-grid { grid-template-columns: 1fr 1fr; }
             .schedule-bar { padding: 1.5rem; }
-            .schedule-bar-inner { flex-direction: column; align-items: flex-start; }
-            .schedule-slots { flex-direction: column; gap: 0; }
-            .slot-item { flex-direction: row; gap: 12px; padding: 8px 0; border-right: none; border-bottom: 1px solid rgba(201,168,76,0.06); min-width: auto; }
-            .slot-item:last-child { border-bottom: none; }
-            .schedule-bar-right { align-items: flex-start; width: 100%; flex-direction: row; justify-content: space-between; }
-
-            /* 移动端价格折叠 */
-            .price-card.mobile-hidden { display: none; }
-            .price-toggle-btn { display: block; }
-
-            /* 移动端知识专栏折叠 */
-            .article-card.mobile-hidden { display: none; }
-            .articles-toggle-btn { display: block; }
+            .schedule-bar-inner { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+            .schedule-slots { gap: 0; }
+            .slot-item { min-width: 100px; padding: 10px 14px; }
+            .schedule-bar-right { align-items: flex-start; }
+            .hero-btns { gap: 12px; }
+            .hero-cta, .hero-course-btn { padding: 0.8rem 2rem; font-size: 0.82rem; }
         }
 
         @media (max-width: 480px) {
-            .hero h1 { font-size: 2rem; }
-            .hero-btns { flex-direction: column; gap: 12px; }
-            .hero-cta, .hero-course-btn { width: 100%; text-align: center; }
-            .wednesday-card { flex-direction: column; align-items: flex-start; }
+            .price-grid { grid-template-columns: 1fr; }
+            .slot-item { min-width: 80px; padding: 8px 10px; }
+            .slot-time { font-size: 0.72rem; }
         }
     </style>
 </head>
 <body>
 <div class="stars" id="stars"></div>
 
-<!-- 移动端菜单 -->
-<div class="mobile-nav" id="mobileNav">
-    <button class="mobile-nav-close" onclick="document.getElementById('mobileNav').classList.remove('open')" aria-label="关闭菜单">✕</button>
-    <a href="#about" onclick="document.getElementById('mobileNav').classList.remove('open')">关于我</a>
-    <a href="#reviews" onclick="document.getElementById('mobileNav').classList.remove('open')">评价</a>
-    <a href="#notice" onclick="document.getElementById('mobileNav').classList.remove('open')">咨询须知</a>
-    <a href="#pricing" onclick="document.getElementById('mobileNav').classList.remove('open')">价格</a>
-    <a href="course.html">教学课程</a>
-    <a href="#articles" onclick="document.getElementById('mobileNav').classList.remove('open')">知识专栏</a>
-    <a href="#contact" onclick="document.getElementById('mobileNav').classList.remove('open')">预约</a>
-</div>
-
 <!-- 导航 -->
 <nav>
-    <span class="logo">✦ Mímisbrunnr Path</span>
+    <div class="logo">✦ Mímisbrunnr Path</div>
     <ul class="nav-center">
         <li><a href="#about">关于我</a></li>
         <li><a href="#notice">咨询须知</a></li>
-        <li><a href="#pricing">价格</a></li>
-        <li><a href="course.html">教学课程</a></li>
+        <li><a href="#pricing">服务价格</a></li>
         <li><a href="#articles">知识专栏</a></li>
-        <li><a href="#contact">预约</a></li>
+        <li><a href="#booking">预约咨询</a></li>
     </ul>
     <div class="nav-social">
-        <a href="https://www.xiaohongshu.com/user/profile/5c98d34f000000001001c22c" target="_blank" rel="noopener">小红书</a>
-        <span class="nav-divider"></span>
-        <a href="mailto:bellalab.tarot@outlook.com">邮箱</a>
+        <a href="https://xhslink.com/m/4jlG3YxtdYf" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+            小红书
+        </a>
+        <div class="nav-divider"></div>
+        <a href="https://v.douyin.com/_3ugcZxR3AA/" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.78a4.85 4.85 0 01-1.01-.09z"/></svg>
+            抖音
+        </a>
     </div>
-    <button class="mobile-menu-btn" onclick="document.getElementById('mobileNav').classList.add('open')" aria-label="打开菜单">☰</button>
 </nav>
 
 <!-- Hero -->
 <section class="hero">
-    <div class="hero-symbol">🔮</div>
+    <div class="hero-symbol">☽</div>
     <div class="hero-brand">Mímisbrunnr Path</div>
-    <h1>Bella · Tarot</h1>
-    <p class="subtitle">塔罗咨询 · 教学 · 身心灵探索</p>
+    <h1>Bella</h1>
+    <p class="subtitle">以牌为镜 · 照见本心 · 指引方向</p>
     <div class="hero-btns">
-        <a href="#contact" class="hero-cta">预约咨询 →</a>
-        <a href="course.html" class="hero-course-btn">教学课程 →</a>
+        <a href="#booking" class="hero-cta">预约咨询</a>
+        <a href="/course.html" class="hero-course-btn">查看课程详情 →</a>
     </div>
     <div class="scroll-indicator"><span></span></div>
 </section>
@@ -565,283 +500,195 @@
 <div class="schedule-bar">
     <div class="schedule-bar-inner">
         <div class="schedule-bar-left">
-            <div class="schedule-bar-title">Current Availability</div>
-            <div class="schedule-slots">
-                <div class="slot-item green">
-                    <span class="slot-dot"></span>
-                    <span class="slot-time">本周</span>
-                    <span class="slot-label">可约</span>
-                </div>
-                <div class="slot-item yellow">
-                    <span class="slot-dot"></span>
-                    <span class="slot-time">下周</span>
-                    <span class="slot-label">少量</span>
-                </div>
-                <div class="slot-item red">
-                    <span class="slot-dot"></span>
-                    <span class="slot-time">一对一教学</span>
-                    <span class="slot-label">候补中</span>
-                </div>
-            </div>
+            <div class="schedule-bar-title">本周接单档期</div>
+            <div class="schedule-slots" id="scheduleSlots"></div>
         </div>
         <div class="schedule-bar-right">
-            <span class="schedule-update">更新于 2025.01</span>
-            <button class="schedule-book-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">立即预约 →</button>
+            <div class="schedule-update" id="scheduleUpdate"></div>
+            <button class="schedule-book-btn" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">立即预约</button>
         </div>
     </div>
 </div>
 
 <!-- 关于我 -->
 <section class="about" id="about">
-    <div class="section-sub">About the Reader</div>
+    <div class="section-sub">About</div>
     <h2 class="section-title">关于我</h2>
     <div class="section-divider"></div>
     <div class="about-content">
-        <div class="about-image">
-            <div class="frame">
-                <span class="corner tl"></span><span class="corner tr"></span>
-                <span class="corner bl"></span><span class="corner br"></span>
-                <span class="symbol">✦</span>
-            </div>
+        <div class="about-image" style="position:relative;">
+            <div class="frame"><div class="symbol">✦</div></div>
+            <div class="corner tl"></div>
+            <div class="corner tr"></div>
+            <div class="corner bl"></div>
+            <div class="corner br"></div>
         </div>
         <div class="about-text">
             <h3>Bella</h3>
-            <div class="name-sub">Tarot Reader & Teacher · Est. 2020</div>
-            <div class="cert-badge">🏅 IPHM 国际认证塔罗导师</div>
-            <p>从业 5 年，累计咨询 3000+ 案例。<br>擅长感情关系、事业方向、投资决策。</p>
-            <p>我相信塔罗不是预言，而是一面镜子——帮你看清当下的能量状态，找到内心已有的答案。</p>
+            <div class="name-sub">Mímisbrunnr Path · IPHM Certified</div>
+            <div class="cert-badge">🏅 IPHM 英国国际身心灵健康机构 · 认证导师</div>
+            <p>从一副超市玩具牌开始，靠兴趣自学入门，后来系统拜师学习了一年。做了五年，积累了大量真实案例，持有 IPHM 英国国际身心灵认证导师资格。</p>
+            <p>解牌风格比较直接，说话比较委婉。感情问题我特别有耐心，可以一起慢慢梳理；事业、投资、创业这类复杂局面反而更让我兴奋——不只是「好不好」，而是帮你看清楚在哪儿、往哪走。</p>
             <div class="specialty-row">
                 <span class="spec-tag">感情关系</span>
-                <span class="spec-tag">事业方向</span>
-                <span class="spec-tag">投资决策</span>
-                <span class="spec-tag">学业考试</span>
-                <span class="spec-tag">人际关系</span>
+                <span class="spec-tag">择业发展</span>
+                <span class="spec-tag">商业决策</span>
+                <span class="spec-tag">投资方向</span>
+                <span class="spec-tag">自我探索</span>
+                <span class="spec-tag">实战教学</span>
             </div>
         </div>
     </div>
 </section>
 
-<!-- 评价 -->
-<section class="reviews-section" id="reviews">
-    <div class="section-sub">Testimonials</div>
-    <h2 class="section-title">客户评价</h2>
+<!-- 客户评价 -->
+<section class="reviews-section">
+    <div class="section-sub">Reviews</div>
+    <h2 class="section-title">客户反馈</h2>
     <div class="section-divider"></div>
     <div class="reviews-outer">
-        <div class="reviews-track">
-            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"超级准！感情问题分析得很透彻，给了我很大的方向感。"</div><div class="review-meta">— 感情咨询 · 2024.12</div></div>
-            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"第一次体验塔罗，Bella 很耐心，解读很细致，不会故弄玄虚。"</div><div class="review-meta">— 事业咨询 · 2024.11</div></div>
-            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"已经是第三次找 Bella 了，每次都能给我新的视角。"</div><div class="review-meta">— 老客户 · 2024.10</div></div>
-            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"投资方向的解读帮我避开了一个坑，事后验证确实如此。"</div><div class="review-meta">— 投资咨询 · 2024.09</div></div>
-            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"课程讲得很清楚，从零基础到能自己解牌，进步很大。"</div><div class="review-meta">— 一对一学员 · 2024.08</div></div>
-            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"很温柔的老师，不会强加观点，让我自己去感受牌的含义。"</div><div class="review-meta">— 教学学员 · 2024.07</div></div>
-            <!-- 复制一份用于无缝滚动 -->
-            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"超级准！感情问题分析得很透彻，给了我很大的方向感。"</div><div class="review-meta">— 感情咨询 · 2024.12</div></div>
-            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"第一次体验塔罗，Bella 很耐心，解读很细致，不会故弄玄虚。"</div><div class="review-meta">— 事业咨询 · 2024.11</div></div>
-            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"已经是第三次找 Bella 了，每次都能给我新的视角。"</div><div class="review-meta">— 老客户 · 2024.10</div></div>
-            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"投资方向的解读帮我避开了一个坑，事后验证确实如此。"</div><div class="review-meta">— 投资咨询 · 2024.09</div></div>
-            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"课程讲得很清楚，从零基础到能自己解牌，进步很大。"</div><div class="review-meta">— 一对一学员 · 2024.08</div></div>
-            <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"很温柔的老师，不会强加观点，让我自己去感受牌的含义。"</div><div class="review-meta">— 教学学员 · 2024.07</div></div>
-        </div>
+        <div class="reviews-track" id="reviewsTrack"></div>
     </div>
 </section>
 
 <!-- 咨询须知 -->
 <section class="notice-section" id="notice">
-    <div class="section-sub">Before You Book</div>
+    <div class="section-sub">Notice</div>
     <h2 class="section-title">咨询须知</h2>
     <div class="section-divider"></div>
     <div class="notice-grid">
         <div class="notice-card warn">
-            <span class="n-icon">⚠️</span>
-            <div><h5>不占的问题</h5><p>不占第三方隐私、不占生死疾病、不做任何医疗/法律建议替代</p></div>
+            <span class="n-icon">✕</span>
+            <div><h5>不接受类型</h5><p>赌博赌彩、疾病诊断与治疗方向。身体不适请就医，塔罗无法替代医疗决策。</p></div>
+        </div>
+        <div class="notice-card warn">
+            <span class="n-icon">✕</span>
+            <div><h5>请如实沟通</h5><p>对我说谎、什么都不方便说，就没有来找我的必要了。咨询的前提是坦诚。</p></div>
         </div>
         <div class="notice-card ok">
             <span class="n-icon">✓</span>
-            <div><h5>擅长方向</h5><p>感情关系、事业抉择、投资方向、学业考试、人际关系</p></div>
+            <div><h5>擅长方向</h5><p>感情、事业、投资方向案例丰富，欢迎咨询。耐心细致，不催场。</p></div>
         </div>
         <div class="notice-card info">
-            <span class="n-icon">⏱</span>
-            <div><h5>咨询时长</h5><p>单次咨询约 30-60 分钟，根据问题复杂度灵活调整</p></div>
-        </div>
-        <div class="notice-card info">
-            <span class="n-icon">📋</span>
-            <div><h5>咨询流程</h5><p>预约 → 确认时间 → 微信语音/文字 → 解读报告（可选）</p></div>
+            <span class="n-icon">◈</span>
+            <div><h5>预约须知</h5><p>语音咨询和对话框咨询不接急单，请提前 1–3 天联系确认时间。</p></div>
         </div>
     </div>
-    <div class="disclaimer">⚠️ 塔罗解读仅供参考，不替代专业医疗、心理咨询或法律建议。所有咨询内容严格保密。</div>
+    <div class="disclaimer">
+        ⚠️ 占卜仅供参考，不代表事件一定会发生。塔罗呈现的是当前能量走向，未来由你自己的选择决定。<br>
+        下单即代表你已理解并接受以上内容。
+    </div>
 </section>
 
-<!-- 价格 -->
+<!-- 服务价格 -->
 <section class="pricing-section" id="pricing">
     <div class="section-sub">Pricing</div>
     <h2 class="section-title">服务价格</h2>
     <div class="section-divider"></div>
     <div class="pricing-outer">
 
+        <div class="pricing-category">
+            <div class="pricing-category-title">· Consultation · 塔罗咨询 ·</div>
+            <div class="price-grid">
+                <div class="price-card"><h4>普通咨询</h4><div class="price-val">¥120<span>/次</span></div><p>无牌阵咨询<br>快速解答</p></div>
+                <div class="price-card"><h4>标准牌阵</h4><div class="price-val">¥180<span>/次</span></div><p>5–7张牌阵<br>30–40分钟</p></div>
+                <div class="price-card"><h4>大牌阵咨询</h4><div class="price-val">¥220<span>起/次</span></div><p>7张以上牌阵<br>30–60分钟</p></div>
+                <div class="price-card"><h4>对话框咨询</h4><div class="price-val">¥328<span>/小时</span></div><p>文字对话形式<br>需提前预约</p></div>
+                <div class="price-card"><h4>语音咨询</h4><div class="price-val">¥488<span>/小时</span></div><p>语音通话咨询<br>需提前预约</p></div>
+                <div class="price-card"><h4>年运流年</h4><div class="price-val">¥388<span>/次</span></div><p>十二月逐月分析<br>全年能量走向</p></div>
+                <div class="price-card"><h4>前世今生·文字</h4><div class="price-val">¥326<span>/次</span></div><p>单人或双人<br>深度解读</p></div>
+                <div class="price-card"><h4>前世今生·语音</h4><div class="price-val">¥688<span>/次</span></div><p>语音深度解读<br>🕯️ 含定制魔法蜡烛</p></div>
+                <div class="price-card"><h4>一对一课程</h4><div class="price-val">¥4888<span>/套</span></div><p>系统实战教学<br>全程答疑支持</p></div>
+            </div>
+        </div>
+
         <!-- 周三限定 -->
         <div class="wednesday-card">
             <div class="wednesday-left">
-                <h4>🌙 周三限定 · 单问快答</h4>
-                <p>每周三开放，一个问题快速解答<br><strong>¥9.9</strong> <small>· 限当日名额</small></p>
+                <h4>🌙 每周三限定 · 无牌阵半价</h4>
+                <p>
+                    无牌阵咨询 <strong>¥60</strong>（原价 ¥120）<br>
+                    问完如需继续追问 <strong>¥118</strong><br>
+                    <small>· 不接受追问和补牌 · 仅限每周三</small>
+                </p>
             </div>
-            <button class="wednesday-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">了解详情 →</button>
+            <button class="wednesday-btn" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">周三预约</button>
         </div>
 
-        <!-- 咨询服务 -->
         <div class="pricing-category">
-            <div class="pricing-category-title">— 咨询服务 —</div>
-            <div class="price-grid" id="priceGrid">
-                <div class="price-card">
-                    <h4>单问速断</h4>
-                    <div class="price-val">¥38<span>/次</span></div>
-                    <p>一个具体问题<br>快速解答</p>
-                </div>
-                <div class="price-card">
-                    <h4>三问深入</h4>
-                    <div class="price-val">¥88<span>/次</span></div>
-                    <p>三个问题<br>深入解读</p>
-                </div>
-                <div class="price-card">
-                    <h4>全盘梳理</h4>
-                    <div class="price-val">¥168<span>/次</span></div>
-                    <p>不限问题数<br>全面梳理现状</p>
-                </div>
-                <div class="price-card mobile-hidden">
-                    <h4>月度陪伴</h4>
-                    <div class="price-val">¥399<span>/月</span></div>
-                    <p>每月 4 次咨询<br>持续跟进变化</p>
-                </div>
-                <div class="price-card mobile-hidden">
-                    <h4>年度顾问</h4>
-                    <div class="price-val">¥2888<span>/年</span></div>
-                    <p>全年不限次咨询<br>专属能量顾问</p>
-                </div>
-                <div class="price-card mobile-hidden">
-                    <h4>紧急加急</h4>
-                    <div class="price-val">¥58<span>/次</span></div>
-                    <p>24h 内优先回复<br>加急附加费</p>
-                </div>
-            </div>
-            <button class="price-toggle-btn" id="priceToggleBtn" onclick="togglePriceCards()">展开全部 ↓</button>
-        </div>
-
-        <!-- 教学课程 -->
-        <div class="pricing-category">
-            <div class="pricing-category-title">— 教学课程 —</div>
-            <div class="price-grid">
-                <div class="price-card">
-                    <h4>录播课 · 初阶</h4>
-                    <div class="price-val">¥899<span>/课</span></div>
-                    <p>大阿卡那 22 张<br>自学入门</p>
-                </div>
-                <div class="price-card">
-                    <h4>录播课 · 中阶</h4>
-                    <div class="price-val">¥1200<span>/课</span></div>
-                    <p>小阿卡那 56 张<br>体系进阶</p>
-                </div>
-                <div class="price-card">
-                    <h4>录播课 · 进阶</h4>
-                    <div class="price-val">¥1500<span>/课</span></div>
-                    <p>牌阵与案例<br>实战解读</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 团课 -->
-        <div class="pricing-category">
-            <div class="pricing-category-title">— 团课 · 7月开课 —</div>
+            <div class="pricing-category-title">· Group Course · 团课 ·</div>
             <div class="group-price-card">
                 <div class="group-price-header">
                     <h4>78张牌 + 常用牌阵入门</h4>
                     <span class="coming-tag">7月开课</span>
                 </div>
                 <table class="group-price-table">
-                    <tr><th>类型</th><th>早鸟价</th><th>正式价</th></tr>
-                    <tr><td>个人报名</td><td><span class="pv">¥2333</span></td><td><span class="pa">¥2666</span></td></tr>
-                    <tr><td>双人同行</td><td><span class="pv">¥2000</span>/人</td><td><span class="pa">¥2333/人</span></td></tr>
+                    <tr>
+                        <th>类型</th>
+                        <th>早鸟价（6月预约）</th>
+                        <th>正式价（8月后）</th>
+                    </tr>
+                    <tr>
+                        <td>个人报名</td>
+                        <td><span class="pv">¥2333</span></td>
+                        <td><span class="pa">¥2666</span></td>
+                    </tr>
+                    <tr>
+                        <td>双人同行</td>
+                        <td><span class="pv">¥2000</span> <small style="color:rgba(201,168,76,0.4);font-size:0.8em;">/ 人</small></td>
+                        <td><span class="pa">¥2333 / 人</span></td>
+                    </tr>
                 </table>
             </div>
         </div>
 
-        <!-- 一对一 -->
-        <div class="pricing-category">
-            <div class="pricing-category-title">— 一对一定制教学 —</div>
-            <div class="price-grid" style="grid-template-columns: 1fr;">
-                <div class="price-card" style="max-width:400px; margin:0 auto;">
-                    <h4>全程一对一</h4>
-                    <div class="price-val">¥4888<span>/套</span></div>
-                    <p>约 25 课时 · 签订合同<br>深度陪跑 · 当前候补中</p>
-                </div>
-            </div>
-        </div>
-
-        <a href="course.html" style="display:block; text-align:center; color:rgba(201,168,76,0.7); font-size:0.85rem; letter-spacing:2px; margin-top:2rem; text-decoration:none; transition:color 0.3s;" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='rgba(201,168,76,0.7)'">查看完整课程详情 →</a>
-
-        <div class="pricing-note-bar" style="margin-top:2rem;">
-            💡 所有咨询支持微信支付 · 教学课程签订正式合同 · 团课/一对一结业颁发 IPHM 证书
+        <div class="pricing-note-bar">
+            ✓ 语音咨询与对话框咨询需提前预约，不接急单 &nbsp;·&nbsp; ✓ 录播课 6 月上线，敬请期待 &nbsp;·&nbsp;
+            <a href="/course.html" style="color:rgba(201,168,76,0.6);text-decoration:none;letter-spacing:1px;">查看完整课程详情 →</a>
         </div>
     </div>
 </section>
 
 <!-- 知识专栏 -->
 <section class="articles-section" id="articles">
-    <div class="section-sub">Knowledge Base</div>
+    <div class="section-sub">Column</div>
     <h2 class="section-title">知识专栏</h2>
     <div class="section-divider"></div>
-
-    <div class="filter-bar">
-        <button class="filter-btn active" onclick="filterArticles('all')">全部</button>
-        <button class="filter-btn" onclick="filterArticles('basics')">塔罗基础</button>
-        <button class="filter-btn" onclick="filterArticles('spread')">牌阵解读</button>
-        <button class="filter-btn" onclick="filterArticles('practice')">实战案例</button>
-    </div>
-
-    <div class="articles-grid" id="articlesGrid">
-        <div class="article-card" data-cat="basics">
-            <div class="article-tag">塔罗基础</div>
-            <h4>塔罗牌的起源与发展</h4>
-            <p>从 15 世纪意大利纸牌游戏到现代占卜工具，塔罗牌经历了怎样的演变？</p>
-        </div>
-        <div class="article-card" data-cat="basics">
-            <div class="article-tag">塔罗基础</div>
-            <h4>大阿卡那 vs 小阿卡那</h4>
-            <p>78 张牌的结构体系，大牌与小牌各自代表什么层面的信息？</p>
-        </div>
-        <div class="article-card" data-cat="spread">
-            <div class="article-tag">牌阵解读</div>
-            <h4>凯尔特十字牌阵详解</h4>
-            <p>最经典的牌阵之一，十个位置分别代表什么？如何串联解读？</p>
-        </div>
-        <div class="article-card mobile-hidden" data-cat="practice">
-            <div class="article-tag">实战案例</div>
-            <h4>感情复合的牌面解读</h4>
-            <p>当问到"我们还有可能吗"，常见的牌面组合与解读思路。</p>
-        </div>
-        <div class="article-card mobile-hidden" data-cat="basics">
-            <div class="article-tag">塔罗基础</div>
-            <h4>逆位到底怎么看？</h4>
-            <p>逆位不等于"坏"，三种主流逆位解读方法对比。</p>
-        </div>
-        <div class="article-card mobile-hidden" data-cat="spread">
-            <div class="article-tag">牌阵解读</div>
-            <h4>三张牌阵的灵活运用</h4>
-            <p>过去-现在-未来只是基础用法，三张牌阵还能怎么玩？</p>
-        </div>
-    </div>
-    <button class="articles-toggle-btn" id="articlesToggleBtn" onclick="toggleArticleCards()">查看更多 ↓</button>
+    <div class="filter-bar" id="filterBar"></div>
+    <div class="article-list" id="articleList"></div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section" id="contact">
-    <div class="section-sub">Book a Reading</div>
+<!-- 预约 -->
+<section class="booking-section" id="booking">
+    <div class="section-sub">Contact</div>
     <h2 class="section-title">预约咨询</h2>
     <div class="section-divider"></div>
-    <p class="cta-text">选择适合你的服务，填写表单预约。<br>我会在 24 小时内回复确认时间 🔮</p>
-    <div class="tally-wrap">
-        <h4>✦ 预约表单 ✦</h4>
-        <iframe data-tally-src="https://tally.so/embed/wA7y4K?alignLeft=1&hideTitle=1&transparentBackground=1&dynam
-                    <iframe data-tally-src="https://tally.so/embed/wA7y4K?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="400" frameborder="0" marginheight="0" marginwidth="0" title="预约表单"></iframe>
-        <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+    <div class="booking-container">
+        <p class="booking-intro">
+            选择适合你的服务，填写表单或直接添加微信预约。<br>
+            语音咨询与对话框咨询请提前 1–3 天预约，不接急单。
+        </p>
+
+        <!-- Tally 表单 -->
+        <div class="tally-wrap">
+            <h4>预约表单</h4>
+            <iframe data-tally-src="https://tally.so/embed/rjGzvR?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="400" frameborder="0" marginheight="0" marginwidth="0"></iframe>
+            <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+        </div>
+
+        <div class="wechat-block">
+            <div class="wechat-icon">💬</div>
+            <div class="wechat-text">
+                也可以直接添加微信预约
+                <span>微信号：BellaR06</span>
+            </div>
+            <button class="wechat-btn" onclick="openWeChat()">复制微信号</button>
+        </div>
+
+        <div class="review-block">
+            <h4>留下你的评价</h4>
+            <p>咨询完成后，欢迎截图发微信给我 💬<br>你的每一条真实反馈对我都很重要 ✨</p>
+        </div>
     </div>
 </section>
 
@@ -851,20 +698,159 @@
     <div class="footer-sub">Bella · Tarot & Teaching</div>
     <div class="footer-links">
         <a href="#about">关于我</a>
-        <a href="#pricing">价格</a>
-        <a href="course.html">教学课程</a>
+        <a href="#notice">咨询须知</a>
+        <a href="#pricing">服务价格</a>
         <a href="#articles">知识专栏</a>
-        <a href="#contact">预约</a>
+        <a href="#booking">预约咨询</a>
+        <a href="/course.html">课程详情</a>
     </div>
-    <div class="footer-info">
-        <a href="mailto:bellalab.tarot@outlook.com">bellalab.tarot@outlook.com</a><br>
-        微信：BellaR06
+    <div class="footer-social">
+        <a href="https://xhslink.com/m/4jlG3YxtdYf" target="_blank" rel="noopener">📕 小红书</a>
+        <a href="https://v.douyin.com/_3ugcZxR3AA/" target="_blank" rel="noopener">🎵 抖音</a>
     </div>
     <p class="footer-note">© 2024 Mímisbrunnr Path · 所有解读仅供参考，不替代专业医疗或心理咨询</p>
 </footer>
 
 <script>
-// 星空
+// ╔══════════════════════════════════════════════════╗
+// ║            每次只需要改这里！                      ║
+// ╠══════════════════════════════════════════════════╣
+// ║  "green"  = 可预约                               ║
+// ║  "yellow" = 仅剩少量                             ║
+// ║  "red"    = 已约满                               ║
+// ╚══════════════════════════════════════════════════╝
+var scheduleConfig = [
+    { time: "09:00 - 11:00", status: "green"  },
+    { time: "11:00 - 13:00", status: "green"  },
+    { time: "13:00 - 17:00", status: "green"  },
+    { time: "17:00 - 19:00", status: "yellow" },
+    { time: "19:00 - 22:00", status: "red"    }
+];
+var lastUpdateDate = "2026-05-14";
+
+// ══ 评价数据 ══
+var reviewsData = [
+    { stars: 5, text: "时隔一年来反馈！特征说得太准了，分手原因都对上了", service: "感情咨询", name: "🌙 匿名" },
+    { stars: 5, text: "调剂上专硕啦！", service: "学业方向", name: "🌙 匿名" },
+    { stars: 5, text: "五月份问怀孕，十月份怀上，当时说的半年，已经生完啦", service: "特殊问题", name: "🌙 匿名" },
+    { stars: 5, text: "每个月都跟你算的一模一样，准得吓人……", service: "年运流年", name: "🌙 匿名" },
+    { stars: 5, text: "年运二月份全中了，工作调岗，女性贵人包括感情方向！", service: "年运流年", name: "🌙 匿名" },
+    { stars: 5, text: "前世今生好神奇，都对得上，不是很笼统的那种", service: "前世今生", name: "🌙 匿名" },
+    { stars: 5, text: "进决赛了！当时问的时候半信半疑，结果真的", service: "学业方向", name: "🌙 匿名" }
+];
+
+// ══ SVG图标 ══
+var svgIcons = {
+    moon: '<svg width="36" height="36" viewBox="0 0 44 44" fill="none"><path d="M28 8 C16 10, 10 16, 10 24 C10 32, 16 38, 24 38 C18 35, 14 30, 14 24 C14 16, 20 10, 28 8Z" stroke="#c9a84c" stroke-width="1.4" fill="none"/><circle cx="32" cy="13" r="3.5" stroke="#c9a84c" stroke-width="1.2" fill="none"/><line x1="32" y1="7" x2="32" y2="9.5" stroke="#c9a84c" stroke-width="1.1"/><line x1="32" y1="16.5" x2="32" y2="19" stroke="#c9a84c" stroke-width="1.1"/><line x1="26" y1="13" x2="28.5" y2="13" stroke="#c9a84c" stroke-width="1.1"/><line x1="35.5" y1="13" x2="38" y2="13" stroke="#c9a84c" stroke-width="1.1"/></svg>',
+    venus: '<svg width="36" height="36" viewBox="0 0 44 44" fill="none"><circle cx="22" cy="18" r="10" stroke="#c9a84c" stroke-width="1.4" fill="none"/><line x1="22" y1="28" x2="22" y2="38" stroke="#c9a84c" stroke-width="1.4" stroke-linecap="round"/><line x1="16" y1="33" x2="28" y2="33" stroke="#c9a84c" stroke-width="1.4" stroke-linecap="round"/></svg>',
+    mercury: '<svg width="36" height="36" viewBox="0 0 44 44" fill="none"><circle cx="22" cy="20" r="8.5" stroke="#c9a84c" stroke-width="1.4" fill="none"/><line x1="22" y1="28.5" x2="22" y2="37" stroke="#c9a84c" stroke-width="1.4" stroke-linecap="round"/><line x1="16" y1="32.5" x2="28" y2="32.5" stroke="#c9a84c" stroke-width="1.4" stroke-linecap="round"/><path d="M15 14 C15 10, 29 10, 29 14" stroke="#c9a84c" stroke-width="1.3" fill="none" stroke-linecap="round"/></svg>',
+    jupiter: '<svg width="36" height="36" viewBox="0 0 44 44" fill="none"><path d="M24 8 C24 8, 12 16, 12 24 C12 28, 15 30, 20 30 L20 38" stroke="#c9a84c" stroke-width="1.4" fill="none" stroke-linecap="round"/><line x1="10" y1="30" x2="30" y2="30" stroke="#c9a84c" stroke-width="1.4" stroke-linecap="round"/><line x1="28" y1="22" x2="36" y2="22" stroke="#c9a84c" stroke-width="1.3" stroke-linecap="round"/><line x1="32" y1="17" x2="32" y2="27" stroke="#c9a84c" stroke-width="1.3" stroke-linecap="round"/></svg>',
+    star: '<svg width="36" height="36" viewBox="0 0 44 44" fill="none"><line x1="22" y1="6" x2="22" y2="38" stroke="#c9a84c" stroke-width="1.3" stroke-linecap="round"/><line x1="6" y1="22" x2="38" y2="22" stroke="#c9a84c" stroke-width="1.3" stroke-linecap="round"/><line x1="10" y1="10" x2="34" y2="34" stroke="#c9a84c" stroke-width="1" stroke-linecap="round" opacity="0.7"/><line x1="34" y1="10" x2="10" y2="34" stroke="#c9a84c" stroke-width="1" stroke-linecap="round" opacity="0.7"/><circle cx="22" cy="22" r="4" stroke="#c9a84c" stroke-width="1.2" fill="none"/></svg>'
+};
+
+// ══ 文章数据 ══
+var articles = [
+    { title: "你遇到的领导，是哪种国王？", summary: "同样是「领导」，权杖、宝剑、圣杯、星币——四元素不同，相处方式完全不一样。读懂元素，才能读懂身边的人。", category: "实战技巧", date: "2025-05-13", icon: "jupiter", url: "https://mp.weixin.qq.com/s/CJlW000Am3fDo4h31iOHAA" },
+    { title: "塔罗牌的起源与历史：从游戏到灵性工具", summary: "塔罗牌起源于15世纪的意大利，最初只是贵族间流行的纸牌游戏，后来如何一步步演变成今天帮助人们探索内心的工具？", category: "塔罗入门", date: "2025-05-01", icon: "moon", url: "" },
+    { title: "大阿卡那22张，每一张都在说什么？", summary: "从愚者出发，到世界归来——大阿卡那描绘的是一段完整的灵魂旅程。带你快速理解22张牌的核心意象与能量。", category: "塔罗入门", date: "2025-05-05", icon: "star", url: "" },
+    { title: "感情咨询最常问的5个问题，我是怎么解读的", summary: "他喜欢我吗？我们还有机会吗？作为从业5年的咨询师，聊聊这些问题背后真正需要看的是什么。", category: "感情解读", date: "2025-05-08", icon: "venus", url: "" },
+    { title: "凯尔特十字牌阵完全拆解", summary: "凯尔特十字是最经典也最复杂的牌阵之一，10个位置各有含义，位置之间还有微妙呼应关系。从实战角度手把手拆解。", category: "实战技巧", date: "2025-05-10", icon: "mercury", url: "" },
+    { title: "商业决策怎么用塔罗辅助判断？", summary: "投资、合作、创业时机……塔罗在商业方向的运用有它独特的逻辑。结合真实案例分享我的解读思路。", category: "商业方向", date: "2025-05-12", icon: "jupiter", url: "" }
+];
+
+// ══ 档期渲染 ══
+function renderSchedule() {
+    var slots = document.getElementById('scheduleSlots');
+    var update = document.getElementById('scheduleUpdate');
+    if (!slots) return;
+    var labelMap = { green: '可预约', yellow: '仅剩少量', red: '已约满' };
+    var html = '';
+    for (var i = 0; i < scheduleConfig.length; i++) {
+        var s = scheduleConfig[i];
+        html += '<div class="slot-item ' + s.status + '">' +
+            '<div class="slot-dot"></div>' +
+            '<div class="slot-time">' + s.time + '</div>' +
+            '<div class="slot-label">' + labelMap[s.status] + '</div>' +
+            '</div>';
+    }
+    slots.innerHTML = html;
+    if (update) update.textContent = '更新于 ' + lastUpdateDate;
+}
+
+// ══ 评价渲染 ══
+function renderReviews() {
+    var track = document.getElementById('reviewsTrack');
+    if (!track || !reviewsData || reviewsData.length === 0) return;
+    var all = reviewsData.concat(reviewsData);
+    var html = '';
+    for (var i = 0; i < all.length; i++) {
+        var r = all[i];
+        var stars = '';
+        for (var s = 0; s < r.stars; s++) stars += '★';
+        html += '<div class="review-card">' +
+            '<div class="review-stars">' + stars + '</div>' +
+            '<div class="review-text">"' + r.text + '"</div>' +
+            '<div class="review-meta">' + r.name + ' · ' + r.service + '</div>' +
+            '</div>';
+    }
+    track.innerHTML = html;
+}
+
+// ══ 专栏渲染 ══
+function renderFilters() {
+    var bar = document.getElementById('filterBar');
+    if (!bar) return;
+    var categories = ['全部'];
+    for (var i = 0; i < articles.length; i++) {
+        if (categories.indexOf(articles[i].category) === -1) categories.push(articles[i].category);
+    }
+    var html = '';
+    for (var j = 0; j < categories.length; j++) {
+        var active = j === 0 ? ' active' : '';
+        html += '<button class="filter-btn' + active + '" onclick="filterArticles(\'' + categories[j] + '\', this)">' + categories[j] + '</button>';
+    }
+    bar.innerHTML = html;
+}
+
+function renderArticles(filter) {
+    var list = document.getElementById('articleList');
+    if (!list) return;
+    var filtered = filter === '全部' ? articles : articles.filter(function(a) { return a.category === filter; });
+    if (filtered.length === 0) { list.innerHTML = '<div class="empty-tip">· 该分类暂无文章，敬请期待 ·</div>'; return; }
+    var html = '';
+    for (var i = 0; i < filtered.length; i++) {
+        var a = filtered[i];
+        var openTag = a.url ? '<a href="' + a.url + '" target="_blank" rel="noopener" class="article-card">' : '<div class="article-card">';
+        var closeTag = a.url ? '</a>' : '</div>';
+        html += openTag +
+            '<div class="article-cover">' + (svgIcons[a.icon] || svgIcons['star']) + '</div>' +
+            '<div class="article-info">' +
+                '<div class="article-meta"><span class="article-cat">' + a.category + '</span><span class="article-date">' + a.date + '</span></div>' +
+                '<div class="article-title">' + a.title + '</div>' +
+                '<div class="article-summary">' + a.summary + '</div>' +
+            '</div>' +
+            '<div class="article-arrow">→</div>' +
+        closeTag;
+    }
+    list.innerHTML = html;
+}
+
+function filterArticles(category, btn) {
+    var btns = document.querySelectorAll('.filter-btn');
+    for (var i = 0; i < btns.length; i++) btns[i].classList.remove('active');
+    btn.classList.add('active');
+    renderArticles(category);
+}
+
+// ══ 微信 ══
+function openWeChat() {
+    var id = "BellaR06";
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(id).then(function() { alert("微信号已复制！\n\n微信号：" + id); }).catch(function() { alert("微信号：" + id + "\n\n请手动复制添加"); });
+    } else { alert("微信号：" + id + "\n\n请手动复制添加"); }
+}
+
+// ══ 星星 ══
 function generateStars() {
     var container = document.getElementById('stars');
     if (!container) return;
@@ -881,56 +867,13 @@ function generateStars() {
     }
 }
 
-// 知识专栏筛选
-function filterArticles(cat) {
-    var cards = document.querySelectorAll('.article-card');
-    var btns = document.querySelectorAll('.filter-btn');
-    btns.forEach(function(b) { b.classList.remove('active'); });
-    event.target.classList.add('active');
-    cards.forEach(function(card) {
-        if (cat === 'all' || card.dataset.cat === cat) {
-            card.style.display = '';
-        } else {
-            card.style.display = 'none';
-        }
-    });
-}
-
-// 移动端价格折叠
-function togglePriceCards() {
-    var hiddenCards = document.querySelectorAll('#priceGrid .mobile-hidden');
-    var btn = document.getElementById('priceToggleBtn');
-    var isHidden = hiddenCards[0] && hiddenCards[0].style.display !== 'block';
-
-    hiddenCards.forEach(function(card) {
-        if (isHidden) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = '';
-        }
-    });
-
-    btn.textContent = isHidden ? '收起 ↑' : '展开全部 ↓';
-}
-
-// 移动端知识专栏折叠
-function toggleArticleCards() {
-    var hiddenCards = document.querySelectorAll('#articlesGrid .mobile-hidden');
-    var btn = document.getElementById('articlesToggleBtn');
-    var isHidden = hiddenCards[0] && hiddenCards[0].style.display !== 'block';
-
-    hiddenCards.forEach(function(card) {
-        if (isHidden) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = '';
-        }
-    });
-
-    btn.textContent = isHidden ? '收起 ↑' : '查看更多 ↓';
-}
-
-window.onload = function() { generateStars(); };
+window.onload = function() {
+    generateStars();
+    renderSchedule();
+    renderReviews();
+    renderFilters();
+    renderArticles('全部');
+};
 </script>
 </body>
 </html>
