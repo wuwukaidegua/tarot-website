@@ -471,6 +471,57 @@
 @media (max-width: 360px) {
     .price-grid { grid-template-columns: 1fr; }
 }
+        /* ══ 手机底部导航 ══ */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: rgba(26,10,46,0.96);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(201,168,76,0.15);
+    padding: 8px 0 max(8px, env(safe-area-inset-bottom));
+}
+
+.mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    text-decoration: none;
+    color: var(--text-muted);
+    flex: 1;
+    padding: 4px 0;
+    transition: color 0.3s;
+}
+
+.mobile-nav-item:hover,
+.mobile-nav-item.active {
+    color: var(--gold);
+}
+
+.mobile-nav-icon {
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.mobile-nav-label {
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    font-family: 'Noto Serif SC', serif;
+}
+
+@media (max-width: 768px) {
+    .mobile-nav {
+        display: flex;
+    }
+    /* 给页面底部加padding，不被导航栏遮住 */
+    body {
+        padding-bottom: 65px;
+    }
+}
     </style>
 </head>
 <body>
@@ -533,7 +584,9 @@
     <div class="section-divider"></div>
     <div class="about-content">
         <div class="about-image" style="position:relative;">
-            <div class="frame"><div class="symbol">✦</div></div>
+            <div class="frame">
+    <img src="./IMG_1676.JPG" alt="Bella" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+</div>
             <div class="corner tl"></div>
             <div class="corner tr"></div>
             <div class="corner bl"></div>
@@ -738,11 +791,11 @@
 var scheduleConfig = [
     { time: "09:00 - 11:00", status: "green"  },
     { time: "11:00 - 13:00", status: "green"  },
-    { time: "13:00 - 17:00", status: "green"  },
+    { time: "13:00 - 17:00", status: "yellow"  },
     { time: "17:00 - 19:00", status: "yellow" },
     { time: "19:00 - 22:00", status: "red"    }
 ];
-var lastUpdateDate = "2026-05-14";
+var lastUpdateDate = "2026-05-15";
 
 // ══ 评价数据 ══
 var reviewsData = [
@@ -891,5 +944,24 @@ window.onload = function() {
     renderArticles('全部');
 };
 </script>
+    <!-- 手机底部导航 -->
+<nav class="mobile-nav">
+    <a href="#about" class="mobile-nav-item">
+        <span class="mobile-nav-icon">☽</span>
+        <span class="mobile-nav-label">关于我</span>
+    </a>
+    <a href="#pricing" class="mobile-nav-item">
+        <span class="mobile-nav-icon">✦</span>
+        <span class="mobile-nav-label">价格</span>
+    </a>
+    <a href="#articles" class="mobile-nav-item">
+        <span class="mobile-nav-icon">✧</span>
+        <span class="mobile-nav-label">专栏</span>
+    </a>
+    <a href="#booking" class="mobile-nav-item">
+        <span class="mobile-nav-icon">◈</span>
+        <span class="mobile-nav-label">预约</span>
+    </a>
+</nav>
 </body>
 </html>
