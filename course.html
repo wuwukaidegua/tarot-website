@@ -3,791 +3,851 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>塔罗课程详情</title>
+    <title>Mímisbrunnr Path · 塔罗教学课程</title>
     <meta name="description" content="专业塔罗教学课程，包含录播课、团课、一对一，IPHM认证导师授课，结业颁发IPHM证书。">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Serif+SC:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+SC:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --deep-purple: #1a0a2e;
+            --royal-purple: #2d1b69;
+            --mystic-blue: #1e3a5f;
+            --gold: #c9a84c;
+            --gold-light: #e8d48b;
+            --gold-glow: rgba(201,168,76,0.3);
+            --text-light: #e8e0f0;
+            --text-muted: #a89bc2;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Noto Serif SC', 'Microsoft YaHei', serif;
-            line-height: 1.6;
-            color: #2d1f3d;
-            min-height: 100vh;
-            padding: 30px 0 60px;
-            background-color: #2a1045;
-            background-image:
-                radial-gradient(ellipse at 20% 0%, #3d2800 0%, transparent 55%),
-                radial-gradient(ellipse at 80% 100%, #3d1500 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, #4a1a6e 0%, transparent 70%);
-            position: relative;
+            font-family: 'Noto Serif SC', serif;
+            background: var(--deep-purple);
+            color: var(--text-light);
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            opacity: 0.13;
-            pointer-events: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='700' viewBox='0 0 700 700'%3E%3Ccircle cx='350' cy='350' r='320' stroke='%23d4aa50' stroke-width='0.8' fill='none'/%3E%3Ccircle cx='350' cy='350' r='260' stroke='%23d4aa50' stroke-width='0.5' fill='none'/%3E%3Ccircle cx='350' cy='350' r='180' stroke='%23d4aa50' stroke-width='0.5' fill='none'/%3E%3Ccircle cx='350' cy='350' r='90' stroke='%23d4aa50' stroke-width='0.4' fill='none'/%3E%3Cline x1='350' y1='30' x2='350' y2='670' stroke='%23d4aa50' stroke-width='0.5'/%3E%3Cline x1='30' y1='350' x2='670' y2='350' stroke='%23d4aa50' stroke-width='0.5'/%3E%3Cline x1='124' y1='124' x2='576' y2='576' stroke='%23d4aa50' stroke-width='0.4'/%3E%3Cline x1='576' y1='124' x2='124' y2='576' stroke='%23d4aa50' stroke-width='0.4'/%3E%3Cpolygon points='350,170 388,234 458,234 420,298 458,362 388,362 350,426 312,362 242,362 280,298 242,234 312,234' stroke='%23d4aa50' stroke-width='0.5' fill='none'/%3E%3Ccircle cx='350' cy='30' r='2' fill='%23d4aa50'/%3E%3Ccircle cx='350' cy='670' r='2' fill='%23d4aa50'/%3E%3Ccircle cx='30' cy='350' r='2' fill='%23d4aa50'/%3E%3Ccircle cx='670' cy='350' r='2' fill='%23d4aa50'/%3E%3Ccircle cx='124' cy='124' r='2' fill='%23d4aa50'/%3E%3Ccircle cx='576' cy='124' r='2' fill='%23d4aa50'/%3E%3Ccircle cx='124' cy='576' r='2' fill='%23d4aa50'/%3E%3Ccircle cx='576' cy='576' r='2' fill='%23d4aa50'/%3E%3Ccircle cx='350' cy='350' r='3' fill='%23d4aa50'/%3E%3Ccircle cx='200' cy='80' r='1.2' fill='%23d4aa50'/%3E%3Ccircle cx='500' cy='60' r='1' fill='%23d4aa50'/%3E%3Ccircle cx='80' cy='220' r='1.2' fill='%23d4aa50'/%3E%3Ccircle cx='620' cy='180' r='1' fill='%23d4aa50'/%3E%3Ccircle cx='660' cy='480' r='1.2' fill='%23d4aa50'/%3E%3Ccircle cx='60' cy='500' r='1' fill='%23d4aa50'/%3E%3Ccircle cx='160' cy='620' r='1.2' fill='%23d4aa50'/%3E%3Ccircle cx='540' cy='640' r='1' fill='%23d4aa50'/%3E%3C/svg%3E");
-            background-size: 700px 700px;
-            background-repeat: repeat;
+        /* ══ 星空 ══ */
+        .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .star { position: absolute; width: 2px; height: 2px; background: white; border-radius: 50%; animation: twinkle 3s infinite alternate; }
+        @keyframes twinkle { 0% { opacity: 0.2; } 100% { opacity: 1; } }
+
+        /* ══ 导航 ══ */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            padding: 1.2rem 3rem;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(26,10,46,0.95), transparent);
+            backdrop-filter: blur(10px);
         }
 
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--gold); letter-spacing: 3px; text-decoration: none; }
+
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.82rem;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .nav-back:hover { color: var(--gold); }
+
+        /* ══ 메인 컨텐츠 ══ */
         .container {
             max-width: 960px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 120px 3rem 6rem;
             position: relative;
             z-index: 1;
         }
 
-        /* ══ 返回按钮 ══ */
-        .back-bar {
-            margin-bottom: 20px;
-        }
-
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: rgba(212,170,80,0.7);
-            font-size: 0.88em;
-            text-decoration: none;
-            letter-spacing: 0.04em;
-            transition: color 0.2s;
-        }
-
-        .back-btn:hover { color: rgba(212,170,80,1); }
-
-        /* ══ HEADER ══ */
-        .course-header {
-            background: linear-gradient(160deg, #140824 0%, #1e0e38 50%, #241040 100%);
-            border: 1px solid rgba(212,170,80,0.2);
-            border-radius: 16px;
-            padding: 44px 36px 36px;
+        /* ══ 页头 ══ */
+        .course-hero {
             text-align: center;
-            margin-bottom: 24px;
+            padding: 5rem 2rem 4rem;
             position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 60px rgba(80,30,120,0.5);
         }
 
-        .course-header::before {
+        .course-hero::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 50% 0%, rgba(212,170,80,0.08) 0%, transparent 60%);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+            border-radius: 50%;
             pointer-events: none;
         }
 
-        .header-badge {
-            display: inline-block;
-            background: rgba(212,170,80,0.12);
-            border: 1px solid rgba(212,170,80,0.3);
-            color: rgba(212,170,80,0.85);
-            font-size: 0.78em;
-            padding: 4px 14px;
-            border-radius: 20px;
-            letter-spacing: 0.1em;
-            margin-bottom: 16px;
+        .hero-eyebrow {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.82rem;
+            letter-spacing: 5px;
+            color: rgba(201,168,76,0.55);
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+            position: relative; z-index: 1;
         }
 
-        .course-header h1 {
-            font-family: 'Cinzel', 'Noto Serif SC', serif;
-            color: #f0dfa0;
-            font-size: 2em;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            margin-bottom: 10px;
-            text-shadow: 0 0 30px rgba(212,170,80,0.5);
+        .course-hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 6px;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 40px rgba(201,168,76,0.3);
+            position: relative; z-index: 1;
         }
 
-        .course-header p {
-            color: rgba(210,185,255,0.7);
-            font-size: 0.93em;
-            line-height: 1.8;
+        .course-hero p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 2;
             max-width: 560px;
-            margin: 0 auto 20px;
+            margin: 0 auto 2.5rem;
+            font-weight: 300;
+            position: relative; z-index: 1;
         }
 
-        .header-tags {
+        .hero-tags {
             display: flex;
             justify-content: center;
             gap: 10px;
             flex-wrap: wrap;
+            position: relative; z-index: 1;
         }
 
-        .header-tag {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(212,170,80,0.2);
-            color: rgba(212,170,80,0.75);
-            font-size: 0.8em;
-            padding: 4px 12px;
-            border-radius: 20px;
-            letter-spacing: 0.04em;
+        .hero-tag {
+            border: 1px solid rgba(201,168,76,0.2);
+            color: rgba(201,168,76,0.65);
+            font-size: 0.75rem;
+            padding: 4px 14px;
+            letter-spacing: 1px;
         }
 
-        /* ══ CARD ══ */
-        .card {
-            background: rgba(255,255,255,0.97);
-            border-radius: 14px;
-            box-shadow: 0 4px 28px rgba(40,10,80,0.2);
-            margin-bottom: 24px;
-            overflow: hidden;
+        .section-divider-line {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(201,168,76,0.2), transparent);
+            margin: 0;
         }
 
-        .card-inner { padding: 32px 36px; }
-
-        .card-inner h2 {
-            color: #5b1fa0;
-            font-size: 1.35em;
-            font-weight: 600;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid rgba(102,50,180,0.12);
-            letter-spacing: 0.04em;
+        /* ══ 通用板块 ══ */
+        .course-section {
+            padding: 5rem 0;
+            border-bottom: 1px solid rgba(201,168,76,0.08);
         }
 
-        /* ══ 课程路径 ══ */
-        .path-grid {
+        .course-section:last-of-type { border-bottom: none; }
+
+        .section-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.78rem;
+            letter-spacing: 4px;
+            color: rgba(201,168,76,0.5);
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+        }
+
+        .section-heading {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--gold-light);
+            letter-spacing: 3px;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-sub-heading {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            margin-bottom: 3rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* ══ 学习路径 ══ */
+        .path-row {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 14px;
-            margin-bottom: 6px;
+            grid-template-columns: 1fr auto 1fr auto 1fr;
+            gap: 0;
+            align-items: center;
+            margin-bottom: 0;
         }
 
-        @media (max-width: 600px) { .path-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 640px) {
+            .path-row { grid-template-columns: 1fr; }
+            .path-arrow-col { display: none; }
+        }
 
         .path-card {
-            background: linear-gradient(135deg, #180830 0%, #3d1570 100%);
-            border: 1px solid rgba(212,170,80,0.18);
-            border-radius: 12px;
-            padding: 20px 16px;
+            padding: 2.5rem 2rem;
             text-align: center;
+            border: 1px solid rgba(201,168,76,0.12);
+            background: rgba(45,27,105,0.2);
             position: relative;
             overflow: hidden;
+            transition: all 0.4s;
         }
 
         .path-card::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 50% 0%, rgba(212,170,80,0.07) 0%, transparent 60%);
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
         }
 
-        .path-icon { font-size: 1.8em; margin-bottom: 8px; position: relative; z-index: 1; }
+        .path-card:hover { border-color: rgba(201,168,76,0.3); }
+        .path-card:hover::before { opacity: 1; }
+
+        .path-arrow-col {
+            text-align: center;
+            color: rgba(201,168,76,0.25);
+            font-size: 1.2rem;
+            padding: 0 1rem;
+        }
+
+        .path-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
 
         .path-name {
-            color: #e8d090;
-            font-size: 0.95em;
-            font-weight: 600;
-            margin-bottom: 6px;
-            position: relative;
-            z-index: 1;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--gold-light);
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
         }
 
         .path-price {
-            color: #f0dfa0;
-            font-size: 1.3em;
-            font-weight: 700;
-            margin-bottom: 4px;
-            position: relative;
-            z-index: 1;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            color: var(--gold);
+            margin-bottom: 0.3rem;
         }
+
+        .path-price span { font-size: 0.5em; opacity: 0.7; }
 
         .path-sub {
-            color: rgba(200,180,255,0.6);
-            font-size: 0.75em;
-            position: relative;
-            z-index: 1;
-        }
-
-        .path-arrow {
-            display: none;
-            color: rgba(212,170,80,0.4);
-            font-size: 1.2em;
-            align-self: center;
-            text-align: center;
-        }
-
-        @media (min-width: 601px) {
-            .path-grid { grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; }
-            .path-arrow { display: block; }
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
         }
 
         /* ══ 录播课 ══ */
-        .recording-grid {
+        .rec-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 14px;
-            margin-bottom: 18px;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
-        @media (max-width: 600px) { .recording-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 640px) { .rec-grid { grid-template-columns: 1fr; } }
 
         .rec-card {
-            background: #faf8ff;
-            border: 1px solid rgba(140,80,220,0.15);
-            border-radius: 12px;
-            padding: 20px 18px;
+            padding: 2rem 1.8rem;
+            border: 1px solid rgba(201,168,76,0.1);
+            background: rgba(45,27,105,0.15);
             position: relative;
-            transition: all 0.25s;
+            transition: all 0.3s;
         }
 
-        .rec-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(100,40,180,0.1); }
+        .rec-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .rec-card:hover { border-color: rgba(201,168,76,0.25); background: rgba(45,27,105,0.25); }
+        .rec-card:hover::before { opacity: 0.6; }
 
         .rec-level {
-            font-size: 0.72em;
-            color: #9b6dca;
-            letter-spacing: 0.08em;
-            margin-bottom: 6px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.72rem;
+            letter-spacing: 3px;
+            color: rgba(201,168,76,0.5);
+            text-transform: uppercase;
+            margin-bottom: 0.6rem;
         }
 
         .rec-name {
-            color: #3d1570;
-            font-size: 1em;
-            font-weight: 600;
-            margin-bottom: 10px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            color: var(--gold-light);
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
         }
 
         .rec-content {
-            font-size: 0.83em;
-            color: #666;
-            line-height: 1.7;
-            margin-bottom: 14px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
         }
 
         .rec-price {
-            color: #5b1fa0;
-            font-size: 1.4em;
-            font-weight: 700;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            color: var(--gold);
         }
 
-        .rec-price span { font-size: 0.5em; opacity: 0.7; }
+        .rec-price span { font-size: 0.45em; opacity: 0.7; }
 
-        .bundle-banner {
-            background: linear-gradient(135deg, #2d0f5e 0%, #5a1fa8 100%);
-            border: 1px solid rgba(212,170,80,0.25);
-            border-radius: 10px;
-            padding: 16px 20px;
+        /* 打包 */
+        .bundle-bar {
+            padding: 1.8rem 2.5rem;
+            border: 1px solid rgba(201,168,76,0.2);
+            background: rgba(45,27,105,0.3);
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .bundle-left { color: rgba(230,210,255,0.9); font-size: 0.92em; line-height: 1.6; }
-        .bundle-left strong { color: #f0dfa0; display: block; margin-bottom: 3px; font-size: 1.05em; }
-
-        .bundle-price {
-            color: #f0dfa0;
-            font-size: 1.8em;
-            font-weight: 700;
-            white-space: nowrap;
-        }
-
-        .bundle-price span { font-size: 0.45em; opacity: 0.7; }
-        .bundle-save { font-size: 0.72em; color: rgba(212,170,80,0.65); margin-top: 2px; }
-
-        /* ══ 团课 ══ */
-        .group-card {
-            background: linear-gradient(135deg, #f5f0ff 0%, #ede0ff 100%);
-            border: 1px solid rgba(140,80,220,0.2);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 16px;
-        }
-
-        .group-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .group-title { color: #3d1570; font-size: 1.05em; font-weight: 600; }
-
-        .group-tag {
-            background: linear-gradient(135deg, #5a1e90, #7b3fbe);
-            color: #f5e8c0;
-            font-size: 0.75em;
-            padding: 3px 12px;
-            border-radius: 20px;
-            letter-spacing: 0.04em;
-        }
-
-        .price-table { width: 100%; border-collapse: collapse; font-size: 0.88em; }
-        .price-table th { color: #9b6dca; font-weight: 500; padding: 8px 12px; text-align: left; border-bottom: 1px solid rgba(140,80,220,0.15); font-size: 0.85em; letter-spacing: 0.04em; }
-        .price-table td { padding: 10px 12px; color: #444; border-bottom: 1px solid rgba(140,80,220,0.08); }
-        .price-table tr:last-child td { border-bottom: none; }
-        .price-table .price-val { color: #5b1fa0; font-weight: 700; font-size: 1.1em; }
-        .price-table .price-after { color: #aaa; font-size: 0.85em; }
-
-        .group-features {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 14px;
-        }
-
-        .gf-tag {
-            background: rgba(120,50,200,0.08);
-            border: 1px solid rgba(120,50,200,0.15);
-            color: #6a28aa;
-            font-size: 0.8em;
-            padding: 4px 12px;
-            border-radius: 20px;
-        }
-
-        /* ══ 一对一 ══ */
-        .solo-card {
-            background: linear-gradient(135deg, #180830 0%, #2e0d55 100%);
-            border: 1px solid rgba(212,170,80,0.2);
-            border-radius: 14px;
-            padding: 28px 26px;
-            margin-bottom: 16px;
+            gap: 1.5rem;
             position: relative;
-            overflow: hidden;
         }
 
-        .solo-card::before {
+        .bundle-bar::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 100% 0%, rgba(212,170,80,0.06) 0%, transparent 60%);
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.4;
+        }
+
+        .bundle-left h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--gold-light);
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .bundle-left p { font-size: 0.82rem; color: var(--text-muted); font-weight: 300; }
+
+        .bundle-right { text-align: right; }
+        .bundle-price { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold); }
+        .bundle-price span { font-size: 0.45em; opacity: 0.7; }
+        .bundle-save { font-size: 0.72rem; color: rgba(201,168,76,0.5); margin-top: 2px; }
+
+        /* ══ 团课 ══ */
+        .group-block {
+            border: 1px solid rgba(201,168,76,0.12);
+            background: rgba(45,27,105,0.15);
+            padding: 2.5rem;
+        }
+
+        .group-block-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(201,168,76,0.1);
+        }
+
+        .group-block-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--gold-light);
+            letter-spacing: 1px;
+        }
+
+        .coming-tag {
+            border: 1px solid rgba(201,168,76,0.3);
+            color: rgba(201,168,76,0.7);
+            font-size: 0.72rem;
+            padding: 4px 14px;
+            letter-spacing: 2px;
+        }
+
+        .price-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        .price-table th { color: rgba(201,168,76,0.5); font-weight: 400; padding: 10px 12px; text-align: left; border-bottom: 1px solid rgba(201,168,76,0.1); letter-spacing: 1px; font-size: 0.75rem; }
+        .price-table td { padding: 12px; color: var(--text-muted); border-bottom: 1px solid rgba(201,168,76,0.05); }
+        .price-table tr:last-child td { border-bottom: none; }
+        .price-table .pv { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; }
+        .price-table .pa { color: rgba(168,155,194,0.4); }
+
+        .group-features { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.5rem; }
+        .gf-tag { border: 1px solid rgba(201,168,76,0.15); color: rgba(201,168,76,0.6); font-size: 0.75rem; padding: 4px 12px; letter-spacing: 1px; }
+
+        /* ══ 一对一 ══ */
+        .solo-block {
+            border: 1px solid rgba(201,168,76,0.15);
+            background: rgba(45,27,105,0.2);
+            padding: 2.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .solo-block::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.4;
         }
 
         .solo-header {
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
-            margin-bottom: 20px;
             flex-wrap: wrap;
-            gap: 12px;
-            position: relative;
-            z-index: 1;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(201,168,76,0.1);
         }
 
-        .solo-title { color: #f0dfa0; font-size: 1.1em; font-weight: 600; }
-        .solo-subtitle { color: rgba(200,170,255,0.6); font-size: 0.82em; margin-top: 4px; }
-
-        .solo-price-block { text-align: right; }
-        .solo-price { color: #f0dfa0; font-size: 2em; font-weight: 700; }
-        .solo-price span { font-size: 0.4em; opacity: 0.7; }
-        .solo-price-note { color: rgba(212,170,80,0.55); font-size: 0.78em; margin-top: 3px; }
-
-        .solo-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 18px;
-            position: relative;
-            z-index: 1;
-        }
-
-        @media (max-width: 520px) { .solo-grid { grid-template-columns: 1fr; } }
-
-        .solo-item {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(212,170,80,0.1);
-            border-radius: 8px;
-            padding: 12px 14px;
-        }
-
-        .solo-item-label {
-            color: rgba(212,170,80,0.6);
-            font-size: 0.75em;
-            letter-spacing: 0.08em;
+        .solo-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: var(--gold-light);
+            letter-spacing: 1px;
             margin-bottom: 4px;
         }
 
-        .solo-item-value {
-            color: rgba(220,200,255,0.9);
-            font-size: 0.88em;
-            line-height: 1.5;
+        .solo-subtitle { font-size: 0.82rem; color: var(--text-muted); font-weight: 300; }
+
+        .solo-price-block { text-align: right; }
+        .solo-price { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--gold); }
+        .solo-price span { font-size: 0.4em; opacity: 0.7; }
+        .solo-price-note { font-size: 0.72rem; color: rgba(201,168,76,0.5); margin-top: 4px; letter-spacing: 1px; }
+
+        .solo-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
 
-        .solo-syllabus {
-            position: relative;
-            z-index: 1;
+        @media (max-width: 520px) { .solo-info-grid { grid-template-columns: 1fr; } }
+
+        .solo-info-item {
+            padding: 1rem 1.2rem;
+            border: 1px solid rgba(201,168,76,0.08);
+            background: rgba(201,168,76,0.03);
         }
 
-        .solo-syllabus-title {
-            color: rgba(212,170,80,0.7);
-            font-size: 0.78em;
-            letter-spacing: 0.1em;
-            margin-bottom: 10px;
-        }
+        .solo-info-label { font-size: 0.68rem; letter-spacing: 2px; color: rgba(201,168,76,0.45); text-transform: uppercase; margin-bottom: 5px; }
+        .solo-info-value { font-size: 0.85rem; color: var(--text-muted); font-weight: 300; line-height: 1.5; }
 
-        .syllabus-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
+        .syllabus-title { font-size: 0.72rem; letter-spacing: 3px; color: rgba(201,168,76,0.45); text-transform: uppercase; margin-bottom: 12px; }
 
-        .syllabus-tag {
-            background: rgba(212,170,80,0.1);
-            border: 1px solid rgba(212,170,80,0.2);
-            color: rgba(212,170,80,0.8);
-            font-size: 0.8em;
-            padding: 4px 12px;
-            border-radius: 20px;
-        }
+        .syllabus-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .syllabus-tag { border: 1px solid rgba(201,168,76,0.15); color: rgba(201,168,76,0.65); font-size: 0.78rem; padding: 4px 12px; letter-spacing: 0.5px; }
 
-        .waitlist-banner {
-            background: rgba(212,170,80,0.08);
-            border: 1px solid rgba(212,170,80,0.2);
-            border-radius: 8px;
-            padding: 12px 16px;
+        /* 候补 */
+        .waitlist-bar {
+            padding: 1.2rem 2rem;
+            border: 1px solid rgba(201,168,76,0.15);
+            background: rgba(201,168,76,0.04);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
             flex-wrap: wrap;
-            position: relative;
-            z-index: 1;
+            gap: 12px;
         }
 
-        .waitlist-text { color: rgba(212,170,80,0.75); font-size: 0.85em; }
-        .waitlist-btn { background: linear-gradient(135deg, #c49a00, #e8c040); color: #1a0a2e; border: none; padding: 7px 18px; border-radius: 20px; font-size: 0.82em; font-weight: 700; cursor: pointer; font-family: 'Noto Serif SC', serif; white-space: nowrap; transition: transform 0.2s; }
-        .waitlist-btn:hover { transform: translateY(-2px); }
+        .waitlist-text { font-size: 0.82rem; color: var(--text-muted); font-weight: 300; }
+
+        .waitlist-btn {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 7px 20px;
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            font-family: 'Noto Serif SC', serif;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .waitlist-btn:hover { background: var(--gold); color: var(--deep-purple); }
 
         /* ══ 证书 ══ */
         .cert-block {
-            background: linear-gradient(135deg, #f5f0ff 0%, #ede0ff 100%);
-            border: 1px solid rgba(140,80,220,0.2);
-            border-radius: 12px;
-            padding: 22px 24px;
+            padding: 2.5rem;
+            border: 1px solid rgba(201,168,76,0.12);
+            background: rgba(45,27,105,0.15);
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 2rem;
             flex-wrap: wrap;
         }
 
-        .cert-icon { font-size: 2.5em; flex-shrink: 0; }
+        .cert-icon { font-size: 3rem; opacity: 0.9; flex-shrink: 0; }
 
         .cert-info { flex: 1; min-width: 200px; }
-        .cert-title { color: #3d1570; font-size: 1em; font-weight: 600; margin-bottom: 6px; }
-        .cert-desc { color: #666; font-size: 0.88em; line-height: 1.7; }
 
-        .cert-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
-        .cert-tag { background: linear-gradient(135deg, #5a1e90, #7b3fbe); color: #f5e8c0; font-size: 0.75em; padding: 3px 10px; border-radius: 20px; }
+        .cert-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--gold-light);
+            letter-spacing: 1px;
+            margin-bottom: 0.8rem;
+        }
+
+        .cert-desc { font-size: 0.83rem; color: var(--text-muted); line-height: 1.9; font-weight: 300; margin-bottom: 1rem; }
+
+        .cert-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+        .cert-tag { border: 1px solid rgba(201,168,76,0.2); color: rgba(201,168,76,0.7); font-size: 0.75rem; padding: 3px 12px; letter-spacing: 1px; }
 
         /* ══ CTA ══ */
-        .cta-bar {
-            background: linear-gradient(160deg, #140824 0%, #1e0e38 100%);
-            border: 1px solid rgba(212,170,80,0.2);
-            border-radius: 14px;
-            padding: 28px 36px;
+        .cta-section {
+            padding: 5rem 0 3rem;
             text-align: center;
-            margin-bottom: 24px;
         }
 
-        .cta-bar p { color: rgba(200,180,255,0.7); font-size: 0.92em; margin-bottom: 18px; }
-
-        .cta-btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #c49a00, #e8c040);
-            color: #1a0a2e;
-            padding: 13px 38px;
-            border-radius: 50px;
-            font-size: 1.05em;
-            font-weight: 700;
-            cursor: pointer;
-            border: none;
-            font-family: 'Noto Serif SC', serif;
-            letter-spacing: 0.05em;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 18px rgba(200,154,0,0.35);
+        .cta-text {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 2;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
         }
 
-        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 7px 24px rgba(200,154,0,0.5); }
+        .tally-wrap {
+            max-width: 640px;
+            margin: 0 auto;
+            border: 1px solid rgba(201,168,76,0.12);
+            background: rgba(45,27,105,0.2);
+            padding: 2.5rem 2rem;
+        }
+
+        .tally-wrap h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--gold-light);
+            letter-spacing: 3px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
 
         /* ══ FOOTER ══ */
-        footer { background: rgba(255,255,255,0.96); padding: 22px 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 16px rgba(40,10,80,0.15); font-size: 0.93em; color: #555; }
-        footer p { margin-bottom: 6px; }
-        .contact-info { color: #5a1e90; font-weight: 600; }
-
-        @media (max-width: 600px) {
-            .card-inner { padding: 24px 18px; }
-            .course-header { padding: 32px 20px 28px; }
-            .cta-bar { padding: 24px 20px; }
-            .solo-card { padding: 22px 18px; }
+        footer {
+            position: relative; z-index: 1;
+            padding: 3rem;
+            text-align: center;
+            border-top: 1px solid rgba(201,168,76,0.08);
         }
-        /* ══ 移动端优化 ══ */
-@media (max-width: 520px) {
-    /* 价格表横向滚动 */
-    .group-card { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .price-table { min-width: 380px; }
 
-    /* 套餐横幅竖向 */
-    .bundle-banner {
-        flex-direction: column;
-        text-align: center;
-    }
+        .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--gold); letter-spacing: 4px; margin-bottom: 0.5rem; }
+        .footer-sub { font-size: 0.7rem; color: rgba(201,168,76,0.4); letter-spacing: 3px; margin-bottom: 1.5rem; font-family: 'Cormorant Garamond', serif; }
+        .footer-info { font-size: 0.78rem; color: rgba(168,155,194,0.5); line-height: 1.9; margin-bottom: 1.5rem; }
+        .footer-info a { color: rgba(201,168,76,0.6); text-decoration: none; }
+        .footer-note { font-size: 0.7rem; color: rgba(168,155,194,0.25); letter-spacing: 1px; }
 
-    /* 一对一价格不换行 */
-    .solo-header { flex-direction: column; gap: 8px; }
-    .solo-price-block { text-align: left; }
-    .solo-price { font-size: 1.6em; }
+        /* ══ 响应式 ══ */
+        @media (max-width: 768px) {
+            nav { padding: 1rem 1.5rem; }
+            .container { padding: 100px 1.5rem 4rem; }
+            .course-hero h1 { font-size: 2.5rem; }
+            .rec-grid { grid-template-columns: 1fr; }
+            .solo-header { flex-direction: column; }
+            .solo-price-block { text-align: left; }
+            .bundle-bar { flex-direction: column; }
+            .bundle-right { text-align: left; }
+        }
 
-    /* 路径卡片已有单列处理，OK */
-    
-    /* header缩小 */
-    .course-header h1 { font-size: 1.5em; }
-}
+        @media (max-width: 520px) {
+            .group-block { overflow-x: auto; padding: 1.5rem; }
+            .price-table { min-width: 360px; }
+        }
     </style>
 </head>
 <body>
+<div class="stars" id="stars"></div>
+
+<!-- 导航 -->
+<nav>
+    <a href="/" class="logo">✦ Mímisbrunnr Path</a>
+    <a href="/" class="nav-back">← 返回主页</a>
+</nav>
+
 <div class="container">
 
-    <!-- 返回 -->
-    <div class="back-bar">
-        <a href="/" class="back-btn">← 返回主页</a>
-    </div>
-
     <!-- 页头 -->
-    <div class="course-header">
-        <div class="header-badge">IPHM 认证导师授课</div>
+    <div class="course-hero">
+        <div class="hero-eyebrow">Mímisbrunnr Path · Teaching</div>
         <h1>塔罗教学课程</h1>
         <p>从零基础到独立解牌，找到最适合你的学习路径。<br>所有课程均由从业 5 年 IPHM 认证导师亲自教授。</p>
-        <div class="header-tags">
-            <span class="header-tag">钉钉直播</span>
-            <span class="header-tag">录屏回放</span>
-            <span class="header-tag">实战导向</span>
-            <span class="header-tag">IPHM结业证书</span>
-            <span class="header-tag">签订合同</span>
+        <div class="hero-tags">
+            <span class="hero-tag">钉钉直播</span>
+            <span class="hero-tag">录屏回放</span>
+            <span class="hero-tag">实战导向</span>
+            <span class="hero-tag">IPHM 结业证书</span>
+            <span class="hero-tag">签订合同</span>
         </div>
     </div>
 
+    <div class="section-divider-line"></div>
+
     <!-- 学习路径 -->
-    <section class="card">
-        <div class="card-inner">
-            <h2>✦ 选择你的学习路径</h2>
-            <div class="path-grid">
-                <div class="path-card">
-                    <div class="path-icon">📹</div>
-                    <div class="path-name">录播课</div>
-                    <div class="path-price">¥899<span> 起</span></div>
-                    <div class="path-sub">自学 · 随时开始</div>
-                </div>
-                <div class="path-arrow">→</div>
-                <div class="path-card">
-                    <div class="path-icon">👥</div>
-                    <div class="path-name">团课</div>
-                    <div class="path-price">¥2333<span> 起</span></div>
-                    <div class="path-sub">直播 · 7月开课</div>
-                </div>
-                <div class="path-arrow">→</div>
-                <div class="path-card">
-                    <div class="path-icon">🔮</div>
-                    <div class="path-name">一对一</div>
-                    <div class="path-price">¥4888</div>
-                    <div class="path-sub">深度陪跑 · 名额有限</div>
-                </div>
+    <div class="course-section">
+        <div class="section-label">Learning Path</div>
+        <div class="section-heading">选择你的学习路径</div>
+        <div class="section-sub-heading">从自学入门到深度陪跑，三种方式满足不同需求</div>
+
+        <div class="path-row">
+            <div class="path-card">
+                <div class="path-icon">📹</div>
+                <div class="path-name">录播课</div>
+                <div class="path-price">¥899<span> 起</span></div>
+                <div class="path-sub">自学 · 随时开始</div>
+            </div>
+            <div class="path-arrow-col">→</div>
+            <div class="path-card">
+                <div class="path-icon">👥</div>
+                <div class="path-name">团课</div>
+                <div class="path-price">¥2333<span> 起</span></div>
+                <div class="path-sub">直播 · 7月开课</div>
+            </div>
+            <div class="path-arrow-col">→</div>
+            <div class="path-card">
+                <div class="path-icon">🔮</div>
+                <div class="path-name">一对一</div>
+                <div class="path-price">¥4888</div>
+                <div class="path-sub">深度陪跑 · 名额有限</div>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- 录播课 -->
-    <section class="card">
-        <div class="card-inner">
-            <h2>✦ 录播课 · 自学入门</h2>
-            <div class="recording-grid">
-                <div class="rec-card">
-                    <div class="rec-level">LEVEL 01 · 初阶</div>
-                    <div class="rec-name">大阿卡那精讲</div>
-                    <div class="rec-content">
-                        22张大牌完整解析<br>
-                        牌面意象深度解读<br>
-                        正逆位含义与运用<br>
-                        真实案例示范
-                    </div>
-                    <div class="rec-price">¥899<span>/课</span></div>
-                </div>
-                <div class="rec-card">
-                    <div class="rec-level">LEVEL 02 · 中阶</div>
-                    <div class="rec-name">小阿卡那精讲</div>
-                    <div class="rec-content">
-                        56张小牌完整解析<br>
-                        四元素与花色体系<br>
-                        宫廷牌人物解读<br>
-                        数字能量运用
-                    </div>
-                    <div class="rec-price">¥1200<span>/课</span></div>
-                </div>
-                <div class="rec-card">
-                    <div class="rec-level">LEVEL 03 · 进阶</div>
-                    <div class="rec-name">牌阵与案例解读</div>
-                    <div class="rec-content">
-                        经典牌阵系统讲解<br>
-                        真实案例完整拆解<br>
-                        多牌关联与叙事<br>
-                        实战解牌思路
-                    </div>
-                    <div class="rec-price">¥1500<span>/课</span></div>
-                </div>
-            </div>
+    <div class="course-section">
+        <div class="section-label">Recording Course</div>
+        <div class="section-heading">录播课</div>
+        <div class="section-sub-heading">自学入门 · 随时开始 · 永久回看</div>
 
-            <div class="bundle-banner">
-                <div class="bundle-left">
-                    <strong>🎁 三阶全套打包</strong>
-                    初阶 + 中阶 + 进阶，一次学完全套体系
+        <div class="rec-grid">
+            <div class="rec-card">
+                <div class="rec-level">Level 01 · 初阶</div>
+                <div class="rec-name">大阿卡那精讲</div>
+                <div class="rec-content">
+                    22张大牌完整解析<br>
+                    牌面意象深度解读<br>
+                    正逆位含义与运用<br>
+                    真实案例示范
                 </div>
-                <div>
-                    <div class="bundle-price">¥2888<span>/套</span></div>
-                    <div class="bundle-save">原价 ¥3599 · 省 ¥711</div>
+                <div class="rec-price">¥899<span>/课</span></div>
+            </div>
+            <div class="rec-card">
+                <div class="rec-level">Level 02 · 中阶</div>
+                <div class="rec-name">小阿卡那精讲</div>
+                <div class="rec-content">
+                    56张小牌完整解析<br>
+                    四元素与花色体系<br>
+                    宫廷牌人物解读<br>
+                    数字能量运用
                 </div>
+                <div class="rec-price">¥1200<span>/课</span></div>
+            </div>
+            <div class="rec-card">
+                <div class="rec-level">Level 03 · 进阶</div>
+                <div class="rec-name">牌阵与案例解读</div>
+                <div class="rec-content">
+                    经典牌阵系统讲解<br>
+                    真实案例完整拆解<br>
+                    多牌关联与叙事<br>
+                    实战解牌思路
+                </div>
+                <div class="rec-price">¥1500<span>/课</span></div>
             </div>
         </div>
-    </section>
+
+        <div class="bundle-bar">
+            <div class="bundle-left">
+                <h4>🎁 三阶全套打包</h4>
+                <p>初阶 + 中阶 + 进阶，一次学完全套体系</p>
+            </div>
+            <div class="bundle-right">
+                <div class="bundle-price">¥2888<span>/套</span></div>
+                <div class="bundle-save">原价 ¥3599 · 省 ¥711</div>
+            </div>
+        </div>
+    </div>
 
     <!-- 团课 -->
-    <section class="card">
-        <div class="card-inner">
-            <h2>✦ 团课 · 直播学习</h2>
-            <div class="group-card">
-                <div class="group-header">
-                    <div class="group-title">78张牌 + 常用牌阵入门</div>
-                    <span class="group-tag">🗓 7月正式开课</span>
-                </div>
+    <div class="course-section">
+        <div class="section-label">Group Course</div>
+        <div class="section-heading">团课</div>
+        <div class="section-sub-heading">直播学习 · 群内答疑 · 7月正式开课</div>
 
-                <table class="price-table">
-                    <tr>
-                        <th>类型</th>
-                        <th>早鸟价（6月预约）</th>
-                        <th>正式价（8月后）</th>
-                    </tr>
-                    <tr>
-                        <td>个人报名</td>
-                        <td><span class="price-val">¥2333</span></td>
-                        <td><span class="price-after">¥2666</span></td>
-                    </tr>
-                    <tr>
-                        <td>双人同行</td>
-                        <td><span class="price-val">¥2000</span> <small style="color:#9b6dca;">/ 人</small></td>
-                        <td><span class="price-after">¥2333 / 人</span></td>
-                    </tr>
-                </table>
-
-                <div class="group-features">
-                    <span class="gf-tag">📡 钉钉直播</span>
-                    <span class="gf-tag">💬 群内答疑</span>
-                    <span class="gf-tag">🎓 IPHM结业证书</span>
-                    <span class="gf-tag">📅 6月开放预约</span>
-                </div>
+        <div class="group-block">
+            <div class="group-block-header">
+                <div class="group-block-title">78张牌 + 常用牌阵入门</div>
+                <span class="coming-tag">7月开课</span>
+            </div>
+            <table class="price-table">
+                <tr>
+                    <th>类型</th>
+                    <th>早鸟价（6月预约）</th>
+                    <th>正式价（8月后）</th>
+                </tr>
+                <tr>
+                    <td>个人报名</td>
+                    <td><span class="pv">¥2333</span></td>
+                    <td><span class="pa">¥2666</span></td>
+                </tr>
+                <tr>
+                    <td>双人同行</td>
+                    <td><span class="pv">¥2000</span> <small style="color:rgba(201,168,76,0.4);font-size:0.8em;">/ 人</small></td>
+                    <td><span class="pa">¥2333 / 人</span></td>
+                </tr>
+            </table>
+            <div class="group-features">
+                <span class="gf-tag">📡 钉钉直播</span>
+                <span class="gf-tag">💬 群内答疑</span>
+                <span class="gf-tag">🎓 IPHM 结业证书</span>
+                <span class="gf-tag">📅 6月开放预约</span>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- 一对一 -->
-    <section class="card">
-        <div class="card-inner">
-            <h2>✦ 一对一 · 深度陪跑</h2>
-            <div class="solo-card">
-                <div class="solo-header">
-                    <div>
-                        <div class="solo-title">全程一对一定制教学</div>
-                        <div class="solo-subtitle">跟着你的节奏走，学到真正会用为止</div>
-                    </div>
-                    <div class="solo-price-block">
-                        <div class="solo-price">¥4888<span>/套</span></div>
-                        <div class="solo-price-note">约25课时 · 签订合同</div>
-                    </div>
-                </div>
+    <div class="course-section">
+        <div class="section-label">One on One</div>
+        <div class="section-heading">一对一</div>
+        <div class="section-sub-heading">深度陪跑 · 跟着你的节奏走</div>
 
-                <div class="solo-grid">
-                    <div class="solo-item">
-                        <div class="solo-item-label">上课形式</div>
-                        <div class="solo-item-value">钉钉直播 + 录屏回放</div>
-                    </div>
-                    <div class="solo-item">
-                        <div class="solo-item-label">上课频率</div>
-                        <div class="solo-item-value">建议一周两节课</div>
-                    </div>
-                    <div class="solo-item">
-                        <div class="solo-item-label">课后作业</div>
-                        <div class="solo-item-value">每节课后布置，下节课批改思路</div>
-                    </div>
-                    <div class="solo-item">
-                        <div class="solo-item-label">课程保障</div>
-                        <div class="solo-item-value">签订正式合同，权益有保障</div>
-                    </div>
+        <div class="solo-block">
+            <div class="solo-header">
+                <div>
+                    <div class="solo-title">全程一对一定制教学</div>
+                    <div class="solo-subtitle">跟着你的节奏走，学到真正会用为止</div>
                 </div>
-
-                <div class="solo-syllabus">
-                    <div class="solo-syllabus-title">— 课程内容 —</div>
-                    <div class="syllabus-list">
-                        <span class="syllabus-tag">78张牌完整解析</span>
-                        <span class="syllabus-tag">经典牌阵解析</span>
-                        <span class="syllabus-tag">泛韦特画面读取</span>
-                        <span class="syllabus-tag">特殊问题解读</span>
-                        <span class="syllabus-tag">玄学 · 寻物 · 怀孕</span>
-                        <span class="syllabus-tag">卡巴拉基础</span>
-                        <span class="syllabus-tag">赫尔墨斯主义</span>
-                        <span class="syllabus-tag">占星初级接触</span>
-                    </div>
+                <div class="solo-price-block">
+                    <div class="solo-price">¥4888<span>/套</span></div>
+                    <div class="solo-price-note">约 25 课时 · 签订合同</div>
                 </div>
             </div>
 
-            <div class="waitlist-banner">
-    <div class="waitlist-text">⏳ 当前名额已满，可加入候补名单，有空位第一时间通知你</div>
-    <button class="waitlist-btn" onclick="document.querySelector('.cta-bar').scrollIntoView({behavior:'smooth'})">加入候补 ↓</button>
-</div>
+            <div class="solo-info-grid">
+                <div class="solo-info-item">
+                    <div class="solo-info-label">上课形式</div>
+                    <div class="solo-info-value">钉钉直播 + 录屏回放</div>
+                </div>
+                <div class="solo-info-item">
+                    <div class="solo-info-label">上课频率</div>
+                    <div class="solo-info-value">建议一周两节课</div>
+                </div>
+                <div class="solo-info-item">
+                    <div class="solo-info-label">课后作业</div>
+                    <div class="solo-info-value">每节课后布置，下节课批改思路</div>
+                </div>
+                <div class="solo-info-item">
+                    <div class="solo-info-label">课程保障</div>
+                    <div class="solo-info-value">签订正式合同，权益有保障</div>
+                </div>
+            </div>
+
+            <div class="syllabus-title">Course Syllabus · 课程内容</div>
+            <div class="syllabus-tags">
+                <span class="syllabus-tag">78张牌完整解析</span>
+                <span class="syllabus-tag">经典牌阵解析</span>
+                <span class="syllabus-tag">泛韦特画面读取</span>
+                <span class="syllabus-tag">特殊问题解读</span>
+                <span class="syllabus-tag">玄学 · 寻物 · 怀孕</span>
+                <span class="syllabus-tag">卡巴拉基础</span>
+                <span class="syllabus-tag">赫尔墨斯主义</span>
+                <span class="syllabus-tag">占星初级接触</span>
+            </div>
         </div>
-    </section>
+
+        <div class="waitlist-bar">
+            <div class="waitlist-text">⏳ 当前名额已满，可加入候补名单，有空位第一时间通知你</div>
+            <button class="waitlist-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">加入候补 →</button>
+        </div>
+    </div>
 
     <!-- 证书 -->
-    <section class="card">
-        <div class="card-inner">
-            <h2>✦ 结业证书</h2>
-            <div class="cert-block">
-                <div class="cert-icon">🏅</div>
-                <div class="cert-info">
-                    <div class="cert-title">IPHM 国际认证结业证书</div>
-                    <div class="cert-desc">
-                        完成团课或一对一课程后，由 IPHM（英国国际身心灵健康机构）认证导师以机构老师名义颁发结业证书。<br>
-                        IPHM 是国际权威的身心灵认证机构，证书具有国际认可度。
-                    </div>
-                    <div class="cert-tags">
-                        <span class="cert-tag">团课 ✓</span>
-                        <span class="cert-tag">一对一 ✓</span>
-                    </div>
+    <div class="course-section">
+        <div class="section-label">Certificate</div>
+        <div class="section-heading">结业证书</div>
+        <div class="section-sub-heading">完成课程后颁发国际认证证书</div>
+
+        <div class="cert-block">
+            <div class="cert-icon">🏅</div>
+            <div class="cert-info">
+                <div class="cert-title">IPHM 国际认证结业证书</div>
+                <div class="cert-desc">
+                    完成团课或一对一课程后，由 IPHM（英国国际身心灵健康机构）认证导师以机构老师名义颁发结业证书。<br>
+                    IPHM 是国际权威的身心灵认证机构，证书具有国际认可度。
+                </div>
+                <div class="cert-tags">
+                    <span class="cert-tag">团课 ✓</span>
+                    <span class="cert-tag">一对一 ✓</span>
+                    <span class="cert-tag">录播课 ✗</span>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- CTA -->
-   <div class="cta-bar">
-    <p>有任何问题欢迎先来聊聊，找到最适合你的学习方式 🔮</p>
-    <iframe data-tally-src="https://tally.so/embed/68AaMJ?alignLeft=1&hideTitle=1&transparentBackground=0&dynamicHeight=1" loading="lazy" width="100%" height="400" frameborder="0" marginheight="0" marginwidth="0"></iframe>
-    <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+    <!-- CTA 联系 -->
+    <div class="cta-section" id="contact">
+        <div class="section-label" style="margin-bottom:0.8rem;">Enrollment</div>
+        <div class="section-heading" style="margin-bottom:0.5rem;">报名咨询</div>
+        <p class="cta-text">有任何问题欢迎先来聊聊，找到最适合你的学习方式 🔮</p>
+        <div class="tally-wrap">
+            <h4>课程报名表单</h4>
+            <iframe data-tally-src="https://tally.so/embed/68AaMJ?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="400" frameborder="0" marginheight="0" marginwidth="0"></iframe>
+            <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+        </div>
+    </div>
+
 </div>
-    <footer>
-        <p>📧 邮箱：<span class="contact-info">bellalab.tarot@outlook.com</span></p>
-        <p>💬 微信：<span class="contact-info">BellaR06</span></p>
-        <p style="margin-top:16px;color:#aaa;font-size:0.85em;">© 2024 塔罗咨询与教学 · 保留所有权利</p>
-    </footer>
-</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-logo">✦ Mímisbrunnr Path ✦</div>
+    <div class="footer-sub">Bella · Tarot & Teaching</div>
+    <div class="footer-info">
+        <a href="mailto:bellalab.tarot@outlook.com">bellalab.tarot@outlook.com</a><br>
+        微信：BellaR06
+    </div>
+    <p class="footer-note">© 2024 Mímisbrunnr Path · 所有解读仅供参考，不替代专业医疗或心理咨询</p>
+</footer>
 
 <script>
-function openWeChat() {
-    var id = "BellaR06";
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(id)
-            .then(function() { alert("微信号已复制！\n\n微信号：" + id); })
-            .catch(function() { alert("微信号：" + id + "\n\n请手动复制添加"); });
-    } else {
-        alert("微信号：" + id + "\n\n请手动复制添加");
+function generateStars() {
+    var container = document.getElementById('stars');
+    if (!container) return;
+    for (var i = 0; i < 120; i++) {
+        var star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 3 + 's';
+        star.style.animationDuration = (2 + Math.random() * 3) + 's';
+        star.style.width = Math.random() > 0.8 ? '3px' : '2px';
+        star.style.height = star.style.width;
+        container.appendChild(star);
     }
 }
+
+window.onload = function() { generateStars(); };
 </script>
 </body>
 </html>
