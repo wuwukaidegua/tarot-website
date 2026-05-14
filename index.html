@@ -58,11 +58,16 @@
 
         /* ══ HERO ══ */
         .hero {
-            height: 100vh;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; position: relative;
-            background: radial-gradient(ellipse at center, var(--royal-purple) 0%, var(--deep-purple) 70%);
-    z-index: 1;  /* ← 加这一行 */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    background: radial-gradient(ellipse at center, var(--royal-purple) 0%, var(--deep-purple) 70%);
+}
 }
         .hero::before {
             content: ''; position: absolute; top: 50%; left: 50%;
