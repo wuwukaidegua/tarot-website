@@ -520,6 +520,28 @@
             .cta-bar { padding: 24px 20px; }
             .solo-card { padding: 22px 18px; }
         }
+        /* ══ 移动端优化 ══ */
+@media (max-width: 520px) {
+    /* 价格表横向滚动 */
+    .group-card { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .price-table { min-width: 380px; }
+
+    /* 套餐横幅竖向 */
+    .bundle-banner {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    /* 一对一价格不换行 */
+    .solo-header { flex-direction: column; gap: 8px; }
+    .solo-price-block { text-align: left; }
+    .solo-price { font-size: 1.6em; }
+
+    /* 路径卡片已有单列处理，OK */
+    
+    /* header缩小 */
+    .course-header h1 { font-size: 1.5em; }
+}
     </style>
 </head>
 <body>
@@ -749,7 +771,7 @@
     </div>
 
     <footer>
-        <p>📧 邮箱：<span class="contact-info">wuwukaidegua@outlook.com</span></p>
+        <p>📧 邮箱：<span class="contact-info">bellalab.tarot@outlook.com</span></p>
         <p>💬 微信：<span class="contact-info">BellaR06</span></p>
         <p style="margin-top:16px;color:#aaa;font-size:0.85em;">© 2024 塔罗咨询与教学 · 保留所有权利</p>
     </footer>
