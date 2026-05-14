@@ -285,6 +285,52 @@
     transform: translateY(-2px);
     box-shadow: 0 5px 18px rgba(80,20,160,0.4);
 }
+        /* ══ 移动端优化 ══ */
+@media (max-width: 480px) {
+    /* 标题缩小 */
+    h1 { font-size: 1.5em; }
+    
+    /* 档期改竖向列表 */
+    .schedule-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .slot {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 14px;
+        text-align: left;
+    }
+    .slot .slot-dot { margin: 0; flex-shrink: 0; }
+    .slot .slot-time { margin: 0; flex: 1; }
+    .slot .slot-label { margin: 0; }
+
+    /* 文章卡片封面缩小 */
+    .article-cover {
+        width: 56px !important;
+        height: 56px !important;
+    }
+    .article-title { font-size: 0.93em; }
+
+    /* 价格卡片单列 */
+    .pricing-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .price-amount { font-size: 1.8em; }
+
+    /* 简介徽章单列 */
+    .intro-grid { grid-template-columns: 1fr; }
+
+    /* header图标缩小 */
+    .hermes-emblem svg:nth-child(2) {
+        width: 40px;
+        height: 55px;
+    }
+}
+
+@media (max-width: 360px) {
+    .pricing-grid { grid-template-columns: 1fr; }
+}
     </style>
 </head>
 <body>
@@ -356,9 +402,13 @@
             </div>
             <div class="philosophy-block">
                 <span class="phi-title">— 咨询理念 —</span>
-                我不是来给你算命的，我是来帮你理清思路、找到方向的。<br>
-                你有疑惑，我们一起梳理；你有困扰，我来陪你看清楚。<br>
-                每一个问题我都认真对待，不催场、有耐心，以解决问题为目标。
+                从一副超市玩具牌开始，靠兴趣自学入门，后来系统拜师学习了一年，
+做了五年，积累了大量真实案例，持有 IPHM 英国国际身心灵认证导师资格。<br>
+               解牌风格比较直接，说话比较委婉。感情问题我特别有耐心，
+可以一起慢慢梳理；事业、投资、创业这类复杂局面反而更让我兴奋——
+不只是"好不好"，而是帮你看清楚在哪儿、往哪走。<br>
+               感情类咨询是我接得最多的，但真正让我着迷的是创业和投资方向。
+你来找我，我认真对待你的问题。
             </div>
             <div class="specialty-tags">
                 <span class="tag">感情关系</span><span class="tag">择业发展</span><span class="tag">商业决策</span>
