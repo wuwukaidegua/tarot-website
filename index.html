@@ -523,6 +523,7 @@
     bottom: 0;
     left: 0;
     right: 0;
+    height: 60px;        /* ← 加这个！固定高度 */
     z-index: 999;
     background: rgba(26,10,46,0.96);
     backdrop-filter: blur(12px);
@@ -531,6 +532,11 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+}
+
+@media (max-width: 768px) {
+    .mobile-nav { display: flex; }
+    body { padding-bottom: 70px; }  /* ← 这个数字要和height一致 */
 }
 
 .mobile-nav-item {
