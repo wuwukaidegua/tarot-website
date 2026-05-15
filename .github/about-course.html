@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mímisbrunnr Path · 课程说明</title>
+    <meta name="description" content="录播课、团课、一对一的详细说明与对比，找到最适合你的学习方式。">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+SC:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-purple: #1a0a2e;
+            --royal-purple: #2d1b69;
+            --mystic-blue: #1e3a5f;
+            --gold: #c9a84c;
+            --gold-light: #e8d48b;
+            --gold-glow: rgba(201,168,76,0.3);
+            --text-light: #e8e0f0;
+            --text-muted: #a89bc2;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Noto Serif SC', serif;
+            background: var(--deep-purple);
+            color: var(--text-light);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* ══ 星空 ══ */
+        .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .star { position: absolute; width: 2px; height: 2px; background: white; border-radius: 50%; animation: twinkle 3s infinite alternate; }
+        @keyframes twinkle { 0% { opacity: 0.2; } 100% { opacity: 1; } }
+
+        /* ══ 导航 ══ */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            padding: 1.2rem 3rem;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(26,10,46,0.95), transparent);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--gold); letter-spacing: 3px; text-decoration: none; }
+
+        .nav-back {
+            display: inline-flex; align-items: center; gap: 8px;
+            color: var(--text-muted); text-decoration: none;
+            font-size: 0.82rem; letter-spacing: 1px; transition: color 0.3s;
+        }
+        .nav-back:hover { color: var(--gold); }
+
+        /* ══ 容器 ══ */
+        .container {
+            max-width: 960px; margin: 0 auto;
+            padding: 120px 3rem 6rem;
+            position: relative; z-index: 1;
+        }
+
+        /* ══ 页头 ══ */
+        .page-hero {
+            text-align: center;
+            padding: 4rem 2rem 3rem;
+        }
+
+        .hero-eyebrow {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.82rem; letter-spacing: 5px;
+            color: rgba(201,168,76,0.55);
+            text-transform: uppercase; margin-bottom: 1.2rem;
+        }
+
+        .page-hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem; font-weight: 300;
+            letter-spacing: 6px; color: var(--gold);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 40px rgba(201,168,76,0.3);
+        }
+
+        .page-hero p {
+            font-size: 0.9rem; color: var(--text-muted);
+            line-height: 2; max-width: 520px;
+            margin: 0 auto; font-weight: 300;
+        }
+
+        /* ══ 通用板块 ══ */
+        .section {
+            padding: 4rem 0;
+            border-bottom: 1px solid rgba(201,168,76,0.08);
+        }
+        .section:last-of-type { border-bottom: none; }
+
+        .section-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.78rem; letter-spacing: 4px;
+            color: rgba(201,168,76,0.5);
+            text-transform: uppercase; margin-bottom: 0.8rem;
+        }
+
+        .section-heading {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem; font-weight: 300;
+            color: var(--gold-light); letter-spacing: 3px;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-sub {
+            font-size: 0.85rem; color: var(--text-muted);
+            font-weight: 300; margin-bottom: 2.5rem;
+        }
+
+        /* ══ 对比表格 ══ */
+        .compare-table-wrap { overflow-x: auto; }
+
+        .compare-table {
+            width: 100%; border-collapse: collapse;
+            font-size: 0.85rem; min-width: 540px;
+        }
+
+        .compare-table th {
+            padding: 1rem 1.2rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400; letter-spacing: 2px;
+            border-bottom: 1px solid rgba(201,168,76,0.2);
+            text-align: center;
+        }
+
+        .compare-table th.col-feature {
+            text-align: left;
+            color: rgba(201,168,76,0.5);
+            font-size: 0.75rem;
+        }
+
+        .compare-table th.col-rec { color: var(--gold-light); }
+        .compare-table th.col-group { color: var(--gold-light); }
+        .compare-table th.col-solo { color: var(--gold); }
+
+        .compare-table td {
+            padding: 0.9rem 1.2rem;
+            color: var(--text-muted);
+            border-bottom: 1px solid rgba(201,168,76,0.05);
+            text-align: center; font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .compare-table td.feature-name {
+            text-align: left;
+            color: rgba(201,168,76,0.7);
+            font-size: 0.8rem; letter-spacing: 1px;
+        }
+
+        .compare-table tr:last-child td { border-bottom: none; }
+        .compare-table tr:hover td { background: rgba(201,168,76,0.02); }
+
+        .check { color: #5de89a; }
+        .cross { color: rgba(168,155,194,0.35); }
+        .partial { color: var(--gold); }
+
+        /* ══ 课程详情卡片 ══ */
+        .course-cards { display: flex; flex-direction: column; gap: 1.5rem; }
+
+        .course-card {
+            border: 1px solid rgba(201,168,76,0.12);
+            background: rgba(45,27,105,0.15);
+            position: relative; overflow: hidden;
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.4;
+        }
+
+        .card-header {
+            padding: 2rem 2.5rem 1.5rem;
+            display: flex; align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap; gap: 1rem;
+            border-bottom: 1px solid rgba(201,168,76,0.08);
+        }
+
+        .card-title-wrap { display: flex; align-items: center; gap: 1rem; }
+        .card-icon { font-size: 1.8rem; opacity: 0.85; }
+
+        .card-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem; color: var(--gold-light);
+            letter-spacing: 2px; margin-bottom: 4px;
+        }
+
+        .card-subtitle { font-size: 0.78rem; color: var(--text-muted); font-weight: 300; letter-spacing: 1px; }
+
+        .card-price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem; color: var(--gold); text-align: right;
+        }
+        .card-price span { font-size: 0.45em; opacity: 0.7; }
+        .card-price-note { font-size: 0.72rem; color: rgba(201,168,76,0.5); margin-top: 2px; text-align: right; letter-spacing: 1px; }
+
+        .card-body { padding: 2rem 2.5rem; }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem; margin-bottom: 1.5rem;
+        }
+
+        .card-info-item {
+            padding: 0.9rem 1.2rem;
+            border: 1px solid rgba(201,168,76,0.08);
+            background: rgba(201,168,76,0.02);
+        }
+
+        .card-info-label {
+            font-size: 0.68rem; letter-spacing: 2px;
+            color: rgba(201,168,76,0.45);
+            text-transform: uppercase; margin-bottom: 5px;
+        }
+
+        .card-info-value {
+            font-size: 0.83rem; color: var(--text-muted);
+            font-weight: 300; line-height: 1.6;
+        }
+
+        .card-content-title {
+            font-size: 0.72rem; letter-spacing: 3px;
+            color: rgba(201,168,76,0.45);
+            text-transform: uppercase; margin-bottom: 12px;
+        }
+
+        .tag-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.5rem; }
+
+        .tag {
+            border: 1px solid rgba(201,168,76,0.15);
+            color: rgba(201,168,76,0.65);
+            font-size: 0.78rem; padding: 4px 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .tag.highlight {
+            border-color: rgba(201,168,76,0.3);
+            color: rgba(201,168,76,0.9);
+            background: rgba(201,168,76,0.05);
+        }
+
+        .notice-bar {
+            padding: 1rem 1.5rem;
+            border: 1px solid rgba(201,168,76,0.12);
+            background: rgba(201,168,76,0.04);
+            font-size: 0.8rem; color: var(--text-muted);
+            line-height: 1.8; font-weight: 300;
+            margin-top: 1rem;
+        }
+
+        .notice-bar strong { color: rgba(201,168,76,0.8); }
+
+        /* ══ 适合人群 ══ */
+        .fit-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .fit-card {
+            padding: 2rem 1.8rem;
+            border: 1px solid rgba(201,168,76,0.1);
+            background: rgba(45,27,105,0.15);
+            position: relative;
+        }
+
+        .fit-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .fit-card:hover::before { opacity: 0.5; }
+
+        .fit-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+
+        .fit-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem; color: var(--gold-light);
+            letter-spacing: 2px; margin-bottom: 1rem;
+        }
+
+        .fit-list { list-style: none; }
+        .fit-list li {
+            font-size: 0.82rem; color: var(--text-muted);
+            line-height: 1.9; font-weight: 300;
+            padding-left: 1rem; position: relative;
+        }
+        .fit-list li::before {
+            content: '·';
+            position: absolute; left: 0;
+            color: rgba(201,168,76,0.5);
+        }
+
+        /* ══ 考试说明 ══ */
+        .exam-block {
+            padding: 2.5rem;
+            border: 1px solid rgba(201,168,76,0.15);
+            background: rgba(45,27,105,0.2);
+            position: relative;
+        }
+
+        .exam-block::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.4;
+        }
+
+        .exam-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem; color: var(--gold-light);
+            letter-spacing: 2px; margin-bottom: 1.5rem;
+        }
+
+        .exam-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem; margin-bottom: 1.5rem;
+        }
+
+        .exam-item {
+            padding: 1rem 1.2rem;
+            border: 1px solid rgba(201,168,76,0.08);
+            background: rgba(201,168,76,0.02);
+        }
+
+        .exam-item-label {
+            font-size: 0.68rem; letter-spacing: 2px;
+            color: rgba(201,168,76,0.45);
+            text-transform: uppercase; margin-bottom: 6px;
+        }
+
+        .exam-item-value {
+            font-size: 0.83rem; color: var(--text-muted);
+            font-weight: 300; line-height: 1.6;
+        }
+
+        .exam-note {
+            font-size: 0.82rem; color: var(--text-muted);
+            line-height: 2; font-weight: 300;
+            padding: 1rem 1.2rem;
+            border-left: 2px solid rgba(201,168,76,0.2);
+        }
+
+        /* ══ FAQ ══ */
+        .faq-list { display: flex; flex-direction: column; gap: 1px; }
+
+        .faq-item {
+            border: 1px solid rgba(201,168,76,0.1);
+            background: rgba(45,27,105,0.12);
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+
+        .faq-item.open { border-color: rgba(201,168,76,0.25); }
+
+        .faq-question {
+            padding: 1.3rem 1.8rem;
+            display: flex; align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            font-size: 0.88rem; color: var(--text-light);
+            letter-spacing: 0.5px; line-height: 1.5;
+            transition: color 0.3s;
+            gap: 1rem;
+        }
+
+        .faq-question:hover { color: var(--gold-light); }
+        .faq-item.open .faq-question { color: var(--gold-light); }
+
+        .faq-arrow {
+            color: rgba(201,168,76,0.4);
+            font-size: 0.8rem; flex-shrink: 0;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.open .faq-arrow { transform: rotate(180deg); color: var(--gold); }
+
+        .faq-answer {
+            max-height: 0; overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s;
+            padding: 0 1.8rem;
+        }
+
+        .faq-answer.open {
+            max-height: 400px;
+            padding: 0 1.8rem 1.3rem;
+        }
+
+        .faq-answer p {
+            font-size: 0.83rem; color: var(--text-muted);
+            line-height: 2; font-weight: 300;
+        }
+
+        .faq-answer strong { color: rgba(201,168,76,0.8); }
+
+        /* ══ CTA ══ */
+        .cta-block {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .cta-text {
+            font-size: 0.88rem; color: var(--text-muted);
+            line-height: 2; margin-bottom: 2rem; font-weight: 300;
+        }
+
+        .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 0.9rem 2.5rem;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 2px; font-size: 0.85rem;
+            transition: all 0.3s;
+            font-family: 'Noto Serif SC', serif;
+        }
+
+        .cta-btn:hover { background: var(--gold); color: var(--deep-purple); }
+
+        .cta-btn.secondary {
+            border-color: rgba(201,168,76,0.3);
+            color: rgba(201,168,76,0.6);
+        }
+
+        .cta-btn.secondary:hover {
+            border-color: var(--gold); color: var(--gold);
+            background: rgba(201,168,76,0.05);
+        }
+
+        /* ══ FOOTER ══ */
+        footer {
+            position: relative; z-index: 1;
+            padding: 3rem; text-align: center;
+            border-top: 1px solid rgba(201,168,76,0.08);
+        }
+        .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--gold); letter-spacing: 4px; margin-bottom: 0.5rem; }
+        .footer-sub { font-size: 0.7rem; color: rgba(201,168,76,0.4); letter-spacing: 3px; margin-bottom: 1.5rem; font-family: 'Cormorant Garamond', serif; }
+        .footer-note { font-size: 0.7rem; color: rgba(168,155,194,0.25); letter-spacing: 1px; }
+
+        /* ══ 汉堡菜单 ══ */
+        .hamburger {
+            display: none; flex-direction: column;
+            gap: 5px; cursor: pointer; padding: 6px; z-index: 1001;
+        }
+        .hamburger span { display: block; width: 22px; height: 1px; background: var(--gold); transition: all 0.3s; }
+        .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+        .mobile-menu {
+            display: none; position: fixed;
+            top: 0; right: -280px; width: 260px; height: 100%;
+            background: rgba(26,10,46,0.98);
+            z-index: 1000; flex-direction: column;
+            justify-content: center; align-items: flex-start;
+            gap: 0; padding: 3rem 2.5rem;
+            border-left: 1px solid rgba(201,168,76,0.15);
+            backdrop-filter: blur(20px);
+            transition: right 0.35s ease;
+        }
+        .mobile-menu.open { display: flex; right: 0; }
+        .mobile-menu a {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem; color: var(--text-muted);
+            text-decoration: none; letter-spacing: 3px;
+            transition: color 0.3s; padding: 0.8rem 0; width: 100%;
+        }
+        .mobile-menu a:hover { color: var(--gold); }
+        .mobile-menu-divider { width: 100%; height: 1px; background: rgba(201,168,76,0.08); }
+        .mobile-menu-backdrop {
+            display: none; position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 999; background: rgba(0,0,0,0.4);
+        }
+        .mobile-menu-backdrop.open { display: block; }
+
+        /* ══ 响应式 ══ */
+        @media (max-width: 768px) {
+            nav { padding: 1rem 1.5rem; }
+            .container { padding: 100px 1.5rem 4rem; }
+            .page-hero h1 { font-size: 2.2rem; }
+            .fit-grid { grid-template-columns: 1fr; }
+            .card-grid { grid-template-columns: 1fr; }
+            .exam-grid { grid-template-columns: 1fr; }
+            .card-header { flex-direction: column; }
+            .card-price-note { text-align: left; }
+            .card-price { text-align: left; }
+            .hamburger { display: flex; }
+        }
+
+        @media (max-width: 480px) {
+            .compare-table { font-size: 0.78rem; }
+            .compare-table th, .compare-table td { padding: 0.7rem 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+
+<!-- 导航 -->
+<nav>
+    <a href="/tarot-website/" class="logo">✦ Mímisbrunnr Path</a>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+    </div>
+    <a href="/tarot-website/course.html" class="nav-back">← 返回课程页</a>
+</nav>
+
+<!-- 遮罩 -->
+<div class="mobile-menu-backdrop" id="menuBackdrop" onclick="toggleMenu()"></div>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="/tarot-website/" onclick="toggleMenu()">主页</a>
+    <div class="mobile-menu-divider"></div>
+    <a href="/tarot-website/course.html" onclick="toggleMenu()">课程详情</a>
+    <div class="mobile-menu-divider"></div>
+    <a href="#compare" onclick="toggleMenu()">课程对比</a>
+    <div class="mobile-menu-divider"></div>
+    <a href="#detail" onclick="toggleMenu()">详细说明</a>
+    <div class="mobile-menu-divider"></div>
+    <a href="#exam" onclick="toggleMenu()">考试说明</a>
+    <div class="mobile-menu-divider"></div>
+    <a href="#faq" onclick="toggleMenu()">常见问题</a>
+</div>
+
+<div class="container">
+
+    <!-- 页头 -->
+    <div class="page-hero">
+        <div class="hero-eyebrow">Mímisbrunnr Path · Course Guide</div>
+        <h1>课程详细说明</h1>
+        <p>录播课、团课、一对一有什么区别？<br>看完这里，找到最适合你的学习方式。</p>
+    </div>
+
+    <!-- 对比表格 -->
+    <div class="section" id="compare">
+        <div class="section-label">Comparison</div>
+        <div class="section-heading">三种课程对比</div>
+        <div class="section-sub">一眼看清楚区别</div>
+
+        <div class="compare-table-wrap">
+            <table class="compare-table">
+                <tr>
+                    <th class="col-feature"></th>
+                    <th class="col-rec">📹 录播课</th>
+                    <th class="col-group">👥 团课</th>
+                    <th class="col-solo">🔮 一对一</th>
+                </tr>
+                <tr>
+                    <td class="feature-name">上课形式</td>
+                    <td>自学视频</td>
+                    <td>钉钉直播</td>
+                    <td>钉钉直播</td>
+                </tr>
+                <tr>
+                    <td class="feature-name">课程回放</td>
+                    <td>永久网盘链接</td>
+                    <td>永久网盘链接</td>
+                    <td>钉钉内下载<br><small style="color:rgba(168,155,194,0.5)">一周内有效</small></td>
+                </tr>
+                <tr>
+                    <td class="feature-name">上课时间</td>
+                    <td>随时开始</td>
+                    <td>固定时间</td>
+                    <td>双方协商</td>
+                </tr>
+                <tr>
+                    <td class="feature-name">课时</td>
+                    <td>初阶11节／中阶27节／进阶6节</td>
+                    <td>约49课时</td>
+                    <td>约25课时<br><small style="color:rgba(168,155,194,0.5)">每节1.5小时</small></td>
+                </tr>
+                <tr>
+                    <td class="feature-name">互动答疑</td>
+                    <td><span class="cross">✗</span></td>
+                    <td>群内统一答疑</td>
+                    <td>实时互动</td>
+                </tr>
+                <tr>
+                    <td class="feature-name">课后作业</td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="check">✓</span> 统一批改</td>
+                    <td><span class="check">✓</span> 每节批改</td>
+                </tr>
+                <tr>
+                    <td class="feature-name">客户手册</td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="check">✓</span></td>
+                    <td><span class="check">✓</span></td>
+                </tr>
+                <tr>
+                    <td class="feature-name">售后支持</td>
+                    <td><span class="cross">✗</span></td>
+                    <td>群内售后一年</td>
+                    <td>永久售后</td>
+                </tr>
+                <tr>
+                    <td class="feature-name">IPHM证书</td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="check">✓ 需通过考试</span></td>
+                    <td><span class="check">✓ 需通过考试</span></td>
+                </tr>
+                <tr>
+                    <td class="feature-name">签订合同</td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="check">✓</span></td>
+                </tr>
+                <tr>
+                    <td class="feature-name">分期付款</td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="cross">✗</span></td>
+                    <td><span class="check">✓</span></td>
+                </tr>
+                <tr>
+                    <td class="feature-name">价格</td>
+                    <td>¥899起／单科<br>¥2888／全套</td>
+                    <td>¥2333起</td>
+                    <td>¥4888／套</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- 详细说明 -->
+    <div class="section" id="detail">
+        <div class="section-label">Detail</div>
+        <div class="section-heading">课程详细说明</div>
+        <div class="section-sub">每种课程的完整内容</div>
+
+        <div class="course-cards">
+
+            <!-- 录播课 -->
+            <div class="course-card">
+                <div class="card-header">
+                    <div class="card-title-wrap">
+                        <div class="card-icon">📹</div>
+                        <div>
+                            <div class="card-title">录播课</div>
+                            <div class="card-subtitle">自学 · 随时开始 · 永久回看</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card-price">¥899<span> 起／单科</span></div>
+                        <div class="card-price-note">¥2888 全套 · 省¥711</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-grid">
+                        <div class="card-info-item">
+                            <div class="card-info-label">上课形式</div>
+                            <div class="card-info-value">自学视频，提供永久百度网盘链接</div>
+                        </div>
+                        <div class="card-info-item">
+                            <div class="card-info-label">上课时间</div>
+                            <div class="card-info-value">随时开始，按自己节奏来</div>
+                        </div>
+                        <div class="card-info-item">
+                            <div class="card-info-label">单节时长</div>
+                            <div class="card-info-value">约40分钟／节</div>
+                        </div>
+                        <div class="card-info-item">
+                            <div class="card-info-label">售后支持</div>
+                            <div class="card-info-value">无售后，需自律完成学习</div>
+                        </div>
+                    </div>
+
+                    <div class="card-content-title">Course Content · 课程内容</div>
+                    <div class="tag-wrap">
+                        <span class="tag highlight">初阶 · 大阿尔卡那精讲 · 约11节</span>
+                        <span class="tag highlight">中阶 · 小阿尔卡那精讲 · 约27节</span>
+                        <span class="tag highlight">进阶 · 牌阵与案例赏析 · 约6节</span>
+                    </div>
+
+                    <div class="notice-bar">
+                        ⚠️ 录播课<strong>没有答疑、没有作业批改、没有证书</strong>，适合自律性强、预算有限、想先系统入门的同学。课后一定要多练习，光看视频是不够的。
+                    </div>
+                </div>
+            </div>
+
+            <!-- 团课 -->
+            <div class="course-card">
+                <div class="card-header">
+                    <div class="card-title-wrap">
+                        <div class="card-icon">👥</div>
+                        <div>
+                            <div class="card-title">团课</div>
+                            <div class="card-subtitle">直播学习 · 群内答疑 · 7月开课</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card-price">¥2333<span> 起</span></div>
+                        <div class="card-price-note">早鸟价 · 6月预约</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-grid">
+                        <div class="card-info-item">
+                            <div class="card-info-label">上课形式</div>
+                            <div class="card-info-value">钉钉直播 + 永久百度网盘回放</div>
+                        </div>
+                        <div class="card-info-item">
+                            <div class="card-info-label">上课时间</div>
+                            <div class="card-info-value">固定时间，7月正式开课</div>
+                        </div>
+                        <div class="card-info-item">
+                            <div class="card-info-label">课时</div>
+                            <div class="card-info-value">约49课时（含扩展内容）</div>
+                        </div>
+                        <div class="card-info-item">
+                            <div class="card-info-label">售后支持</div>
+                            <div class="card-info-value">群内售后一年</div>
+                        </div>
+                        <div class="card-info-item">
+                            <div class="card-info-label">课后作业</div>
+                            <div class="card-info-value">每节有作业，统一收集批改</div>
+                        </div>
+                        <div class="card-info-item">
+                            <div class="card-info-label">答疑方式</div>
+                            <div class="card-info-value">群内统一答疑，不单独私聊</div>
+                        </div>
+                    </div>
+
+                    <div class="card-content-title">Course Content · 课程内容</div>
+                    <div class="tag-wrap">
+                        <span class="tag">78张完整解析</span>
+                        <span class="tag">常用牌阵</span>
+                        <span class="tag">泛韦特扩展</span>
+                        <span class="tag highlight">客户手册</span>
+                        <span class="tag highlight">IPHM结业证书</span>
+                        <span class="tag highlight">群内讨论交流</span>
+                    </div>
+
+                    <div class="notice-bar">
+                        📋 团课内容涵盖录播课全部内容，<strong>额外增加客户手册与泛韦特扩展</strong>。有同学一起学、群里可以互相交流反馈，适合想有学习氛围的你。<br>
+                        ⚠️ 课后不练习、作业不写，到牌阵听不懂的时候<strong>请不要来找我退款</strong>，学习效果取决于你自己的投入。
+                    </div>
+                </div>
+            </div>
+
+            <!-- 一对一 -->
+            <div class="course-card">
+                <div class="card-header">
+                    <div class="card-title-wrap">
+                        <div class="card-icon">🔮</div>
+                        <div>
+                            <div class="card-title">一对一</div>
+                            <div class="card-subtitle">深度陪跑 · 跟着你的节奏走</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card-price">¥4888<span>／套</span></div>
+                        <div class="card-price-note">可分期 · 签订合同</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-grid">
+                        <div class="card-info-item">
+                            <div class="card-info-label">上课形式</div>
+                            <div class="card-info-value">钉钉直播，实时互动</div>
+                        </div>
+                        <div class="card-info-item">
+                            <div class="card-info-label">课程回放</div>
+                            <div class="card-info-value">钉钉内自行下载，<strong style="color:rgba(201,168,76,0.7)">一周内有效</strong>，过期不补</div>
+                        </div>
+                        <div class="card-info-item">
+                            <div class="card-info-label">课时</div>
+                            <div class="card-info-value">约25课时，每节1.5小时<br><small style="color:rgba(168,155,194,0.5)">牌阵部分按个人理解速度浮动</small></div>
+                        </div>
+                        <div class="card-info-item">
+                            <div class="card-info-label">上课频率</div>
+                            <div class="card-info-value">建议每周两节</div>
+                        </div>
+                        <div class="card-info-item">
+                            <div class="card-info-label">课后作业</div>
+                            <div class="card-info-value">每节布置，下节课批改思路</div>
+                        </div>
+                        <div class="card-info-item">
+                            <div class="card-info-label">售后支持</div>
+                            <div class="card-info-value">永久售后</div>
+                        </div>
+                    </div>
+
+                    <div class="card-content-title">Course Content · 课程内容</div>
+                    <div class="tag-wrap">
+                        <span class="tag">78张完整解析</span>
+                        <span class="tag">20个牌阵</span>
+                        <span class="tag">泛韦特体系</span>
+                        <span class="tag">特殊问题解读</span>
+                        <span class="tag">灵体·寻物·怀孕</span>
+                        <span class="tag">赫尔墨斯主义</span>
+                        <span class="tag">占星入门</span>
+                        <span class="tag">卡巴拉入门</span>
+                        <span class="tag highlight">客户手册</span>
+                        <span class="tag highlight">IPHM结业证书</span>
+                        <span class="tag highlight">永久售后</span>
+                        <span class="tag highlight">签订合同</span>
+                    </div>
+
+                    <div class="notice-bar">
+                        📋 <strong>预约方式：</strong>私信我预约，确认开始时间后支付定金签合同，截止日期前补尾款，合同正式生效。可分期付款。<br>
+                        ⚠️ 钉钉回放<strong>请在一周内自行下载</strong>，过期后只能看转文字记录，不负责补发。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 考试说明 -->
+    <div class="section" id="exam">
+        <div class="section-label">Examination</div>
+        <div class="section-heading">结业考试说明</div>
+        <div class="section-sub">团课 · 一对一均需通过考试方可获得IPHM证书</div>
+
+        <div class="exam-block">
+            <div class="exam-title">🎓 考试是什么形式？</div>
+            <div class="exam-grid">
+                <div class="exam-item">
+                    <div class="exam-item-label">考试形式</div>
+                    <div class="exam-item-value">直播实时解牌，不提前公布题目</div>
+                </div>
+                <div class="exam-item">
+                    <div class="exam-item-label">题目更新</div>
+                    <div class="exam-item-value">题目定期更新，无固定答案</div>
+                </div>
+                <div class="exam-item">
+                    <div class="exam-item-label">评分标准</div>
+                    <div class="exam-item-value">考察解牌思路与逻辑，非标准答案</div>
+                </div>
+                <div class="exam-item">
+                    <div class="exam-item-label">团课防串题</div>
+                    <div class="exam-item-value">团课学员分组考试，防止答案流通</div>
+                </div>
+            </div>
+            <div class="exam-note">
+                塔罗解牌没有唯一正确答案，考试考察的是你对牌面的理解和解读逻辑。只要认真学习、课后多练习，通过考试并不难。鼓励大家学完之后多互相交流、给彼此反馈，这是进步最快的方式。
+            </div>
+        </div>
+    </div>
+
+    <!-- 适合人群 -->
+    <div class="section" id="fit">
+        <div class="section-label">Which One</div>
+        <div class="section-heading">我适合哪种课程？</div>
+        <div class="section-sub">三种类型，对号入座</div>
+
+        <div class="fit-grid">
+            <div class="fit-card">
+                <div class="fit-icon">📹</div>
+                <div class="fit-title">选录播课，如果你…</div>
+                <ul class="fit-list">
+                    <li>预算有限，先入门再说</li>
+                    <li>时间碎片化，想自己安排节奏</li>
+                    <li>自律性强，不需要督促</li>
+                    <li>暂时不需要证书</li>
+                    <li>想先试试水，看看自己感不感兴趣</li>
+                </ul>
+            </div>
+            <div class="fit-card">
+                <div class="fit-icon">👥</div>
+                <div class="fit-title">选团课，如果你…</div>
+                <ul class="fit-list">
+                    <li>喜欢和同学一起学习的氛围</li>
+                    <li>想要答疑和售后支持</li>
+                    <li>希望拿到IPHM结业证书</li>
+                    <li>能适应固定上课时间</li>
+                    <li>预算在中等范围</li>
+                </ul>
+            </div>
+            <div class="fit-card">
+                <div class="fit-icon">🔮</div>
+                <div class="fit-title">选一对一，如果你…</div>
+                <ul class="fit-list">
+                    <li>想要完全定制化的学习体验</li>
+                    <li>希望学得快、学得深、学得扎实</li>
+                    <li>时间不固定，需要灵活安排</li>
+                    <li>想要永久售后和合同保障</li>
+                    <li>目标是系统掌握塔罗全体系</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="section" id="faq">
+        <div class="section-label">FAQ</div>
+        <div class="section-heading">常见问题</div>
+        <div class="section-sub">有疑问先看这里</div>
+
+        <div class="faq-list" id="faqList"></div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-block">
+        <p class="cta-text">看完还有疑问？欢迎直接来聊 🔮</p>
+        <div class="cta-buttons">
+            <a href="/tarot-website/course.html" class="cta-btn">查看课程与报名</a>
+            <a href="/tarot-website/#booking" class="cta-btn secondary">联系我咨询</a>
+        </div>
+    </div>
+
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-logo">✦ Mímisbrunnr Path ✦</div>
+    <div class="footer-sub">Bella · Tarot & Teaching</div>
+    <p class="footer-note">© 2024 Mímisbrunnr Path · 所有解读仅供参考，不替代专业医疗或心理咨询</p>
+</footer>
+
+<script>
+// ══ FAQ数据 ══
+var faqData = [
+    {
+        q: "零基础可以学吗？",
+        a: "可以，所有课程都是从零开始教的。不需要任何基础，只要对塔罗感兴趣、愿意认真学就行。"
+    },
+    {
+        q: "需要提前准备塔罗牌吗？",
+        a: "需要。建议在开课前准备好一副塔罗牌，推荐泛韦特系（Rider-Waite系列或其衍生牌）。具体可以报名后咨询我，我可以给你推荐适合新手的牌。"
+    },
+    {
+        q: "上课用什么软件？",
+        a: "团课和一对一均使用<strong>钉钉直播</strong>。团课回放会上传至百度网盘，永久可看。一对一回放请在钉钉内一周内自行下载，过期后仅能查看转文字记录，不负责补发。"
+    },
+    {
+        q: "团课什么时候开课？",
+        a: "团课计划<strong>7月正式开课</strong>，6月开放早鸟预约，早鸟价¥2333（正式价¥2666）。双人同行早鸟价¥2000/人。"
+    },
+    {
+        q: "可以分期付款吗？",
+        a: "<strong>一对一可以分期</strong>，具体分期方式私信协商。团课和录播课<strong>不接受分期</strong>，需全额付款。"
+    },
+    {
+        q: "考试是什么形式？通过率高吗？",
+        a: "考试为<strong>直播实时解牌</strong>，不提前公布题目，题目定期更新，没有固定答案。考察的是你对牌面的理解和解读逻辑，不是死记硬背。认真学习、课后多练习的同学基本都能通过。团课学员分组考试防止串题。"
+    },
+    {
+        q: "学完能直接给别人解牌吗？",
+        a: "课程结束后你会掌握系统的解牌方法和思路，但<strong>成为真正厉害的解牌师需要时间和经验积累</strong>。我自己也花了两年才不会对着牌懵逼——所有的理解都需要大量练习和阅历来支撑。鼓励大家多练习、多交流、互相给反馈，这是进步最快的方式。"
+    },
+    {
+        q: "一对一怎么预约？",
+        a: "私信我预约，双方确认好开始时间后，<strong>支付定金并签订合同</strong>，在约定截止日期前补尾款，合同正式生效。可以分期付款，具体方式私信协商。"
+    },
+    {
+        q: "团课的答疑是怎么进行的？",
+        a: "团课有专属学员群，答疑在群内统一进行，不单独私聊。课后作业统一收集批改，有问题在群里提问大家都能看到，也鼓励同学之间互相讨论。"
+    }
+];
+
+// ══ FAQ渲染 ══
+function renderFAQ() {
+    var list = document.getElementById('faqList');
+    if (!list) return;
+    var html = '';
+    for (var i = 0; i < faqData.length; i++) {
+        html += '<div class="faq-item" id="faq-' + i + '">' +
+            '<div class="faq-question" onclick="toggleFAQ(' + i + ')">' +
+                '<span>' + faqData[i].q + '</span>' +
+                '<span class="faq-arrow">▾</span>' +
+            '</div>' +
+            '<div class="faq-answer" id="faq-answer-' + i + '">' +
+                '<p>' + faqData[i].a + '</p>' +
+            '</div>' +
+        '</div>';
+    }
+    list.innerHTML = html;
+}
+
+function toggleFAQ(index) {
+    var item = document.getElementById('faq-' + index);
+    var answer = document.getElementById('faq-answer-' + index);
+    var isOpen = item.classList.contains('open');
+    // 关掉所有
+    var allItems = document.querySelectorAll('.faq-item');
+    var allAnswers = document.querySelectorAll('.faq-answer');
+    for (var i = 0; i < allItems.length; i++) {
+        allItems[i].classList.remove('open');
+        allAnswers[i].classList.remove('open');
+    }
+    // 如果原来是关的就打开
+    if (!isOpen) {
+        item.classList.add('open');
+        answer.classList.add('open');
+    }
+}
+
+// ══ 汉堡菜单 ══
+function toggleMenu() {
+    var hamburger = document.getElementById('hamburger');
+    var menu = document.getElementById('mobileMenu');
+    var backdrop = document.getElementById('menuBackdrop');
+    hamburger.classList.toggle('open');
+    menu.classList.toggle('open');
+    backdrop.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+}
+
+// ══ 星星 ══
+function generateStars() {
+    var container = document.getElementById('stars');
+    if (!container) return;
+    for (var i = 0; i < 120; i++) {
+        var star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 3 + 's';
+        star.style.animationDuration = (2 + Math.random() * 3) + 's';
+        star.style.width = Math.random() > 0.8 ? '3px' : '2px';
+        star.style.height = star.style.width;
+        container.appendChild(star);
+    }
+}
+
+window.onload = function() {
+    generateStars();
+    renderFAQ();
+};
+</script>
+</body>
+</html>
