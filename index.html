@@ -516,61 +516,7 @@
 @media (max-width: 360px) {
     .price-grid { grid-template-columns: 1fr; }
 }
-        /* ══ 手机底部导航 ══ */
-.mobile-nav {
-    display: none;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 60px;        /* ← 加这个！固定高度 */
-    z-index: 999;
-    background: rgba(26,10,46,0.96);
-    backdrop-filter: blur(12px);
-    border-top: 1px solid rgba(201,168,76,0.15);
-    padding: 8px 0 max(8px, env(safe-area-inset-bottom));
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-}
-
-@media (max-width: 768px) {
-    .mobile-nav { display: flex; }
-    body { padding-bottom: 70px; }  /* ← 这个数字要和height一致 */
-}
-
-.mobile-nav-item {
-    pointer-events: auto;
-}
-
-.mobile-nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3px;
-    text-decoration: none;
-    color: var(--text-muted);
-    flex: 1;
-    padding: 4px 0;
-    transition: color 0.3s;
-}
-
-.mobile-nav-item:hover,
-.mobile-nav-item.active {
-    color: var(--gold);
-}
-
-.mobile-nav-icon {
-    font-size: 1.2rem;
-    line-height: 1;
-}
-
-.mobile-nav-label {
-    font-size: 0.65rem;
-    letter-spacing: 1px;
-    font-family: 'Noto Serif SC', serif;
-}
-        /* ══ 证书缩略图 ══ */
+    /* ══ 证书缩略图 ══ */
 .cert-thumb-wrap {
     position: relative;
     width: 140px;
@@ -639,7 +585,73 @@
 /* ══ 手机底部导航 ══ */
 @media (max-width: 768px) {
     .mobile-nav { display: flex; }
-    body { padding-bottom: 60px; }
+}
+        /* ══ 汉堡菜单 ══ */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 6px;
+    z-index: 1001;
+}
+
+.hamburger span {
+    display: block;
+    width: 22px;
+    height: 1px;
+    background: var(--gold);
+    transition: all 0.3s;
+}
+
+.hamburger.open span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+
+.hamburger.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(26,10,46,0.97);
+    z-index: 1000;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.mobile-menu.open { display: flex; }
+
+.mobile-menu a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 4px;
+    transition: color 0.3s;
+}
+
+.mobile-menu a:hover { color: var(--gold); }
+
+.mobile-menu-divider {
+    width: 40px;
+    height: 1px;
+    background: rgba(201,168,76,0.2);
+}
+
+@media (max-width: 768px) {
+    .hamburger { display: flex; }
+    .nav-center { display: none; }
+    .nav-social { display: none; }
 }
     </style>
 </head>
@@ -649,6 +661,11 @@
 <!-- 导航 -->
 <nav>
     <div class="logo">✦ Mímisbrunnr Path</div>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
     <ul class="nav-center">
         <li><a href="#about">关于我</a></li>
         <li><a href="#notice">咨询须知</a></li>
@@ -668,6 +685,21 @@
         </a>
     </div>
 </nav>
+
+<!-- 手机全屏菜单 -->
+<div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="toggleMenu()">关于我</a>
+    <div class="mobile-menu-divider"></div>
+    <a href="#notice" onclick="toggleMenu()">咨询须知</a>
+    <div class="mobile-menu-divider"></div>
+    <a href="#pricing" onclick="toggleMenu()">服务价格</a>
+    <div class="mobile-menu-divider"></div>
+    <a href="#articles" onclick="toggleMenu()">知识专栏</a>
+    <div class="mobile-menu-divider"></div>
+    <a href="#booking" onclick="toggleMenu()">预约咨询</a>
+    <div class="mobile-menu-divider"></div>
+    <a href="/tarot-website/course.html" onclick="toggleMenu()">课程详情</a>
+</div>
 
 <!-- Hero -->
 <section class="hero">
@@ -1080,35 +1112,19 @@ function closeLightbox(e) {
         document.body.style.overflow = '';
     }
 }
+    // ══ 汉堡菜单 ══
+function toggleMenu() {
+    var hamburger = document.getElementById('hamburger');
+    var menu = document.getElementById('mobileMenu');
+    hamburger.classList.toggle('open');
+    menu.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+}
 </script>
     <!-- 灯箱 -->
 <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
     <span class="lightbox-close" onclick="closeLightbox()">×</span>
     <img class="lightbox-img" id="lightboxImg" src="" alt="">
 </div>
-
-<!-- 手机底部导航 -->
-<nav class="mobile-nav">
-    <a href="#about" class="mobile-nav-item">
-        <span class="mobile-nav-icon">☽</span>
-        <span class="mobile-nav-label">关于我</span>
-    </a>
-    <a href="#notice" class="mobile-nav-item">
-        <span class="mobile-nav-icon">✦</span>
-        <span class="mobile-nav-label">须知</span>
-    </a>
-    <a href="#pricing" class="mobile-nav-item">
-        <span class="mobile-nav-icon">✧</span>
-        <span class="mobile-nav-label">价格</span>
-    </a>
-    <a href="#articles" class="mobile-nav-item">
-        <span class="mobile-nav-icon">📖</span>
-        <span class="mobile-nav-label">专栏</span>
-    </a>
-    <a href="#booking" class="mobile-nav-item">
-        <span class="mobile-nav-icon">🔮</span>
-        <span class="mobile-nav-label">预约</span>
-    </a>
-</nav>
 </body>
 </html>
