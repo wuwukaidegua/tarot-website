@@ -562,6 +562,77 @@
     letter-spacing: 1px;
     font-family: 'Noto Serif SC', serif;
 }
+        /* ══ 证书缩略图 ══ */
+.cert-thumb-wrap {
+    position: relative;
+    width: 140px;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(201,168,76,0.3);
+    overflow: hidden;
+}
+
+.cert-thumb {
+    width: 100%;
+    display: block;
+    filter: brightness(0.85);
+    transition: filter 0.3s;
+}
+
+.cert-thumb-wrap:hover .cert-thumb { filter: brightness(1); }
+
+.cert-thumb-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(26,10,46,0.75);
+    color: rgba(201,168,76,0.9);
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 6px;
+    transition: opacity 0.3s;
+}
+
+/* ══ 灯箱 ══ */
+.lightbox-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(10,5,20,0.92);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.lightbox-overlay.active { display: flex; }
+
+.lightbox-img {
+    max-width: 90vw;
+    max-height: 88vh;
+    object-fit: contain;
+    border: 1px solid rgba(201,168,76,0.2);
+    box-shadow: 0 0 60px rgba(201,168,76,0.1);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 1.5rem; right: 2rem;
+    color: rgba(201,168,76,0.7);
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.3s;
+}
+
+.lightbox-close:hover { color: var(--gold); }
+
+/* ══ 手机底部导航 ══ */
+@media (max-width: 768px) {
+    .mobile-nav { display: flex; }
+    body { padding-bottom: 60px; }
+}
     </style>
 </head>
 <body>
@@ -636,6 +707,11 @@
             <h3>Bella</h3>
             <div class="name-sub">Mímisbrunnr Path · IPHM Certified</div>
             <div class="cert-badge">🏅 IPHM 英国国际身心灵健康机构 · 认证导师</div>
+            <!-- 证书缩略图 -->
+<div class="cert-thumb-wrap" onclick="openLightbox('./letter-mimisbrunnr-path-2025-07-03-1_0_.jpg')">
+    <img src="./letter-mimisbrunnr-path-2025-07-03-1_0_.jpg" alt="IPHM认证证书" class="cert-thumb">
+    <div class="cert-thumb-overlay">🔍 点击查看证书</div>
+</div>
             <p>从一副超市玩具牌开始，靠兴趣自学入门，后来系统拜师学习了一年。做了五年，积累了大量真实案例，持有 IPHM 英国国际身心灵认证导师资格。</p>
             <p>解牌风格比较直接，说话比较委婉。感情问题我特别有耐心，可以一起慢慢梳理；事业、投资、创业这类复杂局面反而更让我兴奋——不只是「好不好」，而是帮你看清楚在哪儿、往哪走。</p>
             <div class="specialty-row">
@@ -983,6 +1059,48 @@ window.onload = function() {
     renderFilters();
     renderArticles('全部');
 };
+    // ══ 灯箱 ══
+function openLightbox(src) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox(e) {
+    if (!e || e.target !== document.getElementById('lightboxImg')) {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
 </script>
+    <!-- 灯箱 -->
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+    <span class="lightbox-close" onclick="closeLightbox()">×</span>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="">
+</div>
+
+<!-- 手机底部导航 -->
+<nav class="mobile-nav">
+    <a href="#about" class="mobile-nav-item">
+        <span class="mobile-nav-icon">☽</span>
+        <span class="mobile-nav-label">关于我</span>
+    </a>
+    <a href="#notice" class="mobile-nav-item">
+        <span class="mobile-nav-icon">✦</span>
+        <span class="mobile-nav-label">须知</span>
+    </a>
+    <a href="#pricing" class="mobile-nav-item">
+        <span class="mobile-nav-icon">✧</span>
+        <span class="mobile-nav-label">价格</span>
+    </a>
+    <a href="#articles" class="mobile-nav-item">
+        <span class="mobile-nav-icon">📖</span>
+        <span class="mobile-nav-label">专栏</span>
+    </a>
+    <a href="#booking" class="mobile-nav-item">
+        <span class="mobile-nav-icon">🔮</span>
+        <span class="mobile-nav-label">预约</span>
+    </a>
+</nav>
 </body>
 </html>
