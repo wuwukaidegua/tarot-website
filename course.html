@@ -576,6 +576,73 @@
             .group-block { overflow-x: auto; padding: 1.5rem; }
             .price-table { min-width: 360px; }
         }
+        /* ══ 证书图片组 ══ */
+.cert-images {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.cert-thumb-wrap {
+    position: relative;
+    cursor: pointer;
+    border: 1px solid rgba(201,168,76,0.3);
+    overflow: hidden;
+    width: 180px;
+}
+
+.cert-thumb-portrait {
+    width: 110px;
+}
+
+.cert-thumb {
+    width: 100%;
+    display: block;
+    filter: brightness(0.85);
+    transition: filter 0.3s;
+}
+
+.cert-thumb-wrap:hover .cert-thumb { filter: brightness(1); }
+
+.cert-thumb-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(26,10,46,0.75);
+    color: rgba(201,168,76,0.9);
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 6px;
+}
+
+/* 灯箱（course页复用） */
+.lightbox-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(10,5,20,0.92);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+.lightbox-overlay.active { display: flex; }
+.lightbox-img {
+    max-width: 90vw;
+    max-height: 88vh;
+    object-fit: contain;
+    border: 1px solid rgba(201,168,76,0.2);
+}
+.lightbox-close {
+    position: absolute;
+    top: 1.5rem; right: 2rem;
+    color: rgba(201,168,76,0.7);
+    font-size: 2rem;
+    cursor: pointer;
+}
+.lightbox-close:hover { color: var(--gold); }
     </style>
 </head>
 <body>
@@ -789,21 +856,31 @@
         <div class="section-sub-heading">完成课程后颁发国际认证证书</div>
 
         <div class="cert-block">
-            <div class="cert-icon">🏅</div>
-            <div class="cert-info">
-                <div class="cert-title">IPHM 国际认证结业证书</div>
-                <div class="cert-desc">
-                    完成团课或一对一课程后，由 IPHM（英国国际身心灵健康机构）认证导师以机构老师名义颁发结业证书。<br>
-                    IPHM 是国际权威的身心灵认证机构，证书具有国际认可度。
-                </div>
-                <div class="cert-tags">
-                    <span class="cert-tag">团课 ✓</span>
-                    <span class="cert-tag">一对一 ✓</span>
-                    <span class="cert-tag">录播课 ✗</span>
-                </div>
+    <div class="cert-icon">🏅</div>
+    <div class="cert-info">
+        <div class="cert-title">IPHM 国际认证结业证书</div>
+        <div class="cert-desc">
+            完成团课或一对一课程后，由 IPHM（英国国际身心灵健康机构）认证导师以机构老师名义颁发结业证书。<br>
+            IPHM 是国际权威的身心灵认证机构，证书具有国际认可度。
+        </div>
+        <div class="cert-tags">
+            <span class="cert-tag">团课 ✓</span>
+            <span class="cert-tag">一对一 ✓</span>
+            <span class="cert-tag">录播课 ✗</span>
+        </div>
+        <!-- 两张证书 -->
+        <div class="cert-images">
+            <div class="cert-thumb-wrap" onclick="openLightbox('./certificate-mimisbrunnr-path-2026-a1d7_.jpg')">
+                <img src="./certificate-mimisbrunnr-path-2026-a1d7_.jpg" alt="IPHM机构证书" class="cert-thumb">
+                <div class="cert-thumb-overlay">🔍 机构证书</div>
+            </div>
+            <div class="cert-thumb-wrap" onclick="openLightbox('./letter-mimisbrunnr-path-2025-07-03-1_0_.jpg')">
+                <img src="./letter-mimisbrunnr-path-2025-07-03-1_0_.jpg" alt="个人认证证书" class="cert-thumb cert-thumb-portrait">
+                <div class="cert-thumb-overlay">🔍 个人证书</div>
             </div>
         </div>
     </div>
+</div>
 
     <!-- CTA 联系 -->
     <div class="cta-section" id="contact">
@@ -848,6 +925,22 @@ function generateStars() {
 }
 
 window.onload = function() { generateStars(); };
+    function openLightbox(src) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+function closeLightbox(e) {
+    if (!e || e.target !== document.getElementById('lightboxImg')) {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
 </script>
+    <!-- 灯箱 -->
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+    <span class="lightbox-close" onclick="closeLightbox()">×</span>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="">
+</div>
 </body>
 </html>
