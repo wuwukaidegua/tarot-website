@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>灵数计算 · Mímisbrunnr Path</title>
+    <meta name="description" content="输入出生年月日，计算你的生命数字与年度运势数字。">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+SC:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-purple: #1a0a2e;
+            --royal-purple: #2d1b69;
+            --mystic-blue: #1e3a5f;
+            --gold: #c9a84c;
+            --gold-light: #e8d48b;
+            --gold-glow: rgba(201,168,76,0.3);
+            --text-light: #e8e0f0;
+            --text-muted: #a89bc2;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Noto Serif SC', serif;
+            background: var(--deep-purple);
+            color: var(--text-light);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+        .star { position: absolute; width: 2px; height: 2px; background: white; border-radius: 50%; animation: twinkle 3s infinite alternate; }
+        @keyframes twinkle { 0% { opacity: 0.2; } 100% { opacity: 1; } }
+
+        .top-bar {
+            position: fixed; top: 0; width: 100%;
+            padding: 1.2rem 3rem;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(26,10,46,0.95), transparent);
+            backdrop-filter: blur(10px);
+        }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--gold); letter-spacing: 3px; text-decoration: none; }
+        .back-link { color: var(--text-muted); text-decoration: none; font-size: 0.82rem; letter-spacing: 1px; transition: color 0.3s; }
+        .back-link:hover { color: var(--gold); }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header { text-align: center; margin-bottom: 4rem; }
+        .page-symbol { font-size: 2.5rem; margin-bottom: 1rem; opacity: 0.8; }
+        .page-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--gold);
+            letter-spacing: 4px;
+            margin-bottom: 0.5rem;
+        }
+        .page-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            font-weight: 300;
+        }
+        .page-divider { width: 60px; height: 1px; background: var(--gold); margin: 2rem auto 0; }
+
+        .input-section {
+            border: 1px solid rgba(201,168,76,0.15);
+            background: rgba(45,27,105,0.2);
+            padding: 2.5rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .input-label {
+            font-size: 0.82rem;
+            color: rgba(201,168,76,0.7);
+            letter-spacing: 2px;
+            margin-bottom: 1.2rem;
+            text-align: center;
+        }
+
+        .date-inputs {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .date-field {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .date-field label {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        .date-field input {
+            width: 90px;
+            padding: 10px 12px;
+            background: rgba(26,10,46,0.6);
+            border: 1px solid rgba(201,168,76,0.2);
+            color: var(--text-light);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            text-align: center;
+            letter-spacing: 2px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .date-field input:focus { border-color: var(--gold); }
+        .date-field input::placeholder { color: rgba(168,155,194,0.3); }
+
+        .calc-btn {
+            display: block;
+            margin: 0 auto;
+            padding: 0.9rem 3rem;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            background: transparent;
+            font-size: 0.88rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            font-family: 'Noto Serif SC', serif;
+            transition: all 0.4s;
+        }
+
+        .calc-btn:hover {
+            background: var(--gold);
+            color: var(--deep-purple);
+            box-shadow: 0 0 30px var(--gold-glow);
+        }
+
+        .result-section { display: none; margin-top: 2rem; }
+        .result-section.show { display: block; }
+
+        .result-card {
+            border: 1px solid rgba(201,168,76,0.15);
+            background: rgba(45,27,105,0.2);
+            padding: 2.5rem 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .result-card-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            color: rgba(201,168,76,0.6);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .result-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+            text-align: center;
+        }
+
+        .result-name {
+            font-size: 1.05rem;
+            color: var(--gold-light);
+            letter-spacing: 2px;
+            margin-bottom: 0.3rem;
+            text-align: center;
+        }
+
+        .result-name-en {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.82rem;
+            color: rgba(201,168,76,0.5);
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .result-desc {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 2.1;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        .result-desc-en {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.82rem;
+            color: rgba(168,155,194,0.5);
+            line-height: 1.9;
+            font-style: italic;
+            margin-bottom: 1.2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(201,168,76,0.08);
+        }
+
+        .result-lesson {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 2;
+            font-weight: 300;
+            padding: 1rem 1.2rem;
+            border-left: 2px solid rgba(201,168,76,0.3);
+            background: rgba(201,168,76,0.03);
+            margin-bottom: 1rem;
+        }
+
+        .result-lesson-title {
+            font-size: 0.75rem;
+            color: rgba(201,168,76,0.7);
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+        }
+
+        .result-lesson-en {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.78rem;
+            color: rgba(168,155,194,0.45);
+            font-style: italic;
+            margin-top: 6px;
+            line-height: 1.7;
+        }
+
+        .result-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(201,168,76,0.1);
+        }
+
+        .result-keyword {
+            border: 1px solid rgba(201,168,76,0.2);
+            color: rgba(201,168,76,0.7);
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            letter-spacing: 1px;
+        }
+
+        .calc-process {
+            font-size: 0.78rem;
+            color: rgba(168,155,194,0.5);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+            line-height: 1.8;
+        }
+
+        .year-season-notice {
+            border: 1px solid rgba(201,168,76,0.2);
+            background: rgba(201,168,76,0.05);
+            padding: 1.5rem 2rem;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .year-season-notice p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.9;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .year-season-notice .season-active {
+            color: #5de89a;
+        }
+
+        .year-season-notice .season-inactive {
+            color: rgba(168,155,194,0.5);
+        }
+
+        .note-bar {
+            padding: 1.2rem 2rem;
+            border: 1px solid rgba(201,168,76,0.1);
+            background: rgba(201,168,76,0.04);
+            font-size: 0.8rem;
+            color: rgba(168,155,194,0.6);
+            line-height: 1.8;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .cta-block {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 2rem;
+            border: 1px solid rgba(201,168,76,0.1);
+            background: rgba(45,27,105,0.15);
+        }
+
+        .cta-block p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1.2rem;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .cta-link {
+            display: inline-block;
+            padding: 0.8rem 2.2rem;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 0.82rem;
+            letter-spacing: 2px;
+            transition: all 0.4s;
+            font-family: 'Noto Serif SC', serif;
+        }
+
+        .cta-link:hover {
+            background: var(--gold);
+            color: var(--deep-purple);
+            box-shadow: 0 0 25px var(--gold-glow);
+        }
+
+        .page-footer {
+            text-align: center;
+            padding: 3rem 2rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(201,168,76,0.1);
+        }
+        .page-footer p {
+            font-size: 0.72rem;
+            color: rgba(168,155,194,0.3);
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 6rem 1.2rem 3rem; }
+            .top-bar { padding: 1rem 1.5rem; }
+            .page-title { font-size: 2rem; }
+            .input-section { padding: 2rem 1.2rem; }
+            .result-card { padding: 2rem 1.2rem; }
+            .result-number { font-size: 3rem; }
+        }
+
+        @media (max-width: 480px) {
+            .date-inputs { gap: 0.8rem; }
+            .date-field input { width: 75px; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+
+<div class="top-bar">
+    <a href="/tarot-website/index.html" class="logo">✦ Mímisbrunnr Path</a>
+    <a href="/tarot-website/index.html" class="back-link">← 返回主页</a>
+</div>
+
+<div class="container">
+    <div class="page-header">
+        <div class="page-symbol">🔢</div>
+        <h1 class="page-title">灵数计算</h1>
+        <p class="page-subtitle">输入出生日期 · 探索你的生命密码</p>
+        <p class="page-subtitle" style="margin-top:4px; font-family:'Cormorant Garamond',serif; font-style:italic; color:rgba(201,168,76,0.4);">Enter your birth date · Discover your life path</p>
+        <div class="page-divider"></div>
+    </div>
+
+    <div class="input-section">
+        <div class="input-label">请输入你的出生日期 / Enter your date of birth</div>
+        <div class="date-inputs">
+            <div class="date-field">
+                <label>年 Year</label>
+                <input type="number" id="birthYear" placeholder="1995" min="1900" max="2025">
+            </div>
+            <div class="date-field">
+                <label>月 Month</label>
+                <input type="number" id="birthMonth" placeholder="03" min="1" max="12">
+            </div>
+            <div class="date-field">
+                <label>日 Day</label>
+                <input type="number" id="birthDay" placeholder="15" min="1" max="31">
+            </div>
+        </div>
+        <button class="calc-btn" onclick="calculate()">计算灵数 Calculate</button>
+    </div>
+
+    <div class="result-section" id="resultSection">
+        <div class="calc-process" id="calcProcess"></div>
+
+        <!-- 生命数字 -->
+        <div class="result-card" id="lifeNumberCard">
+            <div class="result-card-title">· Life Path Number · 生命数字 ·</div>
+            <div class="result-number" id="lifeNumber"></div>
+            <div class="result-name" id="lifeName"></div>
+            <div class="result-name-en" id="lifeNameEn"></div>
+            <div class="result-desc" id="lifeDesc"></div>
+            <div class="result-desc-en" id="lifeDescEn"></div>
+            <div class="result-lesson" id="lifeLesson"></div>
+            <div class="result-keywords" id="lifeKeywords"></div>
+        </div>
+
+        <!-- 年度运势 -->
+        <div class="result-card" id="yearNumberCard">
+            <div class="result-card-title">· Personal Year · <span id="currentYearLabel"></span> 年度运势 ·</div>
+            <div class="result-number" id="yearNumber"></div>
+            <div class="result-name" id="yearName"></div>
+            <div class="result-name-en" id="yearNameEn"></div>
+            <div class="result-desc" id="yearDesc"></div>
+            <div class="result-desc-en" id="yearDescEn"></div>
+            <div class="result-keywords" id="yearKeywords"></div>
+
+            <div class="year-season-notice" id="yearSeasonNotice"></div>
+        </div>
+
+        <div class="cta-block">
+            <p>想更深入了解你的灵数含义？<br>预约一对一咨询，结合塔罗为你做完整解读。</p>
+            <p style="font-size:0.78rem; color:rgba(168,155,194,0.4); font-family:'Cormorant Garamond',serif; font-style:italic;">Want a deeper reading? Book a personal consultation.</p>
+            <a href="/tarot-website/index.html#booking" class="cta-link">预约咨询 Book Now</a>
+        </div>
+    </div>
+
+    <div class="note-bar">
+        ⚠️ 灵数解读仅供参考与自我探索，不代表命运定论。你的选择永远大于数字。<br>
+        <span style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:0.75rem; color:rgba(168,155,194,0.4);">Numerology is for self-exploration only. Your choices always matter more than numbers.</span>
+    </div>
+</div>
+
+<div class="page-footer">
+    <p>© 2024 Mímisbrunnr Path · Bella · Tarot & Teaching</p>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════
+// 生命数字数据 Life Path Data
+// ══════════════════════════════════════════════════
+
+var lifePathData = {
+    1: {
+        name: "开创者",
+        nameEn: "The Pioneer",
+        desc: "这个数字不适合为别人打工，最好自己做老板。你总是有很多新奇的、能赚钱的点子——这是你的天赋。你更适合去实现自己的梦想，而不是帮别人完成他们的。为别人工作，你永远不会真正快乐。",
+        descEn: "This number is not suited for working under others — you are meant to lead. You always have fresh, profitable ideas, and that is your gift. You are built to pursue your own dreams, not someone else's. Working for others will never truly fulfil you.",
+        lesson: "抓住机会与可能性，学会合作，避免自我中心。",
+        lessonEn: "Seize opportunities, learn to collaborate, and avoid self-centredness.",
+        keywords: ["独立 Independent", "开创 Pioneering", "领导力 Leadership", "自信 Confidence"]
+    },
+    2: {
+        name: "灵性者",
+        nameEn: "The Intuitive",
+        desc: "灵性直觉非常强烈，通常很敏感，能迅速察觉对方的情绪和能量。但也正因如此，你很容易被他人的能量影响，提升自己的内核非常重要。你给人的第一印象很好——和谐、自然、平衡。有玄学缘分但不一定感兴趣，内心丰富，寻求精神共鸣，却容易感到孤独。",
+        descEn: "Your spiritual intuition is remarkably strong. You are sensitive and can quickly sense others' emotions and energy. However, you are also easily affected by external energies, so strengthening your inner core is essential. You leave a wonderful first impression — harmonious, natural, balanced. You may have an affinity for the mystical without necessarily being drawn to it. Rich inner world, seeking spiritual resonance, yet prone to loneliness.",
+        lesson: "建立自信，避免过度依赖他人。",
+        lessonEn: "Build self-confidence and avoid over-reliance on others.",
+        keywords: ["直觉 Intuition", "敏感 Sensitivity", "平衡 Balance", "灵性 Spirituality"]
+    },
+    3: {
+        name: "创造者",
+        nameEn: "The Creator",
+        desc: "创造力极强，在艺术方面有天赋。如果你对创造有激情——无论是艺术还是事业——不要忽视它，因为这就是你的天赋。大部分3号人声音好听，或在绘画、舞蹈、写作等创作领域有天赋。天生独立，不会被关系和权威束缚。你乐观、外向、富有创造力、善于表达——所以不要害怕表达，这是你的天赋。",
+        descEn: "Exceptionally creative with artistic talent. If you feel passion for creation — whether in art or business — never ignore it, because that is your gift. Most number 3s have a pleasant voice or talent in painting, dance, writing, and other creative fields. Naturally independent, unbound by relationships or authority. You are optimistic, outgoing, creative, and expressive — so never be afraid to express yourself.",
+        lesson: "培养专注力，避免浅尝辄止，勇敢表达。",
+        lessonEn: "Cultivate focus, avoid dabbling, and express yourself boldly.",
+        keywords: ["创造力 Creativity", "表达 Expression", "乐观 Optimism", "艺术 Artistry"]
+    },
+    4: {
+        name: "执行者",
+        nameEn: "The Builder",
+        desc: "很有奉献精神和动力。面对想做的事情会非常有动力和意志，整个人散发着自信、权威、有能力的气场。组织能力和执行力强，适合需要耐心和细致的工作。你知道怎样才能成功，知道怎么实现目标，并且拥有这样的动力——只要行动了就会得到。控制欲强，戒心重，容易冲动静不下心。稳重而有强烈的控制欲，逻辑清晰，适合管理层岗位。过于刚强可能导致人际关系紧张。",
+        descEn: "Deeply dedicated with strong drive. When you set your mind on something, your willpower is formidable — you radiate confidence, authority, and competence. Strong organisational and execution skills, suited for work requiring patience and precision. You know what it takes to succeed and you have the drive to get there — action leads to results. Strong need for control, guarded, can be impulsive. Steady with clear logic, suited for management. Being too rigid may strain relationships.",
+        lesson: "接受变化，避免过于保守。",
+        lessonEn: "Embrace change and avoid being overly conservative.",
+        keywords: ["执行力 Execution", "稳定 Stability", "纪律 Discipline", "权威 Authority"]
+    },
+    5: {
+        name: "叛逆者",
+        nameEn: "The Rebel",
+        desc: "不适合有限制性的工作，更倾向于自由——自由职业或其他形式的自由。当你真正自由的时候，潜力才会被激发。朝九晚五的生活对5号人来说是一种特殊的囚笼。不会被打倒的性格，会在每一次挫折中变得更加坚强。对权力欲望重，传统观念较重，内心追求秩序和结构。",
+        descEn: "Not suited for restrictive work — you gravitate toward freedom in any form. Your potential is only unlocked when you are truly free. A nine-to-five routine is a particular kind of cage for number 5s. You have an unbreakable spirit that grows stronger with every setback. Strong desire for power, traditional values, yet an inner pursuit of order and structure.",
+        lesson: "培养责任感，避免过度追求刺激。平衡对自由的需求与对自己和他人的责任。",
+        lessonEn: "Develop responsibility, avoid excessive thrill-seeking. Balance your need for freedom with your obligations to yourself and others.",
+        keywords: ["自由 Freedom", "韧性 Resilience", "变化 Change", "冒险 Adventure"]
+    },
+    6: {
+        name: "奉献者",
+        nameEn: "The Nurturer",
+        desc: "有同情心和创造力，非常善良。但容易过度牺牲或被人利用。付出型、服务型人格在6号更为突出——你无私、不求回报，能用别人无法做到的方式去给予和奉献。你对爱的表达方式非常有影响力。6号会是非常好的父母，天生就有这样的能量。情感需求非常重。",
+        descEn: "Compassionate, creative, and deeply kind. However, you tend to over-sacrifice or be taken advantage of. The giving, service-oriented personality is prominent in number 6 — selfless, expecting nothing in return, capable of giving in ways others cannot. Your expression of love is profoundly impactful. Number 6s make exceptional parents — you are born with that energy. Emotional needs run very deep.",
+        lesson: "学会自我照顾，避免过度牺牲。",
+        lessonEn: "Learn self-care and avoid excessive self-sacrifice.",
+        keywords: ["奉献 Devotion", "爱 Love", "家庭 Family", "同理心 Empathy"]
+    },
+    7: {
+        name: "内省者",
+        nameEn: "The Seeker",
+        desc: "精神能力是你的天赋，非常聪明——高智商的人很多。这种聪明不是指学校成绩好，而是方方面面的智慧。但7号非常喜欢自省，容易想太多，给自己造成精神负担，容易过度思考导致焦虑甚至抑郁。可能有完美主义倾向。比较高敏，有胜负心，执行力强。",
+        descEn: "Mental ability is your gift — highly intelligent in ways that go far beyond academic performance. Wisdom is the more fitting word. However, number 7s are deeply introspective, prone to overthinking, which creates mental burden and can lead to anxiety or even depression. Possible perfectionist tendencies. Highly sensitive, competitive, with strong execution ability.",
+        lesson: "建立与他人的联系，避免过于孤立。不要过度思考，不要过度批评自己。安全感来自内心的丰盛。",
+        lessonEn: "Build connections with others, avoid isolation. Stop overthinking and over-criticising yourself. Security comes from inner abundance.",
+        keywords: ["智慧 Wisdom", "内省 Introspection", "分析 Analysis", "完美主义 Perfectionism"]
+    },
+    8: {
+        name: "成功者",
+        nameEn: "The Powerhouse",
+        desc: "物质丰富的能量——8号人更容易在物质上取得成功，是真正的财富自由。你内心很有力量，就算当下生活看上去贫穷或没有起色，也终会峰回路转。在艰难环境下更容易表现出坚韧。雄心勃勃、务实，追求成功和权力，有管理能力和商业头脑，适合商业和管理领域。内心强大，但感情中不太会谈恋爱，不知道什么样的恋爱是对的。",
+        descEn: "The energy of material abundance — number 8s are more likely to achieve material success and true financial freedom. You have immense inner strength; even when life looks bleak, things will eventually turn around. You show remarkable resilience in difficult circumstances. Ambitious, practical, pursuing success and power, with management ability and business acumen. Emotionally strong, yet may struggle in romantic relationships — unsure what healthy love looks like.",
+        lesson: "平衡物质与精神，避免过度追求物质利益。",
+        lessonEn: "Balance material and spiritual pursuits; avoid excessive materialism.",
+        keywords: ["财富 Wealth", "权力 Power", "坚韧 Resilience", "商业 Business"]
+    },
+      9: {
+        name: "治愈者",
+        nameEn: "The Healer",
+        desc: "从事写作时创造力更高，很容易看见生活的阴暗面，但反而会在黑暗中成长。在人生低谷时反而能发挥出更好的能力。有很深的同理心和很强的治愈能力——你感受到的黑暗和痛苦会激发你的努力和创造力。博爱、无私，具有全球视野，关心人类福祉，有同情心和领导力，适合从事公益和慈善事业。人生中朋友很少。注重内在探索和独立思考，适合从事研究或教学工作。",
+        descEn: "Highly creative in writing, with a tendency to see life's darker side — yet it is in darkness that you grow. You perform best at your lowest points. Deep empathy and powerful healing ability — the pain and darkness you feel fuels your drive and creativity. Compassionate, selfless, with a global perspective and concern for humanity. Suited for philanthropy and charitable work. Few close friends in life. Focused on inner exploration and independent thinking, well-suited for research or teaching.",
+        lesson: "学会放下，避免过度理想化。",
+        lessonEn: "Learn to let go and avoid over-idealising.",
+        keywords: ["治愈 Healing", "同理心 Empathy", "创造力 Creativity", "博爱 Compassion"]
+    },
+    11: {
+        name: "灵性觉醒者",
+        nameEn: "The Spiritual Awakener",
+        desc: "任何精神上的追求对你来说都很容易。天生的通灵能力，天生的心灵视觉——更容易看见植物和人的\"能量\"，或者出现预知梦。偏向治疗的能量，有很强的直觉。拥有敏锐的洞察力，能捕捉到普通人察觉不到的灵感和真相。天生对艺术、灵性或哲学有浓厚兴趣。有深刻的平衡需求，倾向于在内心与外界之间寻找和谐。",
+        descEn: "Any spiritual pursuit comes naturally to you. Born with psychic ability and clairvoyance — you may see the 'energy' of plants and people, or experience prophetic dreams. Your energy leans toward healing, with powerful intuition. You possess keen insight, capturing inspiration and truths invisible to most. A natural affinity for art, spirituality, or philosophy. A deep need for balance, always seeking harmony between inner and outer worlds.",
+        lesson: "学会信任自己的直觉，不要过于依赖逻辑。平衡理想与现实，避免不切实际的幻想。克服自我怀疑。",
+        lessonEn: "Trust your intuition over logic. Balance ideals with reality and avoid impractical fantasies. Overcome self-doubt.",
+        keywords: ["通灵 Psychic", "直觉 Intuition", "觉醒 Awakening", "洞察 Insight"]
+    },
+    22: {
+        name: "筑梦师",
+        nameEn: "The Master Builder",
+        desc: "你带着一个非常高的精神使命来到这里。可能会觉得自己很孤单、与众不同、和别人不一样。但22号的人天生就是要用不同的方式去影响别人——可能是前人都没有走过的路。拥有将灵感和愿景转化为现实的天赋，是有责任感的领导者，天生适合担负重任、推动社会发展。具备卓越的组织能力和耐力，能够在现实世界中完成伟大的成就。",
+        descEn: "You arrived here with a very high spiritual mission. You may feel lonely, different, unlike everyone else. But number 22s are born to influence others in unconventional ways — perhaps paths no one has walked before. Gifted at turning inspiration and vision into reality. A responsible leader, naturally suited to carry great weight and drive social progress. Exceptional organisational ability and endurance, capable of extraordinary achievements in the material world.",
+        lesson: "学会将灵性愿景与实际行动结合，成为影响世界的实践者。承担起自己的责任，不逃避压力和挑战。",
+        lessonEn: "Unite spiritual vision with practical action to become a world-changing practitioner. Embrace your responsibility; do not flee from pressure or challenge.",
+        keywords: ["使命 Mission", "远见 Vision", "实现 Manifestation", "领导 Leadership"]
+    },
+    33: {
+        name: "精神导师",
+        nameEn: "The Master Teacher",
+        desc: "非常适合把自己的知识传授给大众。无条件的爱的能量，非常有神性的数字。以服务他人和社会为己任，注重帮助和提升他人。拥有高度的同情心和洞察力，能够理解和引导人类的情感。天生适合从事教育、医疗、慈善等需要付出的领域。",
+        descEn: "Perfectly suited to share your knowledge with the world. The energy of unconditional love — a deeply divine number. Devoted to serving others and society, focused on helping and uplifting people. Possessing profound compassion and insight, able to understand and guide human emotions. Naturally suited for education, healthcare, charity, and other fields of service.",
+        lesson: "学会在帮助他人的同时不忘关注自身的需求。通过自己的经历和智慧启发他人，成为他们的指引者。",
+        lessonEn: "While helping others, remember to attend to your own needs. Inspire others through your experience and wisdom, becoming their guide.",
+        keywords: ["教导 Teaching", "无条件的爱 Unconditional Love", "神性 Divinity", "服务 Service"]
+    }
+};
+
+// ══════════════════════════════════════════════════
+// 年度运势数据 Personal Year Data (对应塔罗大阿卡那 1-22)
+// ══════════════════════════════════════════════════
+
+var personalYearData = {
+    1: {
+        name: "魔术师 · 新开始之年",
+        nameEn: "The Magician · Year of New Beginnings",
+        desc: "今年会有一个好的机会，一个新的开始。但需要计划周密，特别关注计划和执行中的细节问题，避免自满或贪功。今年财运不错，周围的环境资源丰厚，你自己的能力也得以施展。",
+        descEn: "A good opportunity and a fresh start await this year. However, meticulous planning is essential — pay close attention to details in both planning and execution. Avoid complacency or overreaching. Financial luck is strong this year; resources around you are abundant and your abilities can be fully expressed.",
+        keywords: ["新开始 New Start", "机会 Opportunity", "财运 Prosperity", "细节 Details"]
+    },
+    2: {
+        name: "女祭司 · 内省之年",
+        nameEn: "The High Priestess · Year of Inner Reflection",
+        desc: "比较平稳的能量，经济和恋爱方面运势平平，没有太大进步。今年比较适合向内沉思，进行内在的探索，适合学习新技能或接触玄学。要警惕孤立自己，放慢脚步，注重内心感受。",
+        descEn: "Steady energy this year. Finances and romance remain flat without major progress. This year favours inward contemplation and inner exploration — ideal for learning new skills or exploring the mystical. Be wary of isolating yourself. Slow down and honour your inner feelings.",
+        keywords: ["内省 Introspection", "学习 Learning", "平稳 Stability", "灵性 Spirituality"]
+    },
+    3: {
+        name: "女皇 · 丰收之年",
+        nameEn: "The Empress · Year of Abundance",
+        desc: "这一年适合发展创意项目、表达个人想法，或扩展社交圈。丰收之年，有机会在财富或人际关系上取得突破，但需注意过度消耗资源。有一定可能实现财富自由。女性如果在备孕阶段，今年非常合适。",
+        descEn: "A year for developing creative projects, expressing personal ideas, or expanding your social circle. A year of harvest — opportunities for breakthroughs in wealth or relationships, but watch for over-consuming resources. Financial freedom is possible. For women trying to conceive, this year is highly favourable.",
+        keywords: ["丰收 Harvest", "创意 Creativity", "突破 Breakthrough", "备孕 Fertility"]
+    },
+    4: {
+        name: "皇帝 · 稳固之年",
+        nameEn: "The Emperor · Year of Foundation",
+        desc: "强调实际问题的解决和长期规划，是建立基础的一年。不能冒进，一步一个脚印才有进展。所有事情要一点一点做，越着急越容易错。今年守成为主，不要着急大迈步扩展。和身边的权威人物可能有理念上的碰撞，注意沟通。",
+        descEn: "Emphasis on solving practical problems and long-term planning — a year for building foundations. No rushing; progress comes one step at a time. The more you hurry, the more mistakes you make. Focus on maintaining what you have rather than aggressive expansion. Possible ideological clashes with authority figures — mind your communication.",
+        keywords: ["规划 Planning", "稳固 Foundation", "耐心 Patience", "沟通 Communication"]
+    },
+    5: {
+        name: "教皇 · 学习与上升之年",
+        nameEn: "The Hierophant · Year of Learning & Growth",
+        desc: "今年是学习的一年或上升的一年，但总体进展缓慢。有机会踏上更大的平台，需要灵活应对，同时警惕过度冒险。有可能今年觉得被限制，但机会一直存在，只是需要耐心。",
+        descEn: "A year of learning or gradual ascent, though overall progress is slow. Opportunities to reach a larger platform exist — stay flexible while guarding against excessive risk. You may feel restricted this year, but opportunities are always there; they simply require patience.",
+        keywords: ["学习 Learning", "耐心 Patience", "平台 Platform", "灵活 Flexibility"]
+    },
+    6: {
+        name: "恋人 · 情感之年",
+        nameEn: "The Lovers · Year of Love & Choice",
+        desc: "今年有机会恋爱，至少桃花运比较旺盛。也有可能在事业上通过合作取得成功。这一年重视家庭、感情和人际关系，需要做出重要选择。适合处理情感问题或建立深厚的关系。",
+        descEn: "Romance is likely this year — at the very least, your love luck is strong. Success through partnership in career is also possible. A year to prioritise family, love, and relationships. Important choices must be made. Ideal for resolving emotional issues or building deep connections.",
+        keywords: ["桃花 Romance", "选择 Choice", "合作 Partnership", "关系 Relationships"]
+    },
+    7: {
+        name: "战车 · 行动之年",
+        nameEn: "The Chariot · Year of Action",
+        desc: "执行力很强，行动就有收获，有点钱。适合快速推进计划——不要等到完美的时候才开始做，一边行动一边修改是最合适你的方法。今年注意身心健康，可能压力会比较大。",
+        descEn: "Strong execution energy — action brings rewards and some financial gain. Push plans forward quickly; do not wait for perfection. Act first, adjust as you go — that is your best method this year. Watch your physical and mental health; pressure may be significant.",
+        keywords: ["行动 Action", "收获 Reward", "执行力 Execution", "健康 Health"]
+    },
+    8: {
+        name: "力量 · 突破之年",
+        nameEn: "Strength · Year of Breakthrough",
+        desc: "有新的工作机会，但你不一定喜欢。今年身体非常健康，可能开始尝试运动来保持身材，甚至尝试减肥。适合发展事业或实现个人目标，但要注意平衡权力和责任。今年压力和责任比较大，注意情绪管理。",
+        descEn: "New work opportunities appear, though you may not love them. Physical health is excellent this year — you might start exercising or even attempt weight loss. Suited for career development or achieving personal goals, but balance power with responsibility. Pressure and duties are heavy; manage your emotions carefully.",
+        keywords: ["机会 Opportunity", "健康 Health", "责任 Responsibility", "平衡 Balance"]
+    },
+    9: {
+        name: "隐士 · 沉淀之年",
+        nameEn: "The Hermit · Year of Reflection",
+        desc: "学习上有很大进步，比较适合静心学习和反思的一年。财运和感情一般。感情状态注意以前的小问题今年被反复提起，注意沟通。今年可能是一个情感深刻且具有疗愈意义的年份。强调完成旧的目标，释放过去的负担，为新阶段做好准备。",
+        descEn: "Significant progress in learning — a year suited for quiet study and reflection. Finances and romance are average. In relationships, old minor issues may resurface repeatedly; mind your communication. This year may be emotionally profound and healing. Focus on completing old goals, releasing past burdens, and preparing for a new chapter.",
+        keywords: ["学习 Learning", "反思 Reflection", "疗愈 Healing", "释放 Release"]
+    },
+    10: {
+        name: "命运之轮 · 转变之年",
+        nameEn: "Wheel of Fortune · Year of Fate",
+        desc: "充满不可控因素的一年，所有经历都是命运的考验和安排。所有的问题都是之前的业力造成的，无法决定今年发生的事情。会有强烈的被命运推着走的感觉。",
+        descEn: "A year full of uncontrollable factors — every experience is a test and arrangement of fate. All issues stem from past karma; you cannot dictate what happens this year. You will feel strongly that destiny is steering you.",
+        keywords: ["命运 Fate", "业力 Karma", "转变 Transformation", "臣服 Surrender"]
+    },
+    11: {
+        name: "正义 · 平衡之年",
+        nameEn: "Justice · Year of Balance",
+        desc: "如果你现在做的事情有一些风险，今年可能会面临法务问题。更多的情况下是到了要选择和平衡的时候——比如平衡家庭和事业，甚至感情和事业。能赚点钱。",
+        descEn: "If your current endeavours carry risk, you may face legal issues this year. More commonly, it is time for choices and balance — between family and career, or even love and career. Some financial gain is likely.",
+        keywords: ["平衡 Balance", "选择 Choice", "法务 Legal", "公正 Fairness"]
+    },
+    12: {
+        name: "吊人 · 蛰伏之年",
+        nameEn: "The Hanged Man · Year of Suspension",
+        desc: "今年会是很忙的一年，想要做一些什么但总觉得被环境束缚。注意身体，小心过度消耗。虽然身体很忙但内心会很愉快。不要着急一次性改变。",
+        descEn: "A busy year — you want to act but feel constrained by circumstances. Watch your body and avoid over-exhaustion. Though physically busy, your heart will be content. Do not rush to change everything at once.",
+        keywords: ["等待 Waiting", "束缚 Constraint", "内心平静 Inner Peace", "耐心 Patience"]
+    },
+    13: {
+        name: "死神 · 结束与重生之年",
+        nameEn: "Death · Year of Endings & Rebirth",
+        desc: "旧的局面结束，但新的机遇尚需时间等待，有失业风险。结束伴随的是新生——可能是旧的生活方式结束，或者观点结束。家里有老人身体不好的，或本身基础病比较多的今年需要注意，及时体检。",
+        descEn: "Old situations end, but new opportunities need time to arrive. Risk of job loss exists. Endings bring rebirth — perhaps old lifestyles or beliefs come to a close. If elderly family members have health concerns, or if you have existing conditions, pay attention this year and get timely check-ups.",
+        keywords: ["结束 Ending", "重生 Rebirth", "转化 Transformation", "健康 Health"]
+    },
+    14: {
+        name: "节制 · 平静之年",
+        nameEn: "Temperance · Year of Stillness",
+        desc: "没有进展，一切都很稳定没有变化。今年更多让你去寻找内心的平衡和安定。可能你会觉得想要立马做出一些事情来，但今年最重要的目标是找到你的方向在哪里。",
+        descEn: "No major progress — everything remains stable and unchanged. This year asks you to find inner balance and peace. You may feel the urge to act immediately, but the most important goal this year is discovering where your direction lies.",
+        keywords: ["平衡 Balance", "方向 Direction", "安定 Peace", "耐心 Patience"]
+    },
+    15: {
+        name: "恶魔 · 诱惑之年",
+        nameEn: "The Devil · Year of Temptation",
+        desc: "今年有钱，但需要注意财务来源是否合规。今年要额外小心各种陷阱，不要被看上去很好的机会诱导。今年尽量避免任何形式的投资理财和合作。",
+        descEn: "Money comes this year, but verify that financial sources are legitimate. Be extra cautious of traps — do not be lured by opportunities that look too good. Avoid all forms of investment, financial products, and partnerships this year if possible.",
+        keywords: ["诱惑 Temptation", "警惕 Caution", "财务 Finance", "陷阱 Trap"]
+    },
+    16: {
+        name: "高塔 · 变故之年",
+        nameEn: "The Tower · Year of Upheaval",
+        desc: "有很大变故——工作环境变化、搬家等。可能经历突如其来的改变或冲击，这种改变是突然的、让你感到不适应的、甚至是你无法改变的。但这是旧的规模和体系终结的信号，适应期过去之后你会有更好的开始。",
+        descEn: "Major upheaval — changes in work environment, relocation, etc. You may experience sudden, uncomfortable, even uncontrollable changes. But this signals the end of old structures. Once the adjustment period passes, a better beginning awaits.",
+        keywords: ["变故 Upheaval", "突变 Sudden Change", "重建 Rebuild", "适应 Adaptation"]
+    },
+    17: {
+        name: "星星 · 希望之年",
+        nameEn: "The Star · Year of Hope",
+        desc: "已有伴侣的人今年可能有异地的情况。今年会有更多时间和精力花费在恋爱中，会格外在意感情中的相处。单身的人会有恋爱烦恼。希望和灵感并存的一年，事业工作中适合学习。",
+        descEn: "Those in relationships may face long-distance situations this year. More time and energy will go into love — you will care deeply about how you relate to your partner. Singles may have romantic troubles. A year where hope and inspiration coexist; career-wise, it is ideal for learning.",
+        keywords: ["希望 Hope", "灵感 Inspiration", "感情 Love", "学习 Learning"]
+    },
+    18: {
+        name: "月亮 · 迷雾之年",
+        nameEn: "The Moon · Year of Illusion",
+        desc: "需要甄别很多信息，面临的环境和人际关系可能比较混乱，或者竞争比较大。会觉得自己所处的位置大环境很差。一定不要冲动做出选择和决定。",
+        descEn: "You will need to discern much information this year. Your environment and relationships may be chaotic, or competition intense. You may feel your overall situation is poor. Under no circumstances should you make impulsive choices or decisions.",
+        keywords: ["迷雾 Illusion", "甄别 Discernment", "冷静 Calm", "混乱 Chaos"]
+    },
+    19: {
+        name: "太阳 · 上升之年",
+        nameEn: "The Sun · Year of Rising",
+        desc: "今年是学习的一年，你能够得到收获，但经济方面可能不会有太大起伏。你的心情很好，今年是向上走的一年。从政的话会很顺利。备孕的人今年怀孕概率大。",
+        descEn: "A year of learning with tangible gains, though finances may not fluctuate much. Your mood is good — this is an upward year. Those in politics will find things go smoothly. For those trying to conceive, pregnancy is highly likely this year.",
+        keywords: ["上升 Rising", "学习 Learning", "好心情 Good Mood", "顺利 Smooth"]
+    },
+    20: {
+        name: "审判 · 业力之年",
+        nameEn: "Judgement · Year of Karma",
+        desc: "一种业力偿还的能量。之前你所做的所有事情——不论好坏——都到了不得不面对的时刻。检视之前做过的事情，要为曾经的决定和行为负责，做出改变。今年注意基础病或特殊身体问题因不良生活习惯爆发。",
+        descEn: "The energy of karmic repayment. Everything you have done — good or bad — must now be faced. Review past actions, take responsibility for previous decisions and behaviours, and make changes. Watch for chronic conditions or health issues flaring up due to poor lifestyle habits.",
+        keywords: ["业力 Karma", "责任 Responsibility", "面对 Confrontation", "健康 Health"]
+    },
+    21: {
+        name: "世界 · 完成之年",
+        nameEn: "The World · Year of Completion",
+        desc: "结束的能量，人生某一个阶段的结束，同时为新的开始铺路。新生活中会有很多需要你去接触和学习的东西。今年多去尝试，多去和别人交流沟通。",
+        descEn: "The energy of completion — a life chapter ends while paving the way for a new beginning. Much in your new life will require you to explore and learn. Try new things this year and communicate more with others.",
+        keywords: ["完成 Completion", "新生 New Life", "尝试 Exploration", "沟通 Communication"]
+    },
+    22: {
+        name: "愚人 · 潜力之年",
+        nameEn: "The Fool · Year of Potential",
+        desc: "不一定有进展，但会有新的机会，缺乏稳定。需要谨慎规划，不要草率行事。不能走一步看一步，自己的目标要做好详细规划。潜力很大的一年。",
+        descEn: "Progress is not guaranteed, but new opportunities will appear — stability is lacking. Plan carefully and do not act rashly. You cannot simply take it one step at a time; detailed planning of your goals is essential. A year of great potential.",
+        keywords: ["潜力 Potential", "机会 Opportunity", "规划 Planning", "谨慎 Caution"]
+    }
+};
+// ══════════════════════════════════════════════════
+// 计算逻辑
+// ══════════════════════════════════════════════════
+
+function reduceNumber(num, keepMaster) {
+    if (keepMaster && (num === 11 || num === 22 || num === 33)) return num;
+    while (num > 9) {
+        var sum = 0;
+        var digits = num.toString().split('');
+        for (var i = 0; i < digits.length; i++) {
+            sum += parseInt(digits[i]);
+        }
+        if (keepMaster && (sum === 11 || sum === 22 || sum === 33)) return sum;
+        num = sum;
+    }
+    return num;
+}
+
+// 生命数字：出生年+月+日各位数字相加，缩减到个位（保留11/22/33）
+function calcLifePath(year, month, day) {
+    var total = 0;
+    var all = year.toString() + month.toString() + day.toString();
+    for (var i = 0; i < all.length; i++) {
+        total += parseInt(all[i]);
+    }
+    return reduceNumber(total, true);
+}
+
+// 年度运势：出生月+日+当前年份各位数字相加
+// 结果对应塔罗大阿卡那 1-22，如果超过22则继续缩减
+function calcPersonalYear(month, day, currentYear) {
+    var total = 0;
+    var all = month.toString() + day.toString() + currentYear.toString();
+    for (var i = 0; i < all.length; i++) {
+        total += parseInt(all[i]);
+    }
+    // 如果大于22，各位再相加一次
+    while (total > 22) {
+        var sum = 0;
+        var digits = total.toString().split('');
+        for (var i = 0; i < digits.length; i++) {
+            sum += parseInt(digits[i]);
+        }
+        total = sum;
+    }
+    return total;
+}
+
+function calculate() {
+    var year = parseInt(document.getElementById('birthYear').value);
+    var month = parseInt(document.getElementById('birthMonth').value);
+    var day = parseInt(document.getElementById('birthDay').value);
+
+    if (!year || !month || !day || year < 1900 || year > 2025 || month < 1 || month > 12 || day < 1 || day > 31) {
+        alert('请输入有效的出生日期 / Please enter a valid date of birth');
+        return;
+    }
+
+    var currentYear = new Date().getFullYear();
+
+    var lifePath = calcLifePath(year, month, day);
+    var personalYear = calcPersonalYear(month, day, currentYear);
+
+    // 显示计算过程
+    var allDigitsLife = year + ' + ' + month + ' + ' + day;
+    var allDigitsYear = month + ' + ' + day + ' + ' + currentYear;
+    document.getElementById('calcProcess').innerHTML =
+        '生命数字 Life Path：' + allDigitsLife + ' → 各位相加 → <strong style="color:var(--gold)">' + lifePath + '</strong><br>' +
+        '年度运势 Personal Year：' + allDigitsYear + ' → 各位相加 → <strong style="color:var(--gold)">' + personalYear + '</strong>';
+
+    // 填充生命数字
+    var lifeData = lifePathData[lifePath];
+    document.getElementById('lifeNumber').textContent = lifePath;
+    document.getElementById('lifeName').textContent = lifeData.name;
+    document.getElementById('lifeNameEn').textContent = lifeData.nameEn;
+    document.getElementById('lifeDesc').textContent = lifeData.desc;
+    document.getElementById('lifeDescEn').textContent = lifeData.descEn;
+    document.getElementById('lifeLesson').innerHTML =
+        '<div class="result-lesson-title">人生课题 Life Lesson</div>' +
+        lifeData.lesson +
+        '<div class="result-lesson-en">' + lifeData.lessonEn + '</div>';
+
+    var kwHtml = '';
+    for (var i = 0; i < lifeData.keywords.length; i++) {
+        kwHtml += '<span class="result-keyword">' + lifeData.keywords[i] + '</span>';
+    }
+    document.getElementById('lifeKeywords').innerHTML = kwHtml;
+
+    // 填充年度运势
+    var yearData = personalYearData[personalYear];
+    document.getElementById('currentYearLabel').textContent = currentYear;
+    document.getElementById('yearNumber').textContent = personalYear;
+    document.getElementById('yearName').textContent = yearData.name;
+    document.getElementById('yearNameEn').textContent = yearData.nameEn;
+    document.getElementById('yearDesc').textContent = yearData.desc;
+    document.getElementById('yearDescEn').textContent = yearData.descEn;
+
+    var ykwHtml = '';
+    for (var j = 0; j < yearData.keywords.length; j++) {
+        ykwHtml += '<span class="result-keyword">' + yearData.keywords[j] + '</span>';
+    }
+    document.getElementById('yearKeywords').innerHTML = ykwHtml;
+
+    // 年度运势时间窗口提示
+       var now = new Date();
+    var currentMonth = now.getMonth() + 1;
+    var currentDay = now.getDate();
+    var isInSeason = (currentMonth === 12 && currentDay >= 25) || (currentMonth === 1 && currentDay <= 7);
+    var seasonHtml = '';
+    if (isInSeason) {
+           seasonHtml = '<p class="season-active">✦ 年运咨询窗口已开启（12月25日 - 1月7日）<br>现在可以预约专属年度运势解读。</p>' +
+            '<p style="font-size:0.75rem; font-family:Cormorant Garamond,serif; font-style:italic; color:rgba(93,232,154,0.6);">✦ Annual reading window is now open (Dec 25 – Jan 7). Book your personal year reading.</p>' +
+            '<a href="/tarot-website/index.html#booking" class="cta-link" style="margin-top:0.8rem;">预约年运咨询 Book Annual Reading</a>';
+    } else {
+        seasonHtml = '<p class="season-inactive">年度运势的精确解读需要结合个人牌阵。<br>每年 12月25日 至 次年1月7日 开放年运咨询预约。</p>' +
+            '<p style="font-size:0.75rem; font-family:Cormorant Garamond,serif; font-style:italic; color:rgba(168,155,194,0.35);">Precise annual readings require a personal spread.<br>Annual reading bookings open Dec 25 – Jan 7 each year.</p>';
+    }
+    document.getElementById('yearSeasonNotice').innerHTML = seasonHtml;
+
+    // 显示结果区
+    document.getElementById('resultSection').classList.add('show');
+    document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// 星星背景
+function generateStars() {
+    var container = document.getElementById('stars');
+    if (!container) return;
+    for (var i = 0; i < 100; i++) {
+        var star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 3 + 's';
+        star.style.animationDuration = (2 + Math.random() * 3) + 's';
+        star.style.width = Math.random() > 0.8 ? '3px' : '2px';
+        star.style.height = star.style.width;
+        container.appendChild(star);
+    }
+}
+
+window.onload = generateStars;
+</script>
+</body>
+</html>
